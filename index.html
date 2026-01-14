@@ -1,686 +1,543 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sandeep Das - Full Stack Developer | AI & ML Specialist</title>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Optional: Only used if you do NOT deploy a server-side /api/contact proxy. -->
+    <meta name="web3forms-key" content="">
+
+  <meta name="description" content="Sandeep Das — AI/ML and software engineering. Projects, skills, and experience in ML, NLP, computer vision, and building reliable systems." />
+  <meta name="theme-color" content="#0b1020" />
+  <title>Sandeep Das — AI/ML • Software Engineering</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <!-- Both fonts loaded because typography itself morphs per interface -->
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;800&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="chatbot.css" />
 </head>
-<body>
-    <header id="header">
-        <div class="container">
-            <nav class="navbar">
-                <a href="#" class="logo">
-                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12 2L2 7L12 12L22 7L12 2Z"/>
-                        <path d="M2 17L12 22L22 17"/>
-                        <path d="M2 12L12 17L22 12"/>
-                    </svg>
-                    Sandeep Das
-                </a>
-                <ul class="nav-links">
-                    <li><a href="#about" class="nav-link">About</a></li>
-                    <li><a href="#skills" class="nav-link">Skills</a></li>
-                    <li><a href="#projects" class="nav-link">Projects</a></li>
-                    <li><a href="#experience" class="nav-link">Experience</a></li>
-                    <li><a href="#education" class="nav-link">Education</a></li>
-                    <li><a href="#contact" class="nav-link">Contact</a></li>
-                </ul>
-                <div class="nav-buttons">
-                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-                        <svg class="sun-icon" viewBox="0 0 24 24" width="24" height="24">
-                            <path d="M12 17C14.7614 17 17 14.7614 17 12C17 9.23858 14.7614 7 12 7C9.23858 7 7 9.23858 7 12C7 14.7614 9.23858 17 12 17Z"/>
-                            <path d="M12 1V3"/>
-                            <path d="M12 21V23"/>
-                            <path d="M4.22 4.22L5.64 5.64"/>
-                            <path d="M18.36 18.36L19.78 19.78"/>
-                            <path d="M1 12H3"/>
-                            <path d="M21 12H23"/>
-                            <path d="M4.22 19.78L5.64 18.36"/>
-                            <path d="M18.36 5.64L19.78 4.22"/>
-                        </svg>
-                        <svg class="moon-icon" viewBox="0 0 24 24" width="24" height="24">
-                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-                        </svg>
-                    </button>
-                    <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Mobile menu">
-                        <svg viewBox="0 0 24 24" width="24" height="24">
-                            <path d="M3 12H21"/>
-                            <path d="M3 6H21"/>
-                            <path d="M3 18H21"/>
-                        </svg>
-                    </button>
-                </div>
-            </nav>
-        </div>
-    </header>
 
-    <section class="hero" id="home">
-        <div class="animated-gradient"></div>
-        <div class="particles" id="particles"></div>
-        <div class="container">
-            <div class="hero-content">
-                <div class="hero-greeting">Full Stack Developer | AI & ML Specialist</div>
-                <h1>Hello, I'm <span>Sandeep Das</span></h1>
-                <p>Versatile software engineer with expertise in full stack development, AI/ML technologies, and API integration. Passionate about creating scalable software solutions that combine technical excellence with exceptional user experience.</p>
-                <div class="hero-buttons">
-                    <a href="#skills" class="btn btn-primary">
-                        <svg viewBox="0 0 24 24" width="18" height="18">
-                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-                            <path d="M22 4L12 14.01l-3-3"/>
-                        </svg>
-                        Explore My Skills
-                    </a>
-                    <a href="#contact" class="btn btn-outline">
-                        <svg viewBox="0 0 24 24" width="18" height="18">
-                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                            <path d="M22 6l-10 7L2 6"/>
-                        </svg>
-                        Contact Me
-                    </a>
-                </div>
-                <div class="hero-socials">
-                    <a href="mailto:das364278@gmail.com" aria-label="Email">
-                        <svg viewBox="0 0 24 24" width="20" height="20">
-                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                            <path d="M22 6l-10 7L2 6"/>
-                        </svg>
-                    </a>
-                    <a href="https://linkedin.com/in/sandeepdas0706" target="_blank" aria-label="LinkedIn">
-                        <svg viewBox="0 0 24 24" width="20" height="20">
-                            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
-                            <path d="M2 9h4v12H2z"/>
-                            <circle cx="4" cy="4" r="2"/>
-                        </svg>
-                    </a>
-                    <a href="https://github.com/sandeep848" target="_blank" aria-label="GitHub">
-                        <svg viewBox="0 0 24 24" width="20" height="20">
-                            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
-                        </svg>
-                    </a>
-                    <a href="tel:8482898815" aria-label="Phone">
-                        <svg viewBox="0 0 24 24" width="20" height="20">
-                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
-                        </svg>
-                    </a>
-                </div>
-            </div>
+<body data-theme="minimal" class="has-chatbot theme-minimal">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- Immersive interface metamorphosis overlay -->
+  <div class="meta-reveal" id="metaReveal" aria-hidden="true"></div>
+
+  <!-- Optional background FX -->
+  <canvas id="fx-canvas" class="fx-canvas" aria-hidden="true"></canvas>
+  <div class="bg-layer" aria-hidden="true"></div>
+
+  <header class="header" id="top">
+    <nav class="nav" aria-label="Primary">
+      <a class="brand" href="#top" aria-label="Go to top">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span class="brand-text">Sandeep Das</span>
+      </a>
+
+      <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </button>
+
+      <div class="nav-links" id="nav-links" role="navigation" aria-label="Primary links">
+        <a href="#about" class="nav-link">About</a>
+        <a href="#projects" class="nav-link">Projects</a>
+        <a href="#skills" class="nav-link">Expertise</a>
+        <a href="#experience" class="nav-link">Experience</a>
+        <a href="#contact" class="nav-link nav-link-cta">Contact</a>
+
+        <!-- IMPORTANT: Resume removed from header (per requirement) -->
+
+        <!-- Interface switch (metamorphosis) -->
+        <div class="theme-switch" id="themeSwitch">
+          <button class="theme-btn" id="themeBtn" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="themePalette">
+            <span class="theme-btn-dot" aria-hidden="true"></span>
+            <span class="theme-btn-label">Theme</span>
+          </button>
+
+          <div class="theme-palette" id="themePalette" role="dialog" aria-modal="false" aria-labelledby="themePaletteTitle" aria-describedby="themePaletteDesc">
+            <div class="sr-only" id="themePaletteTitle">Choose a theme</div>
+            <div class="sr-only" id="themePaletteDesc">Select Minimal or Cyber to change the site appearance.</div>
+            <button class="theme-option" type="button" data-theme="minimal" aria-label="Minimal interface">
+              <span class="swatch swatch-minimal" aria-hidden="true"></span>
+              <span class="opt-title">Minimal</span>
+              <span class="opt-sub mono subtle">clean • calm • soft</span>
+            </button>
+
+            <button class="theme-option" type="button" data-theme="cyber" aria-label="Cyber interface">
+              <span class="swatch swatch-cyber" aria-hidden="true"></span>
+              <span class="opt-title">Cyber</span>
+              <span class="opt-sub mono subtle">neon • sharp • intense</span>
+            </button>
+          </div>
         </div>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+    <!-- HERO -->
+    <section class="hero" aria-label="Intro">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="kicker reveal" style="--d:0ms;">
+            <span class="pill">AI/ML • Software Engineering</span>
+            <span class="mono subtle">Nürnberg, Germany</span>
+          </p>
+
+          <h1 class="hero-title">
+            <span class="reveal" style="--d:120ms;">Sandeep</span>
+            <span class="reveal gradient-text" style="--d:240ms;">Das</span>
+            <span class="reveal hero-title-sub" style="--d:360ms;">
+              I like building AI systems and software that people can actually use.
+            </span>
+          </h1>
+
+          <p class="hero-desc reveal" style="--d:480ms;">
+            I’m an AI & Robotics student who enjoys turning rough ideas into something clean, reliable, and real.
+            Most of my work sits at the intersection of machine learning and solid engineering — models, APIs, data pipelines,
+            and the details that make things feel finished.
+          </p>
+
+          <div class="hero-actions reveal" style="--d:600ms;">
+            <a class="btn btn-primary" href="#projects">
+              <span>See Projects</span>
+              <span class="btn-glow" aria-hidden="true"></span>
+            </a>
+
+            <a class="btn btn-secondary" href="#contact">
+              <span>Message Me</span>
+            </a>
+
+            <!-- ONLY ONE PRIMARY RESUME BUTTON (Hero) -->
+            <a class="btn btn-resume" href="assets/Sandeep_Das_Resume.pdf" download aria-label="Download Resume (PDF)">
+              <span>Download Resume</span>
+              <span class="btn-resume-ico" aria-hidden="true">⤓</span>
+            </a>
+
+            <div class="hero-links">
+              <a class="icon-link" href="mailto:das364278@gmail.com" target="_blank" rel="noopener" aria-label="Email">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16v12H4z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m4 7 8 6 8-6" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>
+              </a>
+              <a class="icon-link" href="https://github.com/sandeep848" target="_blank" rel="noopener" aria-label="GitHub">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .5C5.7.5.6 5.6.6 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2.2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.2-1.6-1.2-1.6-1-.7.1-.7.1-.7 1.1.1 1.7 1.1 1.7 1.1 1 .1.8 2.2 3.3 1.6.1-.7.4-1.2.7-1.5-2.6-.3-5.3-1.3-5.3-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2.9-.3 1.9-.4 2.9-.4s2 .1 2.9.4c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.9 1.2 3.2 0 4.6-2.7 5.6-5.3 5.9.4.3.8 1 .8 2.1v3c0 .3.2.7.8.6 4.6-1.5 7.9-5.8 7.9-10.9C23.4 5.6 18.3.5 12 .5Z"/></svg>
+              </a>
+              <a class="icon-link" href="https://www.linkedin.com/in/sandeepdas0706" target="_blank" rel="noopener" aria-label="LinkedIn">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20.4 20.4h-3.5v-5.5c0-1.3 0-3-1.8-3s-2.1 1.4-2.1 2.9v5.6H9.5V9h3.4v1.6h.1c.5-.9 1.7-1.9 3.4-1.9 3.6 0 4.3 2.4 4.3 5.4v6.3ZM5.6 7.4A2 2 0 1 1 5.6 3.4a2 2 0 0 1 0 4ZM7.4 20.4H3.9V9h3.5v11.4Z"/></svg>
+              </a>
+            </div>
+          </div>
+
+          <div class="hero-metrics reveal" style="--d:720ms;">
+            <div class="metric">
+              <div class="metric-top"><span class="metric-num">AI/ML</span><span class="metric-dot" aria-hidden="true"></span></div>
+              <div class="metric-label">NLP • CV • GenAI • LLMs</div>
+            </div>
+            <div class="metric">
+              <div class="metric-top"><span class="metric-num">Engineering</span><span class="metric-dot" aria-hidden="true"></span></div>
+              <div class="metric-label">APIs • pipelines • clean architecture</div>
+            </div>
+            <div class="metric">
+              <div class="metric-top"><span class="metric-num">Focus</span><span class="metric-dot" aria-hidden="true"></span></div>
+              <div class="metric-label">Reliable, maintainable, real-world builds</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-card tilt reveal" style="--d:260ms;" data-tilt>
+          <div class="hero-card-inner">
+            <div class="hero-card-top">
+              <div class="chip">
+                <span class="chip-dot" aria-hidden="true"></span>
+                <span class="mono">MSc AI & Robotics</span>
+              </div>
+              <div class="mono subtle">Expected Aug 2027</div>
+            </div>
+
+            <div class="hero-card-mid">
+              <div class="avatar" aria-hidden="true">
+                <span class="avatar-ring"></span>
+                <span class="avatar-core"></span>
+              </div>
+              <div>
+                <div class="mono subtle">Contact</div>
+                <div class="hero-card-contact">
+                  <a href="mailto:das364278@gmail.com">das364278@gmail.com</a>
+                  <span class="dot" aria-hidden="true"></span>
+                  <a href="tel:+4915510945009">+49 15510945009</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="hero-card-bottom">
+              <div class="tag-row" role="list" aria-label="Highlights">
+                <span class="tag" role="listitem">LangChain</span>
+                <span class="tag" role="listitem">Hugging Face</span>
+                <span class="tag" role="listitem">TensorFlow</span>
+                <span class="tag" role="listitem">PyTorch</span>
+                <span class="tag" role="listitem">Node.js</span>
+                <span class="tag" role="listitem">React</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <section id="about">
-        <div class="container">
-            <div class="section-heading">
-                <h2>About Me</h2>
-                <p class="section-subtitle">Professional Summary</p>
-            </div>
-            <div class="about-content">
-                <p>I am a versatile software engineer with expertise in full stack development, AI/ML technologies, and API integration. I have a strong background in JavaScript, React.js, Node.js, and Python with experience developing both web applications and machine learning solutions.</p>
-                <p>I'm skilled in agile methodologies with a proven track record of delivering innovative projects across multiple domains. I'm passionate about creating scalable software solutions that combine technical excellence with exceptional user experience.</p>
-                <p>Currently working as an AI/ML Research & Development Intern at ICAR - National Bureau of Soil Survey & Land Use Planning, I'm developing API libraries and implementing payment gateway solutions for Bhoomi Geoportal, enhancing my skills in both AI development and practical web implementation.</p>
-            </div>
+    <!-- ABOUT -->
+    <section class="section" id="about" aria-label="About">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow reveal">About</p>
+          <h2 class="section-title reveal">A quick intro (the real version).</h2>
+          <p class="section-subtitle reveal">
+            I enjoy the work where ML meets practical software — the parts that turn an idea into something dependable.
+          </p>
         </div>
+
+        <div class="about-grid">
+          <article class="card reveal">
+            <h3 class="card-title">How I work</h3>
+            <p class="card-text">
+              I’m usually at my best when I’m solving a real problem with messy constraints. I like building systems that are easy to reason about,
+              easy to maintain, and not fragile the moment someone uses them differently than expected.
+            </p>
+            <p class="card-text">
+              I’ve worked on projects where I had to handle everything end-to-end — preparing data, training models, writing APIs, and making the UI feel solid.
+              I care about clarity, reliability, and performance (without making the code unreadable).
+            </p>
+
+            <div class="content-lines" aria-label="Highlights">
+              <p class="content-line">Machine learning work across NLP, computer vision, generative AI, and LLM tooling.</p>
+              <p class="content-line">Practical engineering: APIs, data pipelines, automation, and deployment-friendly structure.</p>
+              <p class="content-line">A focus on clean UX and stable behavior, not just flashy demos.</p>
+            </div>
+          </article>
+
+          <article class="card tilt reveal" data-tilt>
+            <h3 class="card-title">Education</h3>
+            <div class="content-lines">
+              <p class="content-line"><span class="mono subtle">MSc.</span> Artificial Intelligence and Robotics — Technische Universität Nürnberg (Expected Aug 2027)</p>
+              <p class="content-line"><span class="mono subtle">B.Tech</span> Artificial Intelligence — G.H. Raisoni College of Engineering (May 2025, Grade 8.7/10)</p>
+              <p class="content-line"><span class="mono subtle">HSC</span> Saraswati Bhavan Convent High School & Junior College (Jan 2021, 91.6%)</p>
+            </div>
+            <!-- Skills/Experience buttons removed (per requirement) -->
+          </article>
+
+          <article class="card reveal">
+            <h3 class="card-title">Core tools I’m comfortable with</h3>
+            <div class="skills-badges" role="list" aria-label="Core skills">
+              <span class="badge" role="listitem">Python</span>
+              <span class="badge" role="listitem">JavaScript</span>
+              <span class="badge" role="listitem">SQL</span>
+              <span class="badge" role="listitem">TensorFlow</span>
+              <span class="badge" role="listitem">PyTorch</span>
+              <span class="badge" role="listitem">Hugging Face</span>
+              <span class="badge" role="listitem">LangChain</span>
+              <span class="badge" role="listitem">React.js</span>
+              <span class="badge" role="listitem">Node.js</span>
+              <span class="badge" role="listitem">REST APIs</span>
+              <span class="badge" role="listitem">Docker (basic)</span>
+              <span class="badge" role="listitem">AWS (basic)</span>
+            </div>
+
+            <p class="about-note">
+              Outside of that, I’m comfortable with Git/GitHub workflows, basic CI/CD, core data structures and algorithms,
+              and networking fundamentals (TCP/IP). I also genuinely enjoy working with people — good communication saves time.
+            </p>
+          </article>
+        </div>
+      </div>
     </section>
 
-    <section id="skills">
-        <div class="container">
-            <div class="section-heading">
-                <h2>Technical Skills</h2>
-                <p class="section-subtitle">My expertise and technical proficiencies</p>
-            </div>
-            <div class="tab-container">
-                <div class="tabs">
-                    <button class="tab-btn active" data-tab="programming">Programming</button>
-                    <button class="tab-btn" data-tab="aiml">AI & ML</button>
-                    <button class="tab-btn" data-tab="webdev">Web Development</button>
-                    <button class="tab-btn" data-tab="tools">Tools & Others</button>
-                </div>
-                
-                <div class="tab-content active" id="programming">
-                    <div class="skills-container">
-                        <div class="skill-card">
-                            <h3>
-                                <svg viewBox="0 0 24 24">
-                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
-                                </svg>
-                                Programming Languages
-                            </h3>
-                            <div class="skill-tags">
-                                <span class="skill-tag">JavaScript</span>
-                                <span class="skill-tag">Python</span>
-                                <span class="skill-tag">HTML</span>
-                                <span class="skill-tag">CSS</span>
-                                <span class="skill-tag">C++</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="tab-content" id="aiml">
-                    <div class="skills-container">
-                        <div class="skill-card">
-                            <h3>
-                                <svg viewBox="0 0 24 24">
-                                    <path d="M16 8v8H8V8h8m2-2H6v12h12V6z"/>
-                                    <path d="M4 4h16v16H4z"/>
-                                </svg>
-                                AI/ML Technologies
-                            </h3>
-                            <div class="skill-tags">
-                                <span class="skill-tag">Machine Learning</span>
-                                <span class="skill-tag">Deep Learning</span>
-                                <span class="skill-tag">Neural Networks</span>
-                                <span class="skill-tag">Computer Vision</span>
-                                <span class="skill-tag">NLP</span>
-                                <span class="skill-tag">Generative AI</span>
-                                <span class="skill-tag">Large Language Models (LLM)</span>
-                            </div>
-                        </div>
-                        
-                        <div class="skill-card">
-                            <h3>
-                                <svg viewBox="0 0 24 24">
-                                    <path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/>
-                                </svg>
-                                AI/ML Libraries & Frameworks
-                            </h3>
-                            <div class="skill-tags">
-                                <span class="skill-tag">TensorFlow</span>
-                                <span class="skill-tag">LangChain</span>
-                                <span class="skill-tag">Hugging Face</span>
-                                <span class="skill-tag">Scikit-Learn</span>
-                                <span class="skill-tag">OpenAI</span>
-                                <span class="skill-tag">RAG</span>
-                                <span class="skill-tag">NumPy</span>
-                                <span class="skill-tag">Pandas</span>
-                                <span class="skill-tag">Matplotlib</span>
-                                <span class="skill-tag">NLTK</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="tab-content" id="webdev">
-                    <div class="skills-container">
-                        <div class="skill-card">
-                            <h3>
-                                <svg viewBox="0 0 24 24">
-                                    <path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"/>
-                                    <path d="M9 12l3 3 3-3"/>
-                                    <path d="M12 9v6"/>
-                                </svg>
-                                Frameworks & Libraries
-                            </h3>
-                            <div class="skill-tags">
-                                <span class="skill-tag">React.js</span>
-                                <span class="skill-tag">Node.js</span>
-                            </div>
-                        </div>
-                        
-                        <div class="skill-card">
-                            <h3>
-                                <svg viewBox="0 0 24 24">
-                                    <path d="M2 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-                                    <path d="M22 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/>
-                                    <path d="M2 21a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-                                    <path d="M22 20a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/>
-                                    <path d="M6 9h12"/>
-                                    <path d="M6 15h12"/>
-                                </svg>
-                                API Development
-                            </h3>
-                            <div class="skill-tags">
-                                <span class="skill-tag">REST API Design</span>
-                                <span class="skill-tag">API Implementation</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="tab-content" id="tools">
-                    <div class="skills-container">
-                        <div class="skill-card">
-                            <h3>
-                                <svg viewBox="0 0 24 24">
-                                    <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
-                                </svg>
-                                Cloud & Deployment
-                            </h3>
-                            <div class="skill-tags">
-                                <span class="skill-tag">Streamlit</span>
-                                <span class="skill-tag">Git</span>
-                                <span class="skill-tag">GitHub</span>
-                            </div>
-                        </div>
-                        
-                        <div class="skill-card">
-                            <h3>
-                                <svg viewBox="0 0 24 24">
-                                    <path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/>
-                                    <path d="M9 10h.01"/>
-                                    <path d="M15 10h.01"/>
-                                    <path d="M9.5 15a3.5 3.5 0 0 0 5 0"/>
-                                </svg>
-                                Additional Skills
-                            </h3>
-                            <div class="skill-tags">
-                                <span class="skill-tag">Agile Methodologies</span>
-                                <span class="skill-tag">Test-driven Development</span>
-                                <span class="skill-tag">Continuous Integration</span>
-                                <span class="skill-tag">Debugging</span>
-                                <span class="skill-tag">Documentation</span>
-                            </div>
-                        </div>
-                        
-                        <div class="skill-card">
-                            <h3>
-                                <svg viewBox="0 0 24 24">
-                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                                    <polyline points="7 10 12 15 17 10"/>
-                                    <line x1="12" y1="15" x2="12" y2="3"/>
-                                </svg>
-                                Languages
-                            </h3>
-                            <div class="skill-tags">
-                                <span class="skill-tag">English (Professional)</span>
-                                <span class="skill-tag">Hindi (Native)</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <!-- PROJECTS -->
+    <section class="section" id="projects" aria-label="Projects">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow reveal">Projects</p>
+          <h2 class="section-title reveal">Some things I’ve built.</h2>
+          <p class="section-subtitle reveal">
+            Click a card to open it. The assistant can also jump you to a project and highlight it.
+          </p>
         </div>
+
+        <div class="project-controls reveal" role="region" aria-label="Project filters">
+          <div class="filters" role="tablist" aria-label="Project categories">
+            <button class="filter-btn is-active" type="button" data-filter="all" role="tab" aria-selected="true">All</button>
+            <button class="filter-btn" type="button" data-filter="ai" role="tab" aria-selected="false">AI</button>
+            <button class="filter-btn" type="button" data-filter="nlp" role="tab" aria-selected="false">NLP</button>
+            <button class="filter-btn" type="button" data-filter="cv" role="tab" aria-selected="false">Computer Vision</button>
+            <button class="filter-btn" type="button" data-filter="web" role="tab" aria-selected="false">Web</button>
+          </div>
+
+          <div class="search">
+            <label class="sr-only" for="projectSearch">Search projects</label>
+            <input id="projectSearch" class="search-input" type="search" inputmode="search"
+              placeholder="Search by title, tech, or keyword..." autocomplete="off" />
+          </div>
+        </div>
+
+        <div class="projects-grid" id="projectsGrid" aria-live="polite"></div>
+      </div>
     </section>
 
-    <section id="projects">
-        <div class="container">
-            <div class="section-heading">
-                <h2>Projects</h2>
-                <p class="section-subtitle">My work and contributions</p>
-            </div>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <div class="project-img">
-                        <svg viewBox="0 0 24 24">
-                            <circle cx="12" cy="12" r="10"/>
-                            <path d="M12 16v-4"/>
-                            <path d="M12 8h.01"/>
-                        </svg>
-                    </div>
-                    <div class="project-content">
-                        <h3>Agentic Chatbot with Multi-tool Access</h3>
-                        <div class="project-tags">
-                            <span class="project-tag">JavaScript</span>
-                            <span class="project-tag">React.js</span>
-                            <span class="project-tag">Node.js</span>
-                            <span class="project-tag">APIs</span>
-                        </div>
-                        <p>Designed and developed a responsive JavaScript-based chatbot with multi-tool access capabilities. Integrated multiple API endpoints enabling seamless information retrieval and task execution.</p>
-                        <div class="project-links">
-                            <a href="https://agentic-chatbot-with-multi-tool-access-ca4b9apsapp33hpptduytfy.streamlit.app/" target="_blank" class="btn btn-outline">View Project</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="project-card">
-                    <div class="project-img">
-                        <svg viewBox="0 0 24 24">
-                            <path d="M18 8h1a4 4 0 0 1 0 8h-1"/>
-                            <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/>
-                            <line x1="6" y1="1" x2="6" y2="4"/>
-                            <line x1="10" y1="1" x2="10" y2="4"/>
-                            <line x1="14" y1="1" x2="14" y2="4"/>
-                        </svg>
-                    </div>
-                    <div class="project-content">
-                        <h3>Deep Gesture Interpretation for American Sign Language</h3>
-                        <div class="project-tags">
-                            <span class="project-tag">Deep Learning</span>
-                            <span class="project-tag">Computer Vision</span>
-                            <span class="project-tag">Python</span>
-                            <span class="project-tag">OpenCV</span>
-                        </div>
-                        <p>Developed deep learning models for real-time interpretation of ASL gestures. Collected, processed, and annotated a diverse ASL gesture dataset using Python and OpenCV.</p>
-                        <div class="project-links">
-                            <a href="https://ijcrt.org/viewfull.php?&p_id=IJCRT2411127" target="_blank" class="btn btn-outline">View Research Paper</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="project-card">
-                    <div class="project-img">
-                        <svg viewBox="0 0 24 24">
-                            <circle cx="12" cy="12" r="10"/>
-                            <line x1="2" y1="12" x2="22" y2="12"/>
-                            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-                        </svg>
-                    </div>
-                    <div class="project-content">
-                        <h3>Cross-Lingual NLP Models for Multilingual Understanding</h3>
-                        <div class="project-tags">
-                            <span class="project-tag">NLP</span>
-                            <span class="project-tag">JavaScript</span>
-                            <span class="project-tag">Node.js</span>
-                            <span class="project-tag">Multilingual</span>
-                        </div>
-                        <p>Developed cross-lingual NLP models using advanced embedding techniques. Implemented JavaScript and Node.js components for handling multilingual text data.</p>
-                        <div class="project-links">
-                            <a href="https://colab.research.google.com/drive/1d-9gi4yRj7dw_6FgwB_nPBjXv5FZF3GS?usp=sharing" target="_blank" class="btn btn-outline">View Project</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <!-- SKILLS -->
+    <section class="section" id="skills" aria-label="Skills and expertise">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow reveal">Expertise</p>
+          <h2 class="section-title reveal">What I work with (and what I enjoy working on).</h2>
+          <p class="section-subtitle reveal">
+            These are the areas I keep coming back to — either because I’m good at them, or because I genuinely like the work.
+          </p>
         </div>
+
+        <div class="skills-grid">
+          <article class="card reveal">
+            <h3 class="card-title">AI / Machine Learning</h3>
+            <div class="content-lines">
+              <p class="content-line">Training and evaluating models, tuning performance, and knowing when “good enough” is actually good enough.</p>
+              <p class="content-line">NLP work like preprocessing, modeling, and improving quality on real text data.</p>
+              <p class="content-line">Computer vision pipelines, including real-time approaches (when performance matters).</p>
+              <p class="content-line">LLM tooling and generative AI experiments, especially when it can automate real tasks.</p>
+            </div>
+          </article>
+
+          <article class="card reveal">
+            <h3 class="card-title">Frameworks & Libraries</h3>
+            <div class="skills-badges" role="list" aria-label="Frameworks">
+              <span class="badge" role="listitem">PyTorch</span>
+              <span class="badge" role="listitem">TensorFlow</span>
+              <span class="badge" role="listitem">Keras</span>
+              <span class="badge" role="listitem">Scikit-Learn</span>
+              <span class="badge" role="listitem">NumPy</span>
+              <span class="badge" role="listitem">Pandas</span>
+              <span class="badge" role="listitem">Matplotlib</span>
+              <span class="badge" role="listitem">NLTK</span>
+              <span class="badge" role="listitem">Hugging Face</span>
+              <span class="badge" role="listitem">LangChain</span>
+            </div>
+          </article>
+
+          <article class="card tilt reveal" data-tilt>
+            <h3 class="card-title">Software Engineering</h3>
+            <div class="content-lines">
+              <p class="content-line">Building REST APIs that are predictable, reusable, and easy to debug.</p>
+              <p class="content-line">Keeping things modular so projects don’t turn into spaghetti after a few changes.</p>
+              <p class="content-line">Performance tuning and reliability work (because slow and flaky is painful).</p>
+              <p class="content-line">Comfortable with Git workflows and basic CI/CD habits.</p>
+            </div>
+          </article>
+
+          <article class="card reveal">
+            <h3 class="card-title">Web & Tools</h3>
+            <div class="skills-badges" role="list" aria-label="Tools">
+              <span class="badge" role="listitem">React.js</span>
+              <span class="badge" role="listitem">Node.js</span>
+              <span class="badge" role="listitem">HTML5</span>
+              <span class="badge" role="listitem">CSS</span>
+              <span class="badge" role="listitem">Streamlit</span>
+              <span class="badge" role="listitem">Docker (basic)</span>
+              <span class="badge" role="listitem">AWS (basic)</span>
+              <span class="badge" role="listitem">MySQL</span>
+              <span class="badge" role="listitem">PostgreSQL</span>
+              <span class="badge" role="listitem">VS Code</span>
+              <span class="badge" role="listitem">Jupyter</span>
+            </div>
+          </article>
+        </div>
+      </div>
     </section>
 
-    <section id="experience">
-        <div class="container">
-            <div class="section-heading">
-                <h2>Professional Experience</h2>
-                <p class="section-subtitle">My work history and achievements</p>
-            </div>
-            <div class="experience-timeline">
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <h3>AI/ML Research & Development Intern</h3>
-                        <p class="company">ICAR - National Bureau of Soil Survey & Land Use Planning</p>
-                        <p class="date">
-                            <svg viewBox="0 0 24 24">
-                                <circle cx="12" cy="12" r="10"/>
-                                <polyline points="12 6 12 12 16 14"/>
-                            </svg>
-                            January 2025 - Present, Nagpur
-                        </p>
-                        <ul>
-                            <li>Developed and implemented API libraries to streamline data access and integration for Bhoomi Geoportal</li>
-                            <li>Designed secure payment gateway solutions for geospatial data services with enhanced error handling</li>
-                            <li>Optimized data processing workflows for large-scale remote sensing datasets improving efficiency by 30%</li>
-                            <li>Engineered GIS and AI-driven solutions enhancing overall system functionality and user experience</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <h3>NLP Intern</h3>
-                        <p class="company">ITNetworkzz</p>
-                        <p class="date">
-                            <svg viewBox="0 0 24 24">
-                                <circle cx="12" cy="12" r="10"/>
-                                <polyline points="12 6 12 12 16 14"/>
-                            </svg>
-                            June 2024 - July 2024, Nagpur
-                        </p>
-                        <ul>
-                            <li>Implemented and optimized ML algorithms for NLP and generative AI applications</li>
-                            <li>Enhanced and integrated models into proprietary AI tools improving accuracy by 25%</li>
-                            <li>Led a project to preprocess and annotate text data using Python and NLTK libraries</li>
-                            <li>Collaborated with cross-functional teams to develop and deploy natural language processing solutions</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <h3>AI Intern</h3>
-                        <p class="company">Coincent</p>
-                        <p class="date">
-                            <svg viewBox="0 0 24 24">
-                                <circle cx="12" cy="12" r="10"/>
-                                <polyline points="12 6 12 12 16 14"/>
-                            </svg>
-                            August 2022 - November 2022, Nagpur
-                        </p>
-                        <ul>
-                            <li>Developed an advanced deep learning model for fashion MNIST classification, achieving 75% accuracy improvement</li>
-                            <li>Conducted comprehensive data preprocessing and augmentation using TensorFlow and Keras</li>
-                            <li>Engineered and deployed neural network architecture with Python and PyTorch, increasing processing efficiency by 50%</li>
-                            <li>Implemented effective debugging strategies and performance optimization techniques</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+    <!-- EXPERIENCE -->
+    <section class="section" id="experience" aria-label="Experience">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow reveal">Experience</p>
+          <h2 class="section-title reveal">Places where I got real hands-on practice.</h2>
+          <p class="section-subtitle reveal">
+            These roles taught me a lot — especially the part where real projects don’t behave like clean tutorials.
+          </p>
         </div>
+
+        <div class="xp-grid">
+          <article class="card reveal">
+            <h3 class="card-title">AI/ML Research & Development Intern</h3>
+            <p class="mono subtle">ICAR – National Bureau of Soil Survey & Land Use Planning • Jan 2025 – Jun 2025</p>
+            <div class="content-lines">
+              <p class="content-line">Built REST APIs that made internal data access noticeably faster (around 30%).</p>
+              <p class="content-line">Worked on remote sensing pipelines and focused on scaling without breaking things.</p>
+              <p class="content-line">Collaborated with a team to deliver features end-to-end, not just “model-only” work.</p>
+            </div>
+          </article>
+
+          <article class="card reveal">
+            <h3 class="card-title">NLP Intern</h3>
+            <p class="mono subtle">ITNetworkzz • Jun 2024 – Jul 2024</p>
+            <div class="content-lines">
+              <p class="content-line">Improved an NLP model’s accuracy by roughly 20% through better preprocessing and tuning.</p>
+              <p class="content-line">Built text pipelines for more than 10,000 records and made them reusable for future work.</p>
+            </div>
+          </article>
+
+          <article class="card reveal">
+            <h3 class="card-title">AI Intern (Remote)</h3>
+            <p class="mono subtle">Coincent • Aug 2022 – Nov 2022</p>
+            <div class="content-lines">
+              <p class="content-line">Trained deep learning classifiers (TensorFlow / PyTorch) reaching 95%+ accuracy.</p>
+              <p class="content-line">Spent time improving data quality and augmentation because it mattered more than “more layers”.</p>
+            </div>
+          </article>
+
+          <article class="card reveal">
+            <h3 class="card-title">Certifications</h3>
+            <div class="content-lines">
+              <p class="content-line">Generative AI with LangChain & Hugging Face (Udemy)</p>
+              <p class="content-line">Python Pro Bootcamp (Udemy)</p>
+              <p class="content-line">UI/UX Fundamentals (IIT Bombay)</p>
+            </div>
+          </article>
+        </div>
+      </div>
     </section>
 
-    <section id="education">
-        <div class="container">
-            <div class="section-heading">
-                <h2>Education</h2>
-                <p class="section-subtitle">My academic background</p>
-            </div>
-            <div class="education-timeline">
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <h3>Bachelor of Technology in Artificial Intelligence</h3>
-                        <p class="company">G. H. Raisoni College of Engineering, Nagpur</p>
-                        <p class="date">
-                            <svg viewBox="0 0 24 24">
-                                <circle cx="12" cy="12" r="10"/>
-                                <polyline points="12 6 12 12 16 14"/>
-                            </svg>
-                            CGPA: 8.70
-                        </p>
-                    </div>
-                </div>
-                
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <h3>Higher Secondary Certificate (HSC)</h3>
-                        <p class="company">Saraswati Bhavan Convent, High School & Junior College</p>
-                        <p class="date">
-                            <svg viewBox="0 0 24 24">
-                                <circle cx="12" cy="12" r="10"/>
-                                <polyline points="12 6 12 12 16 14"/>
-                            </svg>
-                            91.6%
-                        </p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="certifications">
-                <h3>Certifications</h3>
-                <div class="cert-container">
-                    <div class="cert-item">
-                        <svg viewBox="0 0 24 24">
-                            <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
-                        </svg>
-                        <span>Complete Generative AI Course With Langchain and Huggingface (Udemy)</span>
-                    </div>
-                    <div class="cert-item">
-                        <svg viewBox="0 0 24 24">
-                            <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
-                        </svg>
-                        <span>100 Days of Code: The Complete Python Pro Bootcamp (Udemy)</span>
-                    </div>
-                    <div class="cert-item">
-                        <svg viewBox="0 0 24 24">
-                            <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
-                        </svg>
-                        <span>Fundamentals of UI/UX (IIT Bombay)</span>
-                    </div>
-                    <div class="cert-item">
-                        <svg viewBox="0 0 24 24">
-                            <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
-                        </svg>
-                        <span>IELTS - Band 7 (2025)</span>
-                    </div>
-                </div>
-            </div>
+    <!-- CONTACT (STATIC INTERFACE) -->
+    <section class="section contact contact-static" id="contact" aria-label="Contact">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow reveal">Contact</p>
+          <h2 class="section-title reveal">Want to talk?</h2>
+          <p class="section-subtitle reveal">
+            Send a message here and it goes straight to my inbox (via Web3Forms). You’ll see a status message after you send it.
+          </p>
         </div>
+
+        <div class="contact-grid">
+          <article class="contact-card reveal">
+            <h3 class="card-title">Direct</h3>
+
+            <div class="contact-lines">
+              <a class="contact-line" href="mailto:das364278@gmail.com" target="_blank" rel="noopener">
+                <span class="mono subtle">Email</span>
+                <span>das364278@gmail.com</span>
+                <span class="arrow" aria-hidden="true">↗</span>
+              </a>
+              <a class="contact-line" href="tel:+4915510945009">
+                <span class="mono subtle">Phone</span>
+                <span>+49 15510945009</span>
+              </a>
+            </div>
+
+            <div class="social-row" aria-label="Social links">
+              <a class="btn btn-tertiary" href="https://github.com/sandeep848" target="_blank" rel="noopener">GitHub ↗</a>
+              <a class="btn btn-tertiary" href="https://www.linkedin.com/in/sandeepdas0706" target="_blank" rel="noopener">LinkedIn ↗</a>
+            </div>
+
+            <p class="contact-note card-text">
+              If you’re reaching out about a project, include what you’re building and what kind of help you need.
+              Even a rough outline is totally fine.
+            </p>
+          </article>
+
+          <article class="contact-card tilt reveal" data-tilt>
+            <h3 class="card-title">Send a Message</h3>
+
+            <form id="contactForm" class="form" novalidate>
+              <input type="text" name="botcheck" class="hidden" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+              <div class="field">
+                <label for="name">Name <span aria-hidden="true">*</span></label>
+                <input id="name" name="name" type="text" required autocomplete="name" placeholder="Your name" aria-describedby="nameHelp" />
+                <small class="help" id="nameHelp" aria-live="polite"></small>
+              </div>
+
+              <div class="field">
+                <label for="email">Email <span aria-hidden="true">*</span></label>
+                <input id="email" name="email" type="email" required autocomplete="email" placeholder="you@domain.com" inputmode="email" aria-describedby="emailHelp" />
+                <small class="help" id="emailHelp" aria-live="polite"></small>
+              </div>
+
+              <div class="field">
+                <label for="message">Message <span aria-hidden="true">*</span></label>
+                <textarea id="message" name="message" required rows="5" placeholder="What are you working on?" aria-describedby="messageHelp"></textarea>
+                <small class="help" id="messageHelp" aria-live="polite"></small>
+              </div>
+
+              <button id="submitBtn" class="btn btn-primary btn-submit" type="submit">
+                <span class="btn-text">Send Message</span>
+                <span class="spinner" aria-hidden="true"></span>
+                <span class="btn-glow" aria-hidden="true"></span>
+              </button>
+
+              <div id="formStatus" class="form-status" role="status" aria-live="polite"></div>
+              <div class="form-foot mono subtle">Powered by Web3Forms. No tracking, no spam.</div>
+            </form>
+          </article>
+        </div>
+      </div>
     </section>
 
-    <section id="contact">
-        <div class="container">
-            <div class="section-heading">
-                <h2>Contact Me</h2>
-                <p class="section-subtitle">Let's connect and discuss opportunities</p>
-            </div>
-            <div class="contact-grid">
-                <div class="contact-form">
-                    <form id="contactForm">
-                        <div class="form-group">
-                            <label for="name">Name</label>
-                            <input type="text" id="name" name="name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" name="email" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="subject">Subject</label>
-                            <input type="text" id="subject" name="subject" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="message">Message</label>
-                            <textarea id="message" name="message" rows="6" required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary">
-                            <svg viewBox="0 0 24 24" width="18" height="18">
-                                <line x1="22" y1="2" x2="11" y2="13"/>
-                                <polygon points="22 2 15 22 11 13 2 9 22 2"/>
-                            </svg>
-                            Send Message
-                        </button>
-                    </form>
-                </div>
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <h3>
-                            <svg viewBox="0 0 24 24">
-                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                                <polyline points="22,6 12,13 2,6"/>
-                            </svg>
-                            Email
-                        </h3>
-                        <p><a href="mailto:das364278@gmail.com">das364278@gmail.com</a></p>
-                    </div>
-                    <div class="contact-item">
-                        <h3>
-                            <svg viewBox="0 0 24 24">
-                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
-                            </svg>
-                            Phone
-                        </h3>
-                        <p><a href="tel:8482898815">8482898815</a></p>
-                    </div>
-                    <div class="contact-item">
-                        <h3>
-                            <svg viewBox="0 0 24 24">
-                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-                                <circle cx="12" cy="10" r="3"/>
-                            </svg>
-                            Location
-                        </h3>
-                        <p>Nagpur, Maharashtra, India</p>
-                    </div>
-                    <div class="contact-item">
-                        <h3>
-                            <svg viewBox="0 0 24 24">
-                                <path d="M18 8a6 6 0 0 0-6-6 6 6 0 0 0-6 6 6 6 0 0 0 6 6 6 6 0 0 0 6-6z"/>
-                                <path d="M18 8a6 6 0 0 0-6-6 6 6 0 0 0-6 6 6 6 0 0 0 6 6 6 6 0 0 0 6-6z"/>
-                                <path d="M6 18H18"/>
-                                <path d="M12 14v8"/>
-                            </svg>
-                            Social Profiles
-                        </h3>
-                        <div class="social-links">
-                            <a href="https://linkedin.com/in/sandeepdas0706" target="_blank">
-                                <svg viewBox="0 0 24 24" width="16" height="16">
-                                    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
-                                    <rect x="2" y="9" width="4" height="12"/>
-                                    <circle cx="4" cy="4" r="2"/>
-                                </svg>
-                                LinkedIn
-                            </a>
-                            <a href="https://github.com/sandeep848" target="_blank">
-                                <svg viewBox="0 0 24 24" width="16" height="16">
-                                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
-                                </svg>
-                                GitHub
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <footer class="footer">
+      <div class="container footer-inner">
+        <div class="mono subtle">© <span id="year"></span> Sandeep Das</div>
+        <div class="footer-links">
+          <a href="#projects">Projects</a>
+          <a href="#contact">Contact</a>
         </div>
-    </section>
-
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-col">
-                    <h3>Sandeep Das</h3>
-                    <p>Full Stack Developer | AI & Machine Learning Specialist</p>
-                    <p>Creating innovative solutions at the intersection of web development and artificial intelligence.</p>
-                </div>
-                <div class="footer-col">
-                    <h3>Quick Links</h3>
-                    <ul class="footer-links">
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#skills">Skills</a></li>
-                        <li><a href="#projects">Projects</a></li>
-                        <li><a href="#experience">Experience</a></li>
-                        <li><a href="#education">Education</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h3>Contact</h3>
-                    <ul class="footer-links">
-                        <li>
-                            <a href="mailto:das364278@gmail.com">
-                                <svg viewBox="0 0 24 24" width="16" height="16">
-                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                                    <polyline points="22,6 12,13 2,6"/>
-                                </svg>
-                                das364278@gmail.com
-                            </a>
-                        </li>
-                        <li>
-                            <a href="tel:8482898815">
-                                <svg viewBox="0 0 24 24" width="16" height="16">
-                                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
-                                </svg>
-                                8482898815
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://linkedin.com/in/sandeepdas0706" target="_blank">
-                                <svg viewBox="0 0 24 24" width="16" height="16">
-                                    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
-                                    <rect x="2" y="9" width="4" height="12"/>
-                                    <circle cx="4" cy="4" r="2"/>
-                                </svg>
-                                LinkedIn
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://github.com/sandeep848" target="_blank">
-                                <svg viewBox="0 0 24 24" width="16" height="16">
-                                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
-                                </svg>
-                                GitHub
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 Sandeep Das. All Rights Reserved.</p>
-            </div>
-        </div>
+      </div>
     </footer>
+  </main>
 
-    <div class="scroll-top" id="scrollTop">
-        <svg viewBox="0 0 24 24" width="20" height="20">
-            <path d="M18 15l-6-6-6 6"/>
-        </svg>
+  <!-- CHATBOT -->
+  <section class="chatbot" aria-label="Portfolio assistant">
+    <button class="chatbot-fab" id="chatbotFab" type="button" aria-label="Open portfolio assistant" aria-expanded="false" aria-controls="chatbotPanel">
+      <span class="chatbot-fab-icon" aria-hidden="true">✦</span>
+    </button>
+
+    <div class="chatbot-panel" id="chatbotPanel" role="dialog" aria-modal="false" aria-label="Portfolio assistant">
+      <header class="chatbot-header">
+        <div class="chatbot-header-left">
+          <div class="chatbot-sigil" aria-hidden="true">
+            <span class="sigil-ring"></span>
+            <span class="sigil-core"></span>
+          </div>
+          <div>
+            <div class="chatbot-title">Assistant</div>
+            <div class="chatbot-subtitle mono subtle" id="chatbotSubtitle">Navigate fast. Ask naturally.</div>
+          </div>
+        </div>
+        <button class="chatbot-close" id="chatbotClose" type="button" aria-label="Close assistant">×</button>
+      </header>
+
+      <div class="chatbot-body" id="chatbotBody" role="log" aria-live="polite" aria-relevant="additions text" aria-atomic="false"></div>
+
+      <div class="chatbot-quick" aria-label="Suggested questions">
+        <button class="chatbot-chip" type="button" data-q="Show me your projects.">Projects</button>
+        <button class="chatbot-chip" type="button" data-q="Go to the skills section.">Expertise</button>
+        <button class="chatbot-chip" type="button" data-q="Take me to experience.">Experience</button>
+        <button class="chatbot-chip" type="button" data-q="How can I contact you?">Contact</button>
+      </div>
+
+      <form class="chatbot-form" id="chatbotForm" autocomplete="off">
+        <label class="sr-only" for="chatbotInput">Message</label>
+        <textarea id="chatbotInput" class="chatbot-input" rows="1" placeholder='Ask something… (e.g., "Open the ASL project")' maxlength="400"></textarea>
+        <button class="chatbot-send" type="submit" aria-label="Send message">
+          <span aria-hidden="true">➤</span>
+        </button>
+      </form>
+
+      <div class="chatbot-hint mono subtle" aria-hidden="true">
+        Press <span class="kbd">Enter</span> to send • <span class="kbd">Shift</span> + <span class="kbd">Enter</span> for a new line
+      </div>
     </div>
+  </section>
 
-    <script src="main.js"></script>
+  <script src="emailHandler.js" defer></script>
+  <script src="script.js" defer></script>
+  <script src="chatbot.js" defer></script>
 </body>
 </html>
