@@ -1,555 +1,148 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!-- Optional: Only used if you do NOT deploy a server-side /api/contact proxy. -->
-    <meta name="web3forms-key" content="">
-
-  <meta name="description" content="Sandeep Das — AI and robotics engineer building dependable machine-learning, generative-AI, computer-vision, data, and cloud systems." />
-  <meta name="theme-color" content="#0b1020" />
-  <meta property="og:title" content="Sandeep Das — AI & Robotics Engineer" />
-  <meta property="og:description" content="A GitHub-synced portfolio of applied AI, computer vision, generative AI, data engineering, and cloud projects." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://sandeep848.github.io/Portfolio/" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="description" content="Sandeep Das is an AI and robotics engineer building reliable systems across computer vision, generative AI, data engineering, and cloud software.">
+  <meta name="theme-color" content="#05070a">
+  <meta property="og:title" content="Sandeep Das — AI & Robotics Engineer">
+  <meta property="og:description" content="Applied AI, built with engineering discipline. Explore 14 public projects across vision, LLMs, data, and cloud systems.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://sandeep848.github.io/Portfolio/">
   <title>Sandeep Das — AI & Robotics Engineer</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-
-  <!-- Both fonts loaded because typography itself morphs per interface -->
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;800&display=swap" rel="stylesheet" />
-
-  <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="chatbot.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="cursor-glow" aria-hidden="true"></div>
 
-<body data-theme="minimal" class="has-chatbot theme-minimal">
-  <a class="skip-link" href="#main">Skip to content</a>
-
-  <!-- Immersive interface metamorphosis overlay -->
-  <div class="meta-reveal" id="metaReveal" aria-hidden="true"></div>
-
-  <!-- Optional background FX -->
-  <canvas id="fx-canvas" class="fx-canvas" aria-hidden="true"></canvas>
-  <div class="bg-layer" aria-hidden="true"></div>
-
-  <header class="header" id="top">
-    <nav class="nav" aria-label="Primary">
-      <a class="brand" href="#top" aria-label="Go to top">
-        <span class="brand-mark" aria-hidden="true"></span>
-        <span class="brand-text">Sandeep Das</span>
-      </a>
-
-      <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-      </button>
-
-      <div class="nav-links" id="nav-links" role="navigation" aria-label="Primary links">
-        <a href="#about" class="nav-link">About</a>
-        <a href="#projects" class="nav-link">Projects</a>
-        <a href="#skills" class="nav-link">Expertise</a>
-        <a href="#experience" class="nav-link">Experience</a>
-        <a href="#contact" class="nav-link nav-link-cta">Contact</a>
-
-        <!-- IMPORTANT: Resume removed from header (per requirement) -->
-
-        <!-- Interface switch (metamorphosis) -->
-        <div class="theme-switch" id="themeSwitch">
-          <button class="theme-btn" id="themeBtn" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="themePalette">
-            <span class="theme-btn-dot" aria-hidden="true"></span>
-            <span class="theme-btn-label">Theme</span>
-          </button>
-
-          <div class="theme-palette" id="themePalette" role="dialog" aria-modal="false" aria-labelledby="themePaletteTitle" aria-describedby="themePaletteDesc">
-            <div class="sr-only" id="themePaletteTitle">Choose a theme</div>
-            <div class="sr-only" id="themePaletteDesc">Select Minimal or Cyber to change the site appearance.</div>
-            <button class="theme-option" type="button" data-theme="minimal" aria-label="Minimal interface">
-              <span class="swatch swatch-minimal" aria-hidden="true"></span>
-              <span class="opt-title">Minimal</span>
-              <span class="opt-sub mono subtle">clean • calm • soft</span>
-            </button>
-
-            <button class="theme-option" type="button" data-theme="cyber" aria-label="Cyber interface">
-              <span class="swatch swatch-cyber" aria-hidden="true"></span>
-              <span class="opt-title">Cyber</span>
-              <span class="opt-sub mono subtle">neon • sharp • intense</span>
-            </button>
-          </div>
-        </div>
-      </div>
+  <header class="site-header" id="top">
+    <a class="brand" href="#top" aria-label="Sandeep Das, home">
+      <svg viewBox="0 0 44 44" aria-hidden="true"><path d="M7 11h30M11 18h22M7 33h30M13 26h18" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="22" cy="22" r="19" fill="none" stroke="currentColor" stroke-opacity=".24"/></svg>
+      <span><b>SANDEEP DAS</b><i>AI · ROBOTICS · ENGINEERING</i></span>
+    </a>
+    <nav class="nav-links" aria-label="Primary navigation">
+      <a href="#about">About</a><a href="#work">Work</a><a href="#practice">Practice</a><a href="#contact">Contact</a>
     </nav>
+    <a class="nav-cta" href="mailto:das364278@gmail.com">Start a conversation <span>↗</span></a>
+    <button class="menu-button" type="button" aria-label="Open menu" aria-expanded="false"><i></i><i></i></button>
   </header>
 
   <main id="main">
-    <!-- HERO -->
-    <section class="hero" aria-label="Intro">
-      <div class="container hero-grid">
-        <div class="hero-copy">
-          <p class="kicker reveal" style="--d:0ms;">
-            <span class="pill"><span class="availability-dot" aria-hidden="true"></span> AI & Robotics Engineer</span>
-            <span class="mono subtle">Nürnberg, Germany</span>
-          </p>
-
-          <h1 class="hero-title">
-            <span class="reveal" style="--d:120ms;">Sandeep</span>
-            <span class="reveal gradient-text" style="--d:240ms;">Das</span>
-            <span class="reveal hero-title-sub" style="--d:360ms;">
-              Building intelligent systems that hold up beyond the demo.
-            </span>
-          </h1>
-
-          <p class="hero-desc reveal" style="--d:480ms;">
-            I design and build applied AI products across computer vision, generative AI, data engineering, and cloud systems.
-            My work combines rigorous experimentation with the APIs, pipelines, interfaces, and documentation needed to make
-            a project useful in the real world.
-          </p>
-
-          <div class="hero-actions reveal" style="--d:600ms;">
-            <a class="btn btn-primary" href="#projects">
-              <span>See Projects</span>
-              <span class="btn-glow" aria-hidden="true"></span>
-            </a>
-
-            <a class="btn btn-secondary" href="#contact">
-              <span>Message Me</span>
-            </a>
-
-            <!-- ONLY ONE PRIMARY RESUME BUTTON (Hero) -->
-            <a class="btn btn-resume" href="assets/Sandeep_Das_Resume.pdf" download aria-label="Download Resume (PDF)">
-              <span>Download Resume</span>
-              <span class="btn-resume-ico" aria-hidden="true">⤓</span>
-            </a>
-
-            <div class="hero-links">
-              <a class="icon-link" href="mailto:das364278@gmail.com" target="_blank" rel="noopener" aria-label="Email">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16v12H4z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m4 7 8 6 8-6" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>
-              </a>
-              <a class="icon-link" href="https://github.com/sandeep848" target="_blank" rel="noopener" aria-label="GitHub">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .5C5.7.5.6 5.6.6 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2.2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.2-1.6-1.2-1.6-1-.7.1-.7.1-.7 1.1.1 1.7 1.1 1.7 1.1 1 .1.8 2.2 3.3 1.6.1-.7.4-1.2.7-1.5-2.6-.3-5.3-1.3-5.3-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2.9-.3 1.9-.4 2.9-.4s2 .1 2.9.4c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.9 1.2 3.2 0 4.6-2.7 5.6-5.3 5.9.4.3.8 1 .8 2.1v3c0 .3.2.7.8.6 4.6-1.5 7.9-5.8 7.9-10.9C23.4 5.6 18.3.5 12 .5Z"/></svg>
-              </a>
-              <a class="icon-link" href="https://www.linkedin.com/in/sandeepdas0706" target="_blank" rel="noopener" aria-label="LinkedIn">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20.4 20.4h-3.5v-5.5c0-1.3 0-3-1.8-3s-2.1 1.4-2.1 2.9v5.6H9.5V9h3.4v1.6h.1c.5-.9 1.7-1.9 3.4-1.9 3.6 0 4.3 2.4 4.3 5.4v6.3ZM5.6 7.4A2 2 0 1 1 5.6 3.4a2 2 0 0 1 0 4ZM7.4 20.4H3.9V9h3.5v11.4Z"/></svg>
-              </a>
-            </div>
-          </div>
-
-          <div class="hero-metrics reveal" style="--d:720ms;">
-            <div class="metric">
-              <div class="metric-top"><span class="metric-num" id="projectMetric">14+</span><span class="metric-dot" aria-hidden="true"></span></div>
-              <div class="metric-label">Public projects on GitHub</div>
-            </div>
-            <div class="metric">
-              <div class="metric-top"><span class="metric-num">Engineering</span><span class="metric-dot" aria-hidden="true"></span></div>
-              <div class="metric-label">APIs • pipelines • clean architecture</div>
-            </div>
-            <div class="metric">
-              <div class="metric-top"><span class="metric-num">Focus</span><span class="metric-dot" aria-hidden="true"></span></div>
-              <div class="metric-label">Reliable, maintainable, real-world builds</div>
-            </div>
-          </div>
+    <section class="hero chapter" aria-labelledby="hero-title">
+      <div class="hero-aura" aria-hidden="true"></div>
+      <div class="hero-copy">
+        <p class="eyebrow reveal"><span class="signal"></span>Nürnberg, Germany · Open to ambitious work</p>
+        <h1 id="hero-title" class="display reveal">
+          <span>Intelligence,</span>
+          <span>made <em>useful.</em></span>
+        </h1>
+        <p class="hero-intro reveal">I’m Sandeep Das, an AI and robotics engineer turning research ideas into dependable products—from vision models and retrieval systems to data pipelines and cloud applications.</p>
+        <div class="hero-actions reveal">
+          <a class="button primary" href="#work">Explore the work <span>↓</span></a>
+          <a class="button ghost" href="https://github.com/sandeep848" target="_blank" rel="noopener">GitHub <span>↗</span></a>
         </div>
+      </div>
+      <div class="hero-index reveal" aria-label="Portfolio highlights">
+        <a href="#work"><b id="projectCount">14</b><span>Public projects</span></a>
+        <a href="#practice"><b>03</b><span>Industry roles</span></a>
+        <a href="#about"><b>04</b><span>Core disciplines</span></a>
+      </div>
+      <div class="scroll-cue" aria-hidden="true"><span>Scroll to explore</span><i></i></div>
+      <div class="hero-side" aria-hidden="true">BUILD · TEST · REFINE</div>
+    </section>
 
-        <div class="hero-card tilt reveal" style="--d:260ms;" data-tilt>
-          <div class="hero-card-inner">
-            <div class="hero-card-top">
-              <div class="chip">
-                <span class="chip-dot" aria-hidden="true"></span>
-                <span class="mono">MSc AI & Robotics</span>
-              </div>
-              <div class="mono subtle">Expected Aug 2027</div>
-            </div>
+    <section class="chapter about" id="about" aria-labelledby="about-title">
+      <header class="chapter-head reveal"><span>01</span><p>Approach</p><i></i></header>
+      <div class="about-grid">
+        <h2 id="about-title" class="section-title reveal">The model is only the beginning.</h2>
+        <div class="about-copy reveal">
+          <p class="lead">I care about the full system around intelligent software: the data it learns from, the decisions it makes, the interface people use, and the evidence that it works.</p>
+          <p>My projects span deep learning, natural-language systems, geospatial analysis, streaming analytics, and full-stack applications. Across them, the goal stays the same—build something clear enough to trust and practical enough to use.</p>
+          <a class="text-link" href="#work">See how that shows up in the work <span>↘</span></a>
+        </div>
+      </div>
+      <div class="principles">
+        <article class="reveal"><span>01</span><h3>Ground the answer</h3><p>Citations, deterministic validation, and measurable evaluation turn promising AI into accountable software.</p></article>
+        <article class="reveal"><span>02</span><h3>Design for reality</h3><p>Latency, imperfect data, deployment constraints, and human workflows belong in the design from day one.</p></article>
+        <article class="reveal"><span>03</span><h3>Keep it legible</h3><p>Clean architecture and thoughtful interfaces make complex systems easier to inspect, extend, and maintain.</p></article>
+      </div>
+    </section>
 
-            <div class="hero-card-mid">
-              <div class="avatar" aria-hidden="true">
-                <span class="avatar-ring"></span>
-                <span class="avatar-core"></span>
-              </div>
-              <div>
-                <div class="mono subtle">Contact</div>
-                <div class="hero-card-contact">
-                  <a href="mailto:das364278@gmail.com">das364278@gmail.com</a>
-                  <span class="dot" aria-hidden="true"></span>
-                  <a href="tel:+4915510945009">+49 15510945009</a>
-                </div>
-              </div>
-            </div>
+    <section class="chapter work" id="work" aria-labelledby="work-title">
+      <header class="chapter-head reveal"><span>02</span><p>Selected systems</p><i></i></header>
+      <div class="work-heading">
+        <div>
+          <h2 id="work-title" class="section-title reveal">Fourteen repositories.<br>Four distinct directions.</h2>
+          <p class="section-intro reveal">Every public project is pulled from GitHub and paired with a focused explanation of the problem it solves.</p>
+        </div>
+        <div class="sync-status reveal"><i></i><span id="syncStatus">Connecting to GitHub…</span></div>
+      </div>
+      <div class="work-controls reveal" role="region" aria-label="Project filters">
+        <div class="filters" role="tablist" aria-label="Project categories">
+          <button class="active" data-filter="all" role="tab" aria-selected="true">All</button>
+          <button data-filter="genai" role="tab" aria-selected="false">GenAI & LLM</button>
+          <button data-filter="cv" role="tab" aria-selected="false">Computer vision</button>
+          <button data-filter="data" role="tab" aria-selected="false">Data & cloud</button>
+          <button data-filter="web" role="tab" aria-selected="false">Web systems</button>
+        </div>
+        <label class="search"><span class="sr-only">Search projects</span><input id="projectSearch" type="search" placeholder="Search the archive"><kbd>/</kbd></label>
+      </div>
+      <div class="project-grid" id="projectGrid" aria-live="polite"></div>
+      <a class="archive-link reveal" href="https://github.com/sandeep848?tab=repositories" target="_blank" rel="noopener"><span>Open the complete GitHub archive</span><b>↗</b></a>
+    </section>
 
-            <div class="hero-card-bottom">
-              <div class="tag-row" role="list" aria-label="Highlights">
-                <span class="tag" role="listitem">LangChain</span>
-                <span class="tag" role="listitem">Hugging Face</span>
-                <span class="tag" role="listitem">TensorFlow</span>
-                <span class="tag" role="listitem">PyTorch</span>
-                <span class="tag" role="listitem">Node.js</span>
-                <span class="tag" role="listitem">React</span>
-              </div>
-            </div>
-          </div>
+    <section class="chapter capabilities" id="capabilities" aria-labelledby="capabilities-title">
+      <header class="chapter-head reveal"><span>03</span><p>Capabilities</p><i></i></header>
+      <div class="cap-grid">
+        <div>
+          <h2 id="capabilities-title" class="section-title reveal">Research depth.<br>Product discipline.</h2>
+          <p class="section-intro reveal">A toolkit built around applied machine learning and the engineering required to ship it responsibly.</p>
+        </div>
+        <div class="cap-list">
+          <article class="reveal"><b>01</b><div><h3>Machine learning</h3><p>PyTorch · TensorFlow · Keras · Scikit-learn · evaluation · model tuning</p></div></article>
+          <article class="reveal"><b>02</b><div><h3>Generative AI</h3><p>LangChain · Hugging Face · RAG · agents · prompt systems · LoRA</p></div></article>
+          <article class="reveal"><b>03</b><div><h3>Vision & geospatial</h3><p>EfficientNet · RegNet · Grad-CAM · Sentinel-2 · remote sensing</p></div></article>
+          <article class="reveal"><b>04</b><div><h3>Software & data</h3><p>Python · SQL · FastAPI · React · Node.js · Kafka · Docker · cloud platforms</p></div></article>
         </div>
       </div>
     </section>
 
-    <!-- ABOUT -->
-    <section class="section" id="about" aria-label="About">
-      <div class="container">
-        <div class="section-head">
-          <p class="eyebrow reveal">About</p>
-          <h2 class="section-title reveal">A quick intro.</h2>
-          <p class="section-subtitle reveal">
-            I enjoy the work where ML meets practical software — the parts that turn an idea into something dependable.
-          </p>
+    <section class="chapter practice" id="practice" aria-labelledby="practice-title">
+      <header class="chapter-head reveal"><span>04</span><p>Practice</p><i></i></header>
+      <div class="practice-grid">
+        <div>
+          <h2 id="practice-title" class="section-title reveal">Built through hands-on work.</h2>
+          <p class="section-intro reveal">Research, production constraints, and real datasets have shaped how I approach engineering.</p>
         </div>
-
-        <div class="about-grid">
-          <article class="card reveal">
-            <h3 class="card-title">How I work</h3>
-            <p class="card-text">
-              I’m usually at my best when I’m solving a real problem with messy constraints. I like building systems that are easy to reason about,
-              easy to maintain, and not fragile the moment someone uses them differently than expected.
-            </p>
-            <p class="card-text">
-              I’ve worked on projects where I had to handle everything end-to-end — preparing data, training models, writing APIs, and making the UI feel solid.
-              I care about clarity, reliability, and performance (without making the code unreadable).
-            </p>
-
-            <div class="content-lines" aria-label="Highlights">
-              <p class="content-line">Machine learning work across NLP, computer vision, generative AI, and LLM tooling.</p>
-              <p class="content-line">Practical engineering: APIs, data pipelines, automation, and deployment-friendly structure.</p>
-              <p class="content-line">A focus on clean UX and stable behavior, not just flashy demos.</p>
-            </div>
-          </article>
-
-          <article class="card tilt reveal" data-tilt>
-            <h3 class="card-title">Education</h3>
-            <div class="content-lines">
-              <p class="content-line"><span class="mono subtle">MSc.</span> Artificial Intelligence and Robotics — Technische Universität Nürnberg (Expected Aug 2027)</p>
-              <p class="content-line"><span class="mono subtle">B.Tech</span> Artificial Intelligence — G.H. Raisoni College of Engineering (May 2025, Grade 8.7/10)</p>
-              <p class="content-line"><span class="mono subtle">HSC</span> Saraswati Bhavan Convent High School & Junior College (Jan 2021, 91.6%)</p>
-            </div>
-            <!-- Skills/Experience buttons removed (per requirement) -->
-          </article>
-
-          <article class="card reveal">
-            <h3 class="card-title">Core tools I’m comfortable with</h3>
-            <div class="skills-badges" role="list" aria-label="Core skills">
-              <span class="badge" role="listitem">Python</span>
-              <span class="badge" role="listitem">JavaScript</span>
-              <span class="badge" role="listitem">SQL</span>
-              <span class="badge" role="listitem">TensorFlow</span>
-              <span class="badge" role="listitem">PyTorch</span>
-              <span class="badge" role="listitem">Hugging Face</span>
-              <span class="badge" role="listitem">LangChain</span>
-              <span class="badge" role="listitem">React.js</span>
-              <span class="badge" role="listitem">Node.js</span>
-              <span class="badge" role="listitem">REST APIs</span>
-              <span class="badge" role="listitem">Docker (basic)</span>
-              <span class="badge" role="listitem">AWS (basic)</span>
-            </div>
-
-            <p class="about-note">
-              Outside of that, I’m comfortable with Git/GitHub workflows, basic CI/CD, core data structures and algorithms,
-              and networking fundamentals (TCP/IP). I also genuinely enjoy working with people — good communication saves time.
-            </p>
-          </article>
+        <div class="timeline">
+          <article class="reveal"><time>Jan — Jun 2025</time><div><h3>AI/ML Research & Development Intern</h3><h4>ICAR · National Bureau of Soil Survey & Land Use Planning</h4><p>Built REST APIs that improved internal data access by approximately 30%, developed remote-sensing pipelines, and delivered features end to end with a research team.</p></div></article>
+          <article class="reveal"><time>Jun — Jul 2024</time><div><h3>NLP Intern</h3><h4>ITNetworkzz</h4><p>Improved model accuracy by roughly 20% through preprocessing and tuning, and created reusable text pipelines for more than 10,000 records.</p></div></article>
+          <article class="reveal"><time>Aug — Nov 2022</time><div><h3>AI Intern · Remote</h3><h4>Coincent</h4><p>Trained TensorFlow and PyTorch classifiers reaching 95%+ accuracy while focusing on data quality and augmentation.</p></div></article>
         </div>
+      </div>
+      <div class="education reveal">
+        <span>Education</span>
+        <div><h3>MSc Artificial Intelligence & Robotics</h3><p>Technische Universität Nürnberg · Expected August 2027</p></div>
+        <div><h3>B.Tech Artificial Intelligence</h3><p>G.H. Raisoni College of Engineering · 2025 · 8.7/10</p></div>
       </div>
     </section>
 
-    <!-- PROJECTS -->
-    <section class="section" id="projects" aria-label="Projects">
-      <div class="container">
-        <div class="section-head">
-          <p class="eyebrow reveal">Projects</p>
-          <h2 class="section-title reveal">Selected engineering work — all in one place.</h2>
-          <p class="section-subtitle reveal">
-            Every public project repository is represented here. Live GitHub metadata keeps links, languages, activity, and repository statistics current.
-          </p>
-          <div class="project-sync reveal" aria-live="polite">
-            <span class="sync-dot" aria-hidden="true"></span>
-            <span id="projectSyncStatus">Loading GitHub projects…</span>
-            <span class="sync-separator" aria-hidden="true">•</span>
-            <a href="https://github.com/sandeep848?tab=repositories" target="_blank" rel="noopener">View all on GitHub ↗</a>
-          </div>
-        </div>
-
-        <div class="project-controls reveal" role="region" aria-label="Project filters">
-          <div class="filters" role="tablist" aria-label="Project categories">
-            <button class="filter-btn is-active" type="button" data-filter="all" role="tab" aria-selected="true">All</button>
-            <button class="filter-btn" type="button" data-filter="genai" role="tab" aria-selected="false">GenAI & LLM</button>
-            <button class="filter-btn" type="button" data-filter="cv" role="tab" aria-selected="false">Computer Vision</button>
-            <button class="filter-btn" type="button" data-filter="data" role="tab" aria-selected="false">Data & Cloud</button>
-            <button class="filter-btn" type="button" data-filter="web" role="tab" aria-selected="false">Web Apps</button>
-          </div>
-
-          <div class="search">
-            <label class="sr-only" for="projectSearch">Search projects</label>
-            <input id="projectSearch" class="search-input" type="search" inputmode="search"
-              placeholder="Search by title, tech, or keyword..." autocomplete="off" />
-          </div>
-        </div>
-
-        <div class="projects-grid" id="projectsGrid" aria-live="polite"></div>
-      </div>
+    <section class="chapter contact" id="contact" aria-labelledby="contact-title">
+      <div class="contact-orbit" aria-hidden="true"><i></i><i></i><i></i></div>
+      <p class="eyebrow reveal">05 · Contact</p>
+      <h2 id="contact-title" class="contact-title reveal">Have a difficult problem?<br><em>Let’s make it tractable.</em></h2>
+      <p class="contact-copy reveal">I’m interested in applied AI, research engineering, robotics, and software roles where careful thinking matters as much as technical ambition.</p>
+      <a class="contact-email reveal" href="mailto:das364278@gmail.com"><span>das364278@gmail.com</span><b>↗</b></a>
+      <div class="contact-links reveal"><a href="https://github.com/sandeep848" target="_blank" rel="noopener">GitHub ↗</a><a href="https://www.linkedin.com/in/sandeepdas0706" target="_blank" rel="noopener">LinkedIn ↗</a><a href="#top">Back to top ↑</a></div>
     </section>
-
-    <!-- SKILLS -->
-    <section class="section" id="skills" aria-label="Skills and expertise">
-      <div class="container">
-        <div class="section-head">
-          <p class="eyebrow reveal">Expertise</p>
-          <h2 class="section-title reveal">What I work with and what I enjoy working on.</h2>
-          <p class="section-subtitle reveal">
-            These are the areas I keep coming back to — either because I’m good at them, or because I genuinely like the work.
-          </p>
-        </div>
-
-        <div class="skills-grid">
-          <article class="card reveal">
-            <h3 class="card-title">AI / Machine Learning</h3>
-            <div class="content-lines">
-              <p class="content-line">Training and evaluating models, tuning performance, and knowing when “good enough” is actually good enough.</p>
-              <p class="content-line">NLP work like preprocessing, modeling, and improving quality on real text data.</p>
-              <p class="content-line">Computer vision pipelines, including real-time approaches (when performance matters).</p>
-              <p class="content-line">LLM tooling and generative AI experiments, especially when it can automate real tasks.</p>
-            </div>
-          </article>
-
-          <article class="card reveal">
-            <h3 class="card-title">Frameworks & Libraries</h3>
-            <div class="skills-badges" role="list" aria-label="Frameworks">
-              <span class="badge" role="listitem">PyTorch</span>
-              <span class="badge" role="listitem">TensorFlow</span>
-              <span class="badge" role="listitem">Keras</span>
-              <span class="badge" role="listitem">Scikit-Learn</span>
-              <span class="badge" role="listitem">NumPy</span>
-              <span class="badge" role="listitem">Pandas</span>
-              <span class="badge" role="listitem">Matplotlib</span>
-              <span class="badge" role="listitem">NLTK</span>
-              <span class="badge" role="listitem">Hugging Face</span>
-              <span class="badge" role="listitem">LangChain</span>
-            </div>
-          </article>
-
-          <article class="card tilt reveal" data-tilt>
-            <h3 class="card-title">Software Engineering</h3>
-            <div class="content-lines">
-              <p class="content-line">Building REST APIs that are predictable, reusable, and easy to debug.</p>
-              <p class="content-line">Keeping things modular so projects don’t turn into spaghetti after a few changes.</p>
-              <p class="content-line">Performance tuning and reliability work (because slow and flaky is painful).</p>
-              <p class="content-line">Comfortable with Git workflows and basic CI/CD habits.</p>
-            </div>
-          </article>
-
-          <article class="card reveal">
-            <h3 class="card-title">Web & Tools</h3>
-            <div class="skills-badges" role="list" aria-label="Tools">
-              <span class="badge" role="listitem">React.js</span>
-              <span class="badge" role="listitem">Node.js</span>
-              <span class="badge" role="listitem">HTML5</span>
-              <span class="badge" role="listitem">CSS</span>
-              <span class="badge" role="listitem">Streamlit</span>
-              <span class="badge" role="listitem">Docker (basic)</span>
-              <span class="badge" role="listitem">AWS (basic)</span>
-              <span class="badge" role="listitem">MySQL</span>
-              <span class="badge" role="listitem">PostgreSQL</span>
-              <span class="badge" role="listitem">VS Code</span>
-              <span class="badge" role="listitem">Jupyter</span>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- EXPERIENCE -->
-    <section class="section" id="experience" aria-label="Experience">
-      <div class="container">
-        <div class="section-head">
-          <p class="eyebrow reveal">Experience</p>
-          <h2 class="section-title reveal">Places where I got real hands-on practice.</h2>
-          <p class="section-subtitle reveal">
-            These roles taught me a lot — especially the part where real projects don’t behave like clean tutorials.
-          </p>
-        </div>
-
-        <div class="xp-grid">
-          <article class="card reveal">
-            <h3 class="card-title">AI/ML Research & Development Intern</h3>
-            <p class="mono subtle">ICAR – National Bureau of Soil Survey & Land Use Planning • Jan 2025 – Jun 2025</p>
-            <div class="content-lines">
-              <p class="content-line">Built REST APIs that made internal data access noticeably faster (around 30%).</p>
-              <p class="content-line">Worked on remote sensing pipelines and focused on scaling without breaking things.</p>
-              <p class="content-line">Collaborated with a team to deliver features end-to-end, not just “model-only” work.</p>
-            </div>
-          </article>
-
-          <article class="card reveal">
-            <h3 class="card-title">NLP Intern</h3>
-            <p class="mono subtle">ITNetworkzz • Jun 2024 – Jul 2024</p>
-            <div class="content-lines">
-              <p class="content-line">Improved an NLP model’s accuracy by roughly 20% through better preprocessing and tuning.</p>
-              <p class="content-line">Built text pipelines for more than 10,000 records and made them reusable for future work.</p>
-            </div>
-          </article>
-
-          <article class="card reveal">
-            <h3 class="card-title">AI Intern (Remote)</h3>
-            <p class="mono subtle">Coincent • Aug 2022 – Nov 2022</p>
-            <div class="content-lines">
-              <p class="content-line">Trained deep learning classifiers (TensorFlow / PyTorch) reaching 95%+ accuracy.</p>
-              <p class="content-line">Spent time improving data quality and augmentation because it mattered more than “more layers”.</p>
-            </div>
-          </article>
-
-          <article class="card reveal">
-            <h3 class="card-title">Certifications</h3>
-            <div class="content-lines">
-              <p class="content-line">Generative AI with LangChain & Hugging Face (Udemy)</p>
-              <p class="content-line">Python Pro Bootcamp (Udemy)</p>
-              <p class="content-line">UI/UX Fundamentals (IIT Bombay)</p>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- CONTACT (STATIC INTERFACE) -->
-    <section class="section contact contact-static" id="contact" aria-label="Contact">
-      <div class="container">
-        <div class="section-head">
-          <p class="eyebrow reveal">Contact</p>
-          <h2 class="section-title reveal">Want to talk?</h2>
-          <p class="section-subtitle reveal">
-            Send a message here and it goes straight to my inbox (via Web3Forms). You’ll see a status message after you send it.
-          </p>
-        </div>
-
-        <div class="contact-grid">
-          <article class="contact-card reveal">
-            <h3 class="card-title">Direct</h3>
-
-            <div class="contact-lines">
-              <a class="contact-line" href="mailto:das364278@gmail.com" target="_blank" rel="noopener">
-                <span class="mono subtle">Email</span>
-                <span>das364278@gmail.com</span>
-                <span class="arrow" aria-hidden="true">↗</span>
-              </a>
-              <a class="contact-line" href="tel:+4915510945009">
-                <span class="mono subtle">Phone</span>
-                <span>+49 15510945009</span>
-              </a>
-            </div>
-
-            <div class="social-row" aria-label="Social links">
-              <a class="btn btn-tertiary" href="https://github.com/sandeep848" target="_blank" rel="noopener">GitHub ↗</a>
-              <a class="btn btn-tertiary" href="https://www.linkedin.com/in/sandeepdas0706" target="_blank" rel="noopener">LinkedIn ↗</a>
-            </div>
-
-            <p class="contact-note card-text">
-              If you’re reaching out about a project, include what you’re building and what kind of help you need.
-              Even a rough outline is totally fine.
-            </p>
-          </article>
-
-          <article class="contact-card tilt reveal" data-tilt>
-            <h3 class="card-title">Send a Message</h3>
-
-            <form id="contactForm" class="form" novalidate>
-              <input type="text" name="botcheck" class="hidden" tabindex="-1" autocomplete="off" aria-hidden="true" />
-
-              <div class="field">
-                <label for="name">Name <span aria-hidden="true">*</span></label>
-                <input id="name" name="name" type="text" required autocomplete="name" placeholder="Your name" aria-describedby="nameHelp" />
-                <small class="help" id="nameHelp" aria-live="polite"></small>
-              </div>
-
-              <div class="field">
-                <label for="email">Email <span aria-hidden="true">*</span></label>
-                <input id="email" name="email" type="email" required autocomplete="email" placeholder="you@domain.com" inputmode="email" aria-describedby="emailHelp" />
-                <small class="help" id="emailHelp" aria-live="polite"></small>
-              </div>
-
-              <div class="field">
-                <label for="message">Message <span aria-hidden="true">*</span></label>
-                <textarea id="message" name="message" required rows="5" placeholder="What are you working on?" aria-describedby="messageHelp"></textarea>
-                <small class="help" id="messageHelp" aria-live="polite"></small>
-              </div>
-
-              <button id="submitBtn" class="btn btn-primary btn-submit" type="submit">
-                <span class="btn-text">Send Message</span>
-                <span class="spinner" aria-hidden="true"></span>
-                <span class="btn-glow" aria-hidden="true"></span>
-              </button>
-
-              <div id="formStatus" class="form-status" role="status" aria-live="polite"></div>
-              <div class="form-foot mono subtle">Powered by Web3Forms. No tracking, no spam.</div>
-            </form>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <footer class="footer">
-      <div class="container footer-inner">
-        <div class="mono subtle">© <span id="year"></span> Sandeep Das</div>
-        <div class="footer-links">
-          <a href="#projects">Projects</a>
-          <a href="#contact">Contact</a>
-        </div>
-      </div>
-    </footer>
   </main>
 
-  <!-- CHATBOT -->
-  <section class="chatbot" aria-label="Portfolio assistant">
-    <button class="chatbot-fab" id="chatbotFab" type="button" aria-label="Open portfolio assistant" aria-expanded="false" aria-controls="chatbotPanel">
-      <span class="chatbot-fab-icon" aria-hidden="true">✦</span>
-    </button>
-
-    <div class="chatbot-panel" id="chatbotPanel" role="dialog" aria-modal="false" aria-label="Portfolio assistant">
-      <header class="chatbot-header">
-        <div class="chatbot-header-left">
-          <div class="chatbot-sigil" aria-hidden="true">
-            <span class="sigil-ring"></span>
-            <span class="sigil-core"></span>
-          </div>
-          <div>
-            <div class="chatbot-title">Assistant</div>
-            <div class="chatbot-subtitle mono subtle" id="chatbotSubtitle">Navigate fast. Ask naturally.</div>
-          </div>
-        </div>
-        <button class="chatbot-close" id="chatbotClose" type="button" aria-label="Close assistant">×</button>
-      </header>
-
-      <div class="chatbot-body" id="chatbotBody" role="log" aria-live="polite" aria-relevant="additions text" aria-atomic="false"></div>
-
-      <div class="chatbot-quick" aria-label="Suggested questions">
-        <button class="chatbot-chip" type="button" data-q="Show me your projects.">Projects</button>
-        <button class="chatbot-chip" type="button" data-q="Go to the skills section.">Expertise</button>
-        <button class="chatbot-chip" type="button" data-q="Take me to experience.">Experience</button>
-        <button class="chatbot-chip" type="button" data-q="How can I contact you?">Contact</button>
-      </div>
-
-      <form class="chatbot-form" id="chatbotForm" autocomplete="off">
-        <label class="sr-only" for="chatbotInput">Message</label>
-        <textarea id="chatbotInput" class="chatbot-input" rows="1" placeholder='Ask something… (e.g., "Open the deepfake project")' maxlength="400"></textarea>
-        <button class="chatbot-send" type="submit" aria-label="Send message">
-          <span aria-hidden="true">➤</span>
-        </button>
-      </form>
-
-      <div class="chatbot-hint mono subtle" aria-hidden="true">
-        Press <span class="kbd">Enter</span> to send • <span class="kbd">Shift</span> + <span class="kbd">Enter</span> for a new line
-      </div>
-    </div>
-  </section>
-
-  <script src="emailHandler.js" defer></script>
+  <footer><span>© <b id="year"></b> Sandeep Das</span><span>AI · Robotics · Software Engineering</span><span>Nürnberg, Germany</span></footer>
   <script src="script.js" defer></script>
-  <script src="projects-sync.js" defer></script>
-  <script src="chatbot.js" defer></script>
 </body>
 </html>
-
