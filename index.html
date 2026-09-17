@@ -6,9 +6,13 @@
     <!-- Optional: Only used if you do NOT deploy a server-side /api/contact proxy. -->
     <meta name="web3forms-key" content="">
 
-  <meta name="description" content="Sandeep Das — AI/ML and software engineering. Projects, skills, and experience in ML, NLP, computer vision, and building reliable systems." />
+  <meta name="description" content="Sandeep Das — AI and robotics engineer building dependable machine-learning, generative-AI, computer-vision, data, and cloud systems." />
   <meta name="theme-color" content="#0b1020" />
-  <title>Sandeep Das — AI/ML • Software Engineering</title>
+  <meta property="og:title" content="Sandeep Das — AI & Robotics Engineer" />
+  <meta property="og:description" content="A GitHub-synced portfolio of applied AI, computer vision, generative AI, data engineering, and cloud projects." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://sandeep848.github.io/Portfolio/" />
+  <title>Sandeep Das — AI & Robotics Engineer</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -85,7 +89,7 @@
       <div class="container hero-grid">
         <div class="hero-copy">
           <p class="kicker reveal" style="--d:0ms;">
-            <span class="pill">AI/ML • Software Engineering</span>
+            <span class="pill"><span class="availability-dot" aria-hidden="true"></span> AI & Robotics Engineer</span>
             <span class="mono subtle">Nürnberg, Germany</span>
           </p>
 
@@ -93,14 +97,14 @@
             <span class="reveal" style="--d:120ms;">Sandeep</span>
             <span class="reveal gradient-text" style="--d:240ms;">Das</span>
             <span class="reveal hero-title-sub" style="--d:360ms;">
-              I like building AI systems and software that people can actually use.
+              Building intelligent systems that hold up beyond the demo.
             </span>
           </h1>
 
           <p class="hero-desc reveal" style="--d:480ms;">
-            I’m an AI & Robotics student who enjoys turning rough ideas into something clean, reliable, and real.
-            Most of my work sits at the intersection of machine learning and solid engineering — models, APIs, data pipelines,
-            and the details that make things feel finished.
+            I design and build applied AI products across computer vision, generative AI, data engineering, and cloud systems.
+            My work combines rigorous experimentation with the APIs, pipelines, interfaces, and documentation needed to make
+            a project useful in the real world.
           </p>
 
           <div class="hero-actions reveal" style="--d:600ms;">
@@ -134,8 +138,8 @@
 
           <div class="hero-metrics reveal" style="--d:720ms;">
             <div class="metric">
-              <div class="metric-top"><span class="metric-num">AI/ML</span><span class="metric-dot" aria-hidden="true"></span></div>
-              <div class="metric-label">NLP • CV • GenAI • LLMs</div>
+              <div class="metric-top"><span class="metric-num" id="projectMetric">14+</span><span class="metric-dot" aria-hidden="true"></span></div>
+              <div class="metric-label">Public projects on GitHub</div>
             </div>
             <div class="metric">
               <div class="metric-top"><span class="metric-num">Engineering</span><span class="metric-dot" aria-hidden="true"></span></div>
@@ -259,19 +263,25 @@
       <div class="container">
         <div class="section-head">
           <p class="eyebrow reveal">Projects</p>
-          <h2 class="section-title reveal">Some things I’ve built.</h2>
+          <h2 class="section-title reveal">Selected engineering work — all in one place.</h2>
           <p class="section-subtitle reveal">
-            Click a card to open it. The assistant can also jump you to a project and highlight it.
+            Every public project repository is represented here. Live GitHub metadata keeps links, languages, activity, and repository statistics current.
           </p>
+          <div class="project-sync reveal" aria-live="polite">
+            <span class="sync-dot" aria-hidden="true"></span>
+            <span id="projectSyncStatus">Loading GitHub projects…</span>
+            <span class="sync-separator" aria-hidden="true">•</span>
+            <a href="https://github.com/sandeep848?tab=repositories" target="_blank" rel="noopener">View all on GitHub ↗</a>
+          </div>
         </div>
 
         <div class="project-controls reveal" role="region" aria-label="Project filters">
           <div class="filters" role="tablist" aria-label="Project categories">
             <button class="filter-btn is-active" type="button" data-filter="all" role="tab" aria-selected="true">All</button>
-            <button class="filter-btn" type="button" data-filter="ai" role="tab" aria-selected="false">AI</button>
-            <button class="filter-btn" type="button" data-filter="nlp" role="tab" aria-selected="false">NLP</button>
+            <button class="filter-btn" type="button" data-filter="genai" role="tab" aria-selected="false">GenAI & LLM</button>
             <button class="filter-btn" type="button" data-filter="cv" role="tab" aria-selected="false">Computer Vision</button>
-            <button class="filter-btn" type="button" data-filter="web" role="tab" aria-selected="false">Web</button>
+            <button class="filter-btn" type="button" data-filter="data" role="tab" aria-selected="false">Data & Cloud</button>
+            <button class="filter-btn" type="button" data-filter="web" role="tab" aria-selected="false">Web Apps</button>
           </div>
 
           <div class="search">
