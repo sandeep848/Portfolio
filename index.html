@@ -887,6 +887,99 @@ body[data-layout-curriculum="b"] .les{color:inherit;text-decoration:none}
 body[data-layout-curriculum="b"] .les:nth-child(n){grid-column:span 2}
 @media(max-width:1100px){body[data-layout-curriculum="b"] .les:nth-child(n){grid-column:span 3}}
 @media(max-width:680px){body[data-layout-curriculum="b"] .les:nth-child(n){grid-column:auto}}
+
+/* =============================================================
+   Readability pass — keep the cinematic scene while protecting copy
+   ============================================================= */
+:root{
+  --bone:#f4f7f4;
+  --bone-dim:#d6ded8;
+  --muted:#b8c2bc;
+  --copy-panel:rgba(5,7,10,.68);
+  --copy-panel-strong:rgba(5,7,10,.82);
+}
+
+/* Atmospheric post-processing belongs behind the interface and text. */
+#vignette{z-index:5}
+#grain{z-index:7;opacity:.035}
+.page{z-index:10}
+
+/* A consistent high-contrast edge keeps type readable over every camera view. */
+.display,
+h1,h2,h3,
+.body,.body-lg,.lead,
+.eyebrow,.k,
+.hero-sub,
+.card-meta,
+.chip,
+.foot,
+.nav{
+  text-shadow:
+    0 2px 3px rgba(0,0,0,.98),
+    0 8px 28px rgba(0,0,0,.94),
+    0 0 2px rgba(0,0,0,1);
+}
+.body,.body-lg,.lead,.hero-sub{color:#d8e0da}
+.eyebrow,.k,.card-meta,.chip p,.foot{color:#cbd4ce}
+
+/* Local glass scrims protect longer text without flattening the full scene. */
+.hero-top,
+.gate-copy,
+.cur-head > p,
+.fin > p{
+  background:linear-gradient(135deg,var(--copy-panel-strong),rgba(5,7,10,.48));
+  border:1px solid rgba(244,247,244,.13);
+  box-shadow:0 18px 55px rgba(0,0,0,.38);
+  -webkit-backdrop-filter:blur(12px) saturate(.8);
+  backdrop-filter:blur(12px) saturate(.8);
+  border-radius:3px;
+}
+.hero-top{padding:clamp(18px,2.2vw,32px)}
+.gate-copy{padding:clamp(20px,2.4vw,34px)}
+.cur-head > p{padding:18px 20px}
+.fin > p{padding:18px 22px}
+
+/* Keep decorative foreground layers below the readable section content. */
+.sec > *:not(.fg),
+.foot > *:not(.fg){z-index:4}
+
+/* Project surfaces now hold contrast before hover as well as after it. */
+.card-fr,
+.les{
+  background:linear-gradient(145deg,rgba(10,14,18,.90),rgba(5,7,10,.76));
+  border-color:rgba(244,247,244,.18);
+}
+.card-meta{
+  background:rgba(5,7,10,.78);
+  padding:11px 13px;
+  border-radius:0 0 3px 3px;
+}
+.les p{color:#d1dad4}
+.les em,.les .k,.les .t{color:#c4cec7}
+.les:hover,.les:focus-visible{
+  background:linear-gradient(145deg,rgba(20,25,29,.96),rgba(8,11,14,.92));
+}
+
+/* Navigation remains legible when the bright moon or fog crosses behind it. */
+.nav::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  background:linear-gradient(to bottom,rgba(5,7,10,.92),rgba(5,7,10,.58),transparent);
+  pointer-events:none;
+}
+.nav-link,.brand-tx{color:#f4f7f4}
+
+@media(max-width:820px){
+  .hero-top,.gate-copy,.cur-head > p,.fin > p{
+    -webkit-backdrop-filter:blur(9px);
+    backdrop-filter:blur(9px);
+  }
+  .hero-top{padding:18px}
+  .gate-copy{padding:18px}
+}
+
 </style>
 </head>
 <body data-layout-hero="b" data-layout-story="b" data-layout-gallery="b"
