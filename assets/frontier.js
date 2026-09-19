@@ -39,8 +39,9 @@
     if (event.key === 'Tab') {
       const controls = [menuButton, ...navLinks];
       const index = controls.indexOf(document.activeElement);
-      if (event.shiftKey && index <= 0) { event.preventDefault(); controls.at(-1).focus(); }
-      else if (!event.shiftKey && index === controls.length - 1) { event.preventDefault(); menuButton.focus(); }
+      event.preventDefault();
+      const next = (Math.max(0,index) + (event.shiftKey ? -1 : 1) + controls.length) % controls.length;
+      controls[next].focus();
     }
   });
   matchMedia('(min-width: 761px)').addEventListener('change', event => { if (event.matches) menu(false); });
