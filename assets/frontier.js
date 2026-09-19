@@ -151,7 +151,7 @@
       script.onload = resolve; script.onerror = reject; document.head.append(script);
     });
   }
-  const beginScene = () => loadScript('assets/vendor/three.min.js').then(() => loadScript('assets/frontier-scene.js?v=1')).catch(() => {
+  const beginScene = () => loadScript('assets/vendor/three.min.js').then(() => loadScript('assets/frontier-scene.js?v=2')).catch(() => {
     document.querySelector('#scene').dataset.status = 'illustration';
   });
   // Respect data-saving preferences: the illustration is already fully rendered.

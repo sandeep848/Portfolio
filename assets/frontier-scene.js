@@ -49,13 +49,13 @@
   function mesh(geometry,mat,position,scale=[1,1,1],parent=fortress) {
     const object=new T.Mesh(geometry,mat);object.position.set(...position);object.scale.set(...scale);parent.add(object);return object;
   }
-  function instances(items,geometry,mat) {
+  function instances(items,geometry,mat,varyStone=true) {
     const object=new T.InstancedMesh(geometry,mat,items.length);
     const color=new T.Color();
     items.forEach((item,index)=>{
       dummy.position.set(...item.p);dummy.scale.set(...item.s);dummy.rotation.set(0,item.r||0,0);dummy.updateMatrix();
       object.setMatrixAt(index,dummy.matrix);
-      color.setHSL(.20+random()*.018,.09+random()*.08,.48+random()*.2);object.setColorAt(index,color);
+      if(varyStone){color.setHSL(.20+random()*.018,.09+random()*.08,.48+random()*.2);object.setColorAt(index,color);}
     });
     object.instanceMatrix.needsUpdate=true;
     if(object.instanceColor)object.instanceColor.needsUpdate=true;
@@ -129,13 +129,15 @@
   for(let i=0;i<11;i++)mesh(box,material(i%2?0x63725a:0x5c6b53),[0,-.06-i*.04,19+i*2.8],[4.6+i*.7,.17,2.75]);
 
   // Small city silhouettes provide a convincing sense of scale.
+  const houses=[],rooftops=[];
   for(let i=0;i<(conservative?28:48);i++){
     const angle=random()*Math.PI*2,dist=3+random()*13;
     const x=Math.sin(angle)*dist,z=Math.cos(angle)*dist-10;
     const w=1.1+random()*1.4,h=1.5+random()*3;
-    mesh(box,darkStone,[x,h/2,z],[w,h,w*.85]);
-    const top=mesh(cone,roof,[x,h+.7,z],[w*.87,1.5,w*.77]);top.rotation.y=Math.PI/4;
+    houses.push({p:[x,h/2,z],s:[w,h,w*.85]});
+    rooftops.push({p:[x,h+.7,z],s:[w*.87,1.5,w*.77],r:Math.PI/4});
   }
+  instances(houses,box,darkStone,false);instances(rooftops,cone,roof,false);
   const tower=mesh(cylinder,stone,[-4,11.3,-18],[2.2,22.6,2.2]);
   mesh(cone,roof,[-4,24.3,-18],[3.1,3.5,3.1]).rotation.y=Math.PI/4;
 
@@ -151,14 +153,16 @@
   });
   // Wind-worn conifers around the foreground, all geometry local.
   const leaves=material(0x243d28);
+  const trunks=[],treetops=[];
   for(let i=0;i<(conservative?28:52);i++){
     const angle=random()*Math.PI*2,dist=28+random()*21;
     const x=Math.sin(angle)*dist,z=Math.cos(angle)*dist-7;
     if(Math.abs(x)<7&&z>16)continue;
     const h=2+random()*4;
-    mesh(cylinder,wood,[x,h*.28,z],[.1,h*.6,.1]);
-    mesh(keep(new T.ConeGeometry(h*.28,h,5)),leaves,[x,h*.57,z]);
+    trunks.push({p:[x,h*.28,z],s:[.1,h*.6,.1]});
+    treetops.push({p:[x,h*.57,z],s:[h*.28,h,h*.28]});
   }
+  instances(trunks,cylinder,wood,false);instances(treetops,keep(new T.ConeGeometry(1,1,5)),leaves,false);
   // A small abstract surveyor at the gate. No named anime character or model asset.
   mesh(box,wood,[2.7,.5,20.5],[.4,1,.28]);
   mesh(keep(new T.ConeGeometry(.52,1.4,6)),fabric,[2.7,1.4,20.5]);
@@ -189,7 +193,7 @@
     state.progress+=(state.scroll-state.progress)*ease;
     const travel=motion.paused?0:state.progress;
     camera.position.set((compact?28:32)+(motion.paused?0:state.x*1.4)-travel*4,21+(motion.paused?0:state.y*.65)+travel*2,compact?66:58-travel*6);
-    camera.lookAt(compact?-8:-13,compact?15:11,-3);
+    camera.lookAt(compact?-10:-29,compact?15:11,-3);
     if(!motion.paused){
       flags.forEach(flag=>{
         const attr=flag.geometry.attributes.position,original=flag.userData.original;
