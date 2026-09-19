@@ -98,7 +98,7 @@
       position: absolute;
       top: 50%;
       left: 50%;
-      width: clamp(220px, 23vw, 330px);
+      width: clamp(178px, min(19vw, 30vh), 270px);
       aspect-ratio: 0.72;
       padding: 7px;
       overflow: hidden;
@@ -238,7 +238,7 @@
       }
 
       .card {
-        width: clamp(190px, 64vw, 260px);
+        width: clamp(160px, min(54vw, 31vh), 220px);
       }
     }
 
@@ -453,9 +453,10 @@
 
       stage.addEventListener("wheel", (event) => {
         event.preventDefault();
-        const direction = Math.sign(Math.abs(event.deltaY) > Math.abs(event.deltaX) ? event.deltaY : event.deltaX);
-        if (!direction) return;
-        state.base += direction;
+        const rawDelta = Math.abs(event.deltaY) > Math.abs(event.deltaX) ? event.deltaY : event.deltaX;
+        if (!rawDelta) return;
+        const amount = Math.sign(rawDelta) * Math.min(0.72, Math.max(0.14, Math.abs(rawDelta) / 180));
+        state.base += amount;
         state.target = state.base;
         state.active = false;
         state.lastInput = performance.now();
@@ -477,18 +478,18 @@
       function render(time) {
         const deltaTime = Math.min(32, time - previousTime);
         previousTime = time;
-        const ease = reducedMotion ? 1 : 1 - Math.pow(0.001, deltaTime / 1000);
+        const ease = reducedMotion ? 1 : 1 - Math.pow(0.025, deltaTime / 1000);
 
-        if (!state.active && time - state.lastInput > 3600) {
+        if (!reducedMotion && !state.active && time - state.lastInput > 4200) {
           const idle = time - state.lastInput - 3600;
-          state.target = state.base + Math.sin(idle * 0.00042) * 2.45;
+          state.target = state.base + Math.sin(idle * 0.00032) * 1.65;
         }
 
         state.phase += (state.target - state.phase) * ease;
-        const compact = innerWidth < 650;
+        const compact = innerWidth < 650 || innerHeight > innerWidth * 1.2;
         const activeIndex = nearestIndex();
-        const horizontalSpacing = Math.min(168, Math.max(112, innerWidth * 0.116));
-        const verticalSpacing = Math.min(122, Math.max(88, innerHeight * 0.112));
+        const horizontalSpacing = Math.min(190, Math.max(104, innerWidth * 0.12));
+        const verticalSpacing = Math.min(138, Math.max(82, innerHeight * 0.115));
 
         cards.forEach((card, index) => {
           const delta = wrappedDelta(index, state.phase);
