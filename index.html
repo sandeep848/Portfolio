@@ -981,60 +981,51 @@ h1,h2,h3,
 }
 
 
-/* Screenshot-driven hero legibility correction */
-.peek{display:none!important}
 
+/* Final hero correction: preserve the authored composition and protect only copy */
 .hero-top{
-  max-width:min(820px,calc(100vw - (2 * var(--pad))));
-  background:rgba(3,5,7,.88)!important;
-  border:1px solid rgba(255,255,255,.20)!important;
-  box-shadow:0 22px 70px rgba(0,0,0,.72)!important;
-  -webkit-backdrop-filter:blur(16px) saturate(.72)!important;
-  backdrop-filter:blur(16px) saturate(.72)!important;
+  padding:calc(var(--nav-h) + clamp(12px,2.6vh,34px)) 0 0!important;
+  max-width:min(560px,46vw)!important;
+  background:transparent!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  -webkit-backdrop-filter:none!important;
+  backdrop-filter:none!important;
 }
-
-.hero .display,
-.hero .display span{
-  color:#fff!important;
-  opacity:1!important;
-}
-
 .hero-sub{
-  color:#f5f7f5!important;
+  max-width:440px!important;
+  color:#f4f7f4!important;
   opacity:1!important;
   font-weight:400!important;
-  line-height:1.72!important;
-  text-shadow:0 2px 4px #000,0 8px 24px #000!important;
-  background:rgba(0,0,0,.38);
-  border-left:3px solid var(--vermilion);
-  padding:14px 16px;
-  margin-top:22px;
+  line-height:1.68!important;
+  padding:12px 15px!important;
+  margin-top:0!important;
+  background:rgba(3,5,7,.74)!important;
+  border-left:2px solid var(--vermilion)!important;
+  border-radius:2px!important;
+  box-shadow:0 12px 34px rgba(0,0,0,.28)!important;
+  text-shadow:0 2px 4px #000,0 5px 18px #000!important;
 }
-
-.hero .eyebrow{
-  color:#eef3ef!important;
+.hero .display,.hero .display span,.hero .eyebrow{
+  color:#f4f7f4!important;
   opacity:1!important;
 }
+.peek{display:none!important;visibility:hidden!important;opacity:0!important;pointer-events:none!important}
 
 @media(max-width:820px){
   .hero-top{
-    max-width:calc(100vw - (2 * var(--pad)));
-    padding:18px!important;
+    max-width:min(560px,calc(100vw - (2 * var(--pad))))!important;
+    padding:calc(var(--nav-h) + 18px) 0 0!important;
   }
   .h-hero{
-    font-size:clamp(30px,7.8vw,48px)!important;
+    font-size:clamp(28px,7.2vw,44px)!important;
     line-height:1.08!important;
-    overflow-wrap:anywhere;
   }
   .hero-sub{
+    max-width:min(440px,100%)!important;
     font-size:15px!important;
-    line-height:1.65!important;
-    padding:13px 14px;
   }
-}
-
-@media(max-width:560px){
-  .h-hero{font-size:clamp(27px,8.6vw,40px)!important}
 }
 
 </style>
@@ -1082,7 +1073,6 @@ h1,h2,h3,
       <div class="chip" data-chip="3" data-rv="up" data-cursor><span class="num">04</span><span class="tx"><b>Engineering</b><p>Clear APIs, usable interfaces, and reliable delivery.</p></span></div>
     </div>
   </div>
-  <a class="peek" href="#pathways" data-view="3" data-rv="fade" data-cursor aria-label="Preview featured engineering work"><span class="peek-fr" data-frame></span><span class="peek-play"><svg viewBox="0 0 22 22" fill="none"><path d="M8 5.6 16.4 11 8 16.4z" fill="#dfe7e0"/></svg></span><span class="peek-cap"><b>BUILD</b><i>Research — engineered</i></span></a>
   <div class="word-fb" aria-hidden="true">DAS</div>
   <div class="hero-side" data-rv="up"><span class="v jp">人工知能</span></div>
 </section>
