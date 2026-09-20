@@ -38,6 +38,10 @@ Reduced-motion and unavailable WebGL use a CSS crossfade. A footer control allow
 
 Legacy hashes `#gate`, `#pathways`, `#lessons`, and `#eternity` map to the new sections. `#work` links directly to Featured Systems. All 14 project links and all content remain in the built HTML without JavaScript.
 
+## Deployment
+
+Select GitHub Actions in the repository’s Settings → Pages publishing source, then merge or push the reviewed source to `main`. `.github/workflows/deploy.yml` builds the site and publishes `dist/`. Pull requests run the same build without deploying. The temporary `build-preview.yml` workflow builds the design branch only.
+
 ## Image provenance
 
 The two backgrounds were generated with the built-in image-generation tool for this project. They are illustrative automotive scenes, not project screenshots or evidence of ownership. Both are 2560 pixels wide and below 400 KB.

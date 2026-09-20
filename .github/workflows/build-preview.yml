@@ -12,8 +12,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Install exact dependencies and generate lockfile
-        run: npm install --no-audit --no-fund
+      - name: Install locked dependencies
+        run: npm ci --no-audit --no-fund
       - name: Type-check and build portfolio
         run: npm run build
       - name: Save compiled preview on an isolated build branch

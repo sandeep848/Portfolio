@@ -99,7 +99,8 @@ function configureMotion() {
   reduced = reducedPreference.matches || manualReduced;
   root.classList.toggle('reduced-motion', reduced);
   motionButton.setAttribute('aria-pressed', String(reduced));
-  motionButton.textContent = reduced ? 'Reduced motion on' : 'Reduce motion';
+  motionButton.textContent = reducedPreference.matches ? 'Reduced motion · system' : reduced ? 'Reduced motion on' : 'Reduce motion';
+  motionButton.disabled = reducedPreference.matches;
   lenis?.destroy(); lenis = undefined; gsap.ticker.remove(lenisTick);
   if (!reduced && !touch.matches) {
     lenis = new Lenis({ duration: .8, smoothWheel: true, syncTouch: false, autoRaf: false });
