@@ -4,14 +4,22 @@ const html=readFileSync('dist/index.html','utf8');
 const projects=JSON.parse(readFileSync('src/projects.json','utf8'));
 assert.equal(projects.length,14);
 assert.equal(new Set(projects.map(p=>p.slug)).size,14);
-for(const p of projects)assert(html.includes(`href="https://github.com/sandeep848/${p.slug}"`));
-for(const id of ['top','about','shift','work','archive','contact'])assert(html.includes(`id="${id}"`));
+assert.equal((html.match(/class="project-card glass"/g)||[]).length,14);
+for(const p of projects){
+  assert(html.includes(`href="https://github.com/sandeep848/${p.slug}"`));
+  assert(p.description.length>30&&p.alt.length>20&&p.stack.length>=2);
+  assert(existsSync(`dist/assets/projects/${p.image}`));
+  assert(statSync(`dist/assets/projects/${p.image}`).size<150000);
+}
+for(const [group,count] of [['vision',3],['genai',7],['data',4]])assert.equal(projects.filter(p=>p.group===group).length,count);
+for(const id of ['top','about','projects','experience','contact'])assert(html.includes(`id="${id}"`));
+assert(!/id="(?:archive|work|shift)"/.test(html),'Old duplicate project sections remain');
 assert(html.includes('mailto:das364278@gmail.com'));
-assert(!html.includes('<!-- PROJECT_ROWS -->'));
+assert(!html.includes('<!-- PROJECT_CARDS -->'));
 for(const ref of html.matchAll(/(?:src|href)="(\/Portfolio\/[^"#?]+)/g)) {
   const path='dist/'+ref[1].slice('/Portfolio/'.length);
   assert(existsSync(path),`Missing built asset: ${path}`);
 }
 for(const name of ['old-school','new-school'])assert(statSync(`dist/assets/${name}.webp`).size<400000);
-assert(!/secret-pathways|kage|filmstrip|frontier-scene/i.test(html));
-console.log('Verified 14 projects, required anchors, contact, image budgets and /Portfolio/ build assets.');
+assert(!/secret-pathways|filmstrip|modern-content|Fundamentals,|done properly\./i.test(html));
+console.log('Verified one gallery, 14 unique projects, accessible project images, filters, contact and all built assets.');

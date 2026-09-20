@@ -13,7 +13,7 @@ export async function createTransition(canvas: HTMLCanvasElement, oldImage: HTML
   const root = document.documentElement;
   const scene = new Scene();
   const camera = new OrthographicCamera(-1,1,1,-1,0,1);
-  const renderer = new WebGLRenderer({ canvas, antialias: false, alpha: false, powerPreference: 'low-power' });
+  const renderer = new WebGLRenderer({ canvas, antialias: false, alpha: true, powerPreference: 'low-power' });
   renderer.outputColorSpace = SRGBColorSpace;
   renderer.toneMapping = NoToneMapping;
   const texA = new Texture(oldImage), texB = new Texture(newImage);
@@ -23,7 +23,7 @@ export async function createTransition(canvas: HTMLCanvasElement, oldImage: HTML
     uProgress: { value: 0 }, uVelocity: { value: 0 }, uTime: { value: 0 },
     uMobile: { value: innerWidth <= 600 ? 1 : 0 }, uPointer: { value: new Vector2() }
   };
-  const material = new ShaderMaterial({ uniforms, vertexShader: 'varying vec2 vUv; void main(){vUv=uv; gl_Position=vec4(position.xy,0.0,1.0);}', fragmentShader, depthTest: false, depthWrite: false });
+  const material = new ShaderMaterial({ uniforms, vertexShader: 'varying vec2 vUv; void main(){vUv=uv; gl_Position=vec4(position.xy,0.0,1.0);}', fragmentShader, depthTest: false, depthWrite: false, transparent: true });
   const geometry = new PlaneGeometry(2,2);
   const mesh = new Mesh(geometry,material); mesh.frustumCulled = false; scene.add(mesh);
   let visible = true, reduced = false, lost = false, disposed = false, raf = 0, lastTime = 0, quality = 1;
@@ -65,26 +65,27 @@ export async function createTransition(canvas: HTMLCanvasElement, oldImage: HTML
   }
   function onLost(event: Event) { event.preventDefault();lost=true;sync(); }
   function onRestored() { lost=false;texA.needsUpdate=true;texB.needsUpdate=true;size();sync(); }
-  const observer = new ResizeObserver(size); observer.observe(document.documentElement);
-  const intersection = new IntersectionObserver(entries => { visible=entries[0].isIntersecting;sync(); }); intersection.observe(canvas);
+  window.addEventListener('resize',size,{passive:true});
   const visibility = () => sync();
   document.addEventListener('visibilitychange',visibility);
   canvas.addEventListener('webglcontextlost',onLost); canvas.addEventListener('webglcontextrestored',onRestored);
+  function dispose() {
+    if(disposed)return; disposed=true;
+    if(raf)cancelAnimationFrame(raf);
+    window.removeEventListener('resize',size);
+    document.removeEventListener('visibilitychange',visibility);
+    canvas.removeEventListener('webglcontextlost',onLost);canvas.removeEventListener('webglcontextrestored',onRestored);
+    geometry.dispose();material.dispose();texA.dispose();texB.dispose();renderer.dispose();renderer.forceContextLoss();
+    root.classList.remove('webgl-ready');root.dataset.renderer='css';
+  }
   // Compilation must finish before replacing the already-visible photo fallback.
-  await renderer.compileAsync(scene,camera); size();sync();
+  try { await renderer.compileAsync(scene,camera); size();sync(); }
+  catch(error) { dispose();throw error; }
   return {
     update(progress,velocity){uniforms.uProgress.value=progress;uniforms.uVelocity.value=velocity;},
     pointer(x,y){pointerTarget.set(x,y);},
     setVisible(value){if(visible!==value){visible=value;sync();}},
     setReduced(value){if(reduced!==value){reduced=value;sync();}},
-    dispose(){
-      if(disposed)return; disposed=true;
-      if(raf)cancelAnimationFrame(raf);
-      observer.disconnect();intersection.disconnect();
-      document.removeEventListener('visibilitychange',visibility);
-      canvas.removeEventListener('webglcontextlost',onLost);canvas.removeEventListener('webglcontextrestored',onRestored);
-      geometry.dispose();material.dispose();texA.dispose();texB.dispose();renderer.dispose();renderer.forceContextLoss();
-      root.classList.remove('webgl-ready');root.dataset.renderer='css';
-    }
+    dispose
   };
 }

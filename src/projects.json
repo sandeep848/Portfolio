@@ -1,128 +1,16 @@
 [
-  {
-    "no": "01",
-    "title": "Deepfake Robustness Benchmark",
-    "stack": "EfficientNet · PyTorch",
-    "category": "Computer Vision",
-    "era": "Frontier",
-    "slug": "deepfake-robustness-benchmark",
-    "description": "Measures detector reliability under compression, resizing, blur, and other real-world degradations."
-  },
-  {
-    "no": "02",
-    "title": "European Image Geolocation",
-    "stack": "RegNet · Spherical ML",
-    "category": "Geospatial AI",
-    "era": "Frontier",
-    "slug": "european-image-geolocation",
-    "description": "Predicts European image locations through hierarchical geographic classification and coordinate regression."
-  },
-  {
-    "no": "03",
-    "title": "Nuremberg Land-Cover ML",
-    "stack": "Sentinel-2 · LightGBM",
-    "category": "Geospatial ML",
-    "era": "Foundations",
-    "slug": "nuremberg-land-cover-ml",
-    "description": "Maps urban land-cover composition and change using satellite features and spatial validation."
-  },
-  {
-    "no": "04",
-    "title": "Agentic Multi-Tool Chatbot",
-    "stack": "LangChain · Tool Routing",
-    "category": "Agentic AI",
-    "era": "Frontier",
-    "slug": "agentic-multi-tool-chatbot",
-    "description": "Routes research questions across documents, web search, arXiv, and Wikipedia with transparent decisions."
-  },
-  {
-    "no": "05",
-    "title": "NVIDIA NIM RAG Assistant",
-    "stack": "NVIDIA NIM · Hybrid Retrieval",
-    "category": "RAG",
-    "era": "Frontier",
-    "slug": "nvidia-nim-rag-assistant",
-    "description": "Combines dense and lexical retrieval with rank fusion and page-level citations."
-  },
-  {
-    "no": "06",
-    "title": "Safe SQLite Assistant",
-    "stack": "LangChain · SQLite",
-    "category": "Data AI",
-    "era": "Frontier",
-    "slug": "langchain-sqlite-assistant",
-    "description": "Translates questions into validated read-only SQL with row limits and audited execution."
-  },
-  {
-    "no": "07",
-    "title": "Long-Form Text Summarizer",
-    "stack": "Map-Reduce · Documents",
-    "category": "NLP",
-    "era": "Frontier",
-    "slug": "langchain-text-summarizer",
-    "description": "Compresses long documents through structured chunking and multi-stage summarization."
-  },
-  {
-    "no": "08",
-    "title": "Verified Math Solver",
-    "stack": "SymPy · LLM",
-    "category": "Applied AI",
-    "era": "Foundations",
-    "slug": "langchain-math-problem-solver",
-    "description": "Uses symbolic computation for verified answers while the language model provides explanations."
-  },
-  {
-    "no": "09",
-    "title": "CodeLlama Engineering Workbench",
-    "stack": "CodeLlama · Ollama",
-    "category": "Developer AI",
-    "era": "Frontier",
-    "slug": "codellama-dynamic-prompt-handler",
-    "description": "Provides distinct local workflows for debugging, testing, refactoring, explanation, and security review."
-  },
-  {
-    "no": "10",
-    "title": "Stable Diffusion LoRA Tuning",
-    "stack": "Diffusers · LoRA",
-    "category": "Generative AI",
-    "era": "Frontier",
-    "slug": "stable-diffusion-lora-style-tuning",
-    "description": "Explores parameter-efficient visual style adaptation with reusable diffusion model adapters."
-  },
-  {
-    "no": "11",
-    "title": "Redshift Streaming Analytics",
-    "stack": "Kafka · DuckDB · Redshift",
-    "category": "Data Engineering",
-    "era": "Foundations",
-    "slug": "redshift-streaming-analytics",
-    "description": "Processes live events through a streaming analytics pipeline with operational dashboards."
-  },
-  {
-    "no": "12",
-    "title": "Redshift Capacity Prototype",
-    "stack": "Pandas · Workload Scoring",
-    "category": "Analytics",
-    "era": "Foundations",
-    "slug": "redshift-query-metrics-prototype",
-    "description": "Scores exported query metrics to support transparent warehouse capacity planning."
-  },
-  {
-    "no": "13",
-    "title": "Google Cloud SpeechText",
-    "stack": "Google Cloud · Node.js",
-    "category": "Cloud AI",
-    "era": "Foundations",
-    "slug": "google-cloud-speechtext",
-    "description": "Turns speech into searchable text through a cloud-native transcription workflow."
-  },
-  {
-    "no": "14",
-    "title": "LLM Analytics Dashboard",
-    "stack": "React · FastAPI",
-    "category": "AI Platform",
-    "era": "Frontier",
-    "slug": "llm-analytics-dashboard",
-    "description": "Presents model and usage analytics through a focused full-stack workspace."
-  }
+  {"slug":"deepfake-robustness-benchmark","title":"Deepfake robustness","group":"vision","category":"Computer vision","description":"I test what happens to face-manipulation detectors after JPEG compression, resizing and blur, using source-video splits and uncertainty estimates.","stack":["PyTorch","EfficientNet","Streamlit"],"detail":"Clean vs. degradation-aware training","image":"deepfake.svg","alt":"Illustration of a face crop passing through compression, resize and blur checks","branch":"Sandy"},
+  {"slug":"european-image-geolocation","title":"Where was this photo taken?","group":"vision","category":"Image geolocation","description":"A single RegNet model predicts locations across 12 European countries. It combines country and region predictions with a local coordinate offset.","stack":["PyTorch","RegNet","NumPy"],"detail":"4.63M parameters · trained from scratch","image":"geolocation.svg","alt":"Illustration connecting a street photograph to a location on a globe","branch":"main"},
+  {"slug":"nuremberg-land-cover-ml","title":"Nürnberg, from above","group":"vision","category":"Geospatial ML","description":"I use Sentinel-2 imagery to estimate buildings, vegetation and water on a 100 m grid, then inspect how the city changes from 2019 to 2023.","stack":["LightGBM","GeoPandas","Streamlit"],"detail":"Five spatial validation folds","image":"landcover.svg","alt":"Conceptual land-cover grid with vegetation, buildings and a river","branch":"main"},
+  {"slug":"stable-diffusion-lora-style-tuning","title":"Learning an illustration style","group":"genai","category":"Generative images","description":"A team project adapting Stable Diffusion 1.5 with LoRA on the UNet and text encoder. A custom token keeps style updates separate from the rest of the vocabulary.","stack":["Diffusers","PyTorch","LoRA"],"detail":"University team project","image":"lora.webp","alt":"Actual LoRA-generated market scene from this project's sample output","branch":"main","imageSource":"Repository model output"},
+  {"slug":"agentic-multi-tool-chatbot","title":"A research assistant with tools","group":"genai","category":"Tool-using assistants","description":"Questions go to the source that fits: an uploaded PDF, web search, arXiv or Wikipedia. The app makes that routing decision visible.","stack":["LangChain","Streamlit","Python"],"detail":"PDF, web and academic source routing","image":"research.svg","alt":"Question-routing illustration branching to documents, the web, arXiv and Wikipedia","branch":"main"},
+  {"slug":"nvidia-nim-rag-assistant","title":"Answers with page references","group":"genai","category":"Document retrieval","description":"A PDF knowledge assistant that combines semantic and keyword search. Rank fusion selects the evidence, and answers include page-level citations.","stack":["NVIDIA NIM","LangChain","Python"],"detail":"Dense + lexical retrieval","image":"rag.svg","alt":"Illustration of semantic and keyword retrieval merging into a cited answer","branch":"main"},
+  {"slug":"langchain-sqlite-assistant","title":"Ask a SQLite database","group":"genai","category":"Natural-language analytics","description":"Turns a question into SQL, validates it, and shows the query alongside its results. Read-only access and row limits sit between the model and the database.","stack":["SQLite","LangChain","Streamlit"],"detail":"Read-only execution and query audit","image":"sqlite.svg","alt":"Illustration of a SELECT query passing a read-only guard before reaching SQLite","branch":"main"},
+  {"slug":"langchain-text-summarizer","title":"Long documents, shorter notes","group":"genai","category":"Text summarization","description":"Breaks PDFs, web pages and video transcripts into paragraph-sized chunks, summarizes each, then combines them into notes or a brief.","stack":["LangChain","Python","Streamlit"],"detail":"Paragraph-aware map-reduce pipeline","image":"summarizer.svg","alt":"Illustration of several document chunks being condensed into one summary","branch":"main"},
+  {"slug":"langchain-math-problem-solver","title":"Math that checks its answer","group":"genai","category":"Symbolic computation","description":"SymPy solves the expression and checks the result by substitution. An optional language model explains the calculation after it has been verified.","stack":["SymPy","Python","Streamlit"],"detail":"Symbolic solving before explanation","image":"math.svg","alt":"A worked equation with its solutions checked by substitution","branch":"main"},
+  {"slug":"codellama-dynamic-prompt-handler","title":"A local coding workbench","group":"genai","category":"Developer tools","description":"Five separate workflows for explaining, debugging, testing, refactoring and reviewing code. Prompts run against CodeLlama through a local Ollama endpoint.","stack":["CodeLlama","Ollama","Streamlit"],"detail":"Local inference · inspectable prompts","image":"code.svg","alt":"Code-review illustration with local inference and distinct engineering task routes","branch":"main"},
+  {"slug":"redshift-streaming-analytics","title":"Following a query stream","group":"data","category":"Data engineering","description":"Replays Redshift query metrics through Kafka, validates and stores events in DuckDB, and exposes live and historical views in Streamlit.","stack":["Kafka","DuckDB","Docker"],"detail":"Optional S3 and Redshift loading","image":"streaming.svg","alt":"Illustration of query events flowing through Kafka into storage and analytics","branch":"main"},
+  {"slug":"redshift-query-metrics-prototype","title":"Planning warehouse capacity","group":"data","category":"Workload analysis","description":"An offline tool for exported query metrics. It combines queue delay, spill events and concurrency into an explicit, adjustable pressure score.","stack":["Pandas","Python","pytest"],"detail":"CSV input · no cloud connection needed","image":"capacity.svg","alt":"Illustration of queue delay, spill and concurrency contributing to a capacity score","branch":"main"},
+  {"slug":"google-cloud-speechtext","title":"SpeechText","group":"data","category":"Cloud application","description":"Records speech in the browser and transcribes it with Google Cloud. Transcript metadata goes to Firestore, with optional audio storage.","stack":["Node.js","Google Cloud","Firestore"],"detail":"Browser audio → stored transcript","image":"speech.svg","alt":"Illustration of an audio waveform becoming a stored text transcript","branch":"speechtext"},
+  {"slug":"llm-analytics-dashboard","title":"From a dataset to a dashboard","group":"data","category":"Full-stack application","description":"Upload a file, inspect its schema, describe your analysis goal, then review suggested processing steps and charts in a React workspace.","stack":["React","FastAPI","TypeScript"],"detail":"Upload, inspect, process and visualize","image":"dashboard.svg","alt":"Concept illustration of a file upload, data table and chart workspace","branch":"main"}
 ]

@@ -25,8 +25,8 @@ float fbm(vec2 p) {
 // itself remains fullscreen, fading into the page's asphalt outside that region.
 vec2 plateUV(vec2 uv, out float frameMask) {
   float imageAspect = 2560.0 / 1441.0;
-  float frameHeight = mix(uRes.y, uRes.x / imageAspect * 1.1, uMobile);
-  float bottom = mix(0.0, uRes.y*.38 - frameHeight*.38, uMobile);
+  float frameHeight = mix(uRes.y, uRes.x * .64, uMobile);
+  float bottom = mix(0.0, uRes.y*.28 - frameHeight*.453125, uMobile);
   vec2 local = vec2(uv.x, (uv.y*uRes.y-bottom)/frameHeight);
   frameMask = mix(1.0, smoothstep(0.0,.14,local.y)*(1.0-smoothstep(.86,1.0,local.y)),uMobile);
   float frameAspect=uRes.x/frameHeight;
@@ -49,6 +49,9 @@ void main() {
   float holdZoom=mix(1.0,1.06,smoothstep(0.0,.25,uProgress));
   vec2 oldUV=(uv-vec2(.55,.38))/holdZoom+vec2(.55,.38);
   vec2 newUV=uv;
+  // A restrained camera drift keeps the retained scene alive in every chapter.
+  vec2 drift=vec2(sin(uTime*.12),cos(uTime*.09))*.0018*(1.0-uMobile*.6);
+  oldUV+=drift;newUV+=drift;
   // Whole photographic plates move under the directional wipe. Nothing is
   // reconstructed, and both focal points return to exactly the same framing.
   oldUV.x-=pow(blend,1.6)*.38;
@@ -80,7 +83,7 @@ void main() {
   float vignette=1.0-smoothstep(.3,.85,length((vUv-.5)*vec2(.9,1.0)))*.23*(1.0-blend);
   color*=vignette;
   color=mix(vec3(.047,.051,.047),color,mask);
-  gl_FragColor=vec4(color,1.0);
+  gl_FragColor=vec4(color,mix(1.0,mask,uMobile));
   #include <tonemapping_fragment>
   #include <colorspace_fragment>
 }
