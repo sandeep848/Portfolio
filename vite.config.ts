@@ -5,9 +5,16 @@ const escape = (value: string) => value.replace(/[&<>"']/g, char => ({'&':'&amp;
 export default defineConfig({
   base: '/Portfolio/',
   plugins: [{
-    name: 'static-project-archive',
+    name: 'static-project-cards',
     transformIndexHtml(html) {
-      return html.replace('<!-- PROJECT_ROWS -->', projects.map(p => `<a class="project-row" href="https://github.com/sandeep848/${p.slug}" target="_blank" rel="noopener noreferrer" data-era="${p.era.toLowerCase()}" aria-label="${escape(p.title)} on GitHub"><span class="project-no mono">${p.no}</span><div class="project-body"><h3>${escape(p.title)}</h3><p>${escape(p.description)}</p><span class="project-stack mono">${escape(p.stack)}</span></div><span class="project-meta"><span>${escape(p.category)}</span><span class="era-tag mono">${p.era}</span></span><span class="project-arrow" aria-hidden="true">↗</span></a>`).join('\n'));
+      return html.replace('<!-- PROJECT_CARDS -->', projects.map((p, i) => {
+        const repo = `https://github.com/sandeep848/${p.slug}`;
+        const source = 'imageSource' in p && p.imageSource ? p.imageSource : 'Concept illustration';
+        return `<article class="project-card glass" data-group="${p.group}" data-reveal aria-labelledby="project-${p.slug}">
+          <figure class="project-visual"><img src="/Portfolio/assets/projects/${p.image}" alt="${escape(p.alt)}" width="900" height="540" loading="lazy" decoding="async"><span class="project-number mono">${String(i+1).padStart(2,'0')}</span><figcaption>${source}</figcaption></figure>
+          <div class="project-content"><p class="eyebrow">${escape(p.category)}</p><h3 id="project-${p.slug}">${escape(p.title)}</h3><p class="project-description">${escape(p.description)}</p><ul class="stack" aria-label="Technology stack">${p.stack.map(s=>`<li>${escape(s)}</li>`).join('')}</ul><p class="project-detail">${escape(p.detail)}</p><div class="project-links"><a href="${repo}" target="_blank" rel="noopener noreferrer" aria-label="${escape(p.title)} on GitHub">GitHub <span aria-hidden="true">↗</span></a><a href="${repo}/blob/${p.branch}/README.md" target="_blank" rel="noopener noreferrer" aria-label="Read about ${escape(p.title)}">Read the project <span aria-hidden="true">↗</span></a></div></div>
+        </article>`;
+      }).join('\n'));
     }
   }],
   build: { target: 'es2022', assetsInlineLimit: 0, sourcemap: true }
