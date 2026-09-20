@@ -1,0 +1,33 @@
+name: Build portfolio concept
+on:
+  push:
+    branches: [old-school-new-school]
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install locked dependencies
+        run: npm ci --no-audit --no-fund
+      - name: Type-check and build portfolio
+        run: npm run build
+      - name: Save compiled preview on an isolated build branch
+        run: |
+          cp -a dist "$RUNNER_TEMP/era-dist"
+          cp package-lock.json "$RUNNER_TEMP/era-lock.json"
+          git checkout --orphan "era-build-${GITHUB_SHA::8}"
+          git rm -rf --ignore-unmatch .
+          git clean -fdx
+          cp -a "$RUNNER_TEMP/era-dist/." .
+          cp "$RUNNER_TEMP/era-lock.json" build-package-lock.json
+          touch .nojekyll
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Compile old school to new school preview"
+          git push origin HEAD
