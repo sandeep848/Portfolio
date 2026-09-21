@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#101513">
+  <meta name="theme-color" content="#101211">
   <title>Sandeep Das — AI & Robotics</title>
-  <meta name="description" content="I'm Sandeep Das, an MSc AI and Robotics student at UTN in Nürnberg. Explore my work in computer vision, language systems and data engineering.">
+  <meta name="description" content="Sandeep Das, MSc AI and Robotics student at UTN in Nürnberg. Computer vision experiments, language tools and data systems. Explore the projects and the code.">
   <link rel="canonical" href="https://sandeep848.github.io/Portfolio/">
   <link rel="icon" type="image/svg+xml" href="%BASE_URL%assets/favicon.svg">
   <meta property="og:title" content="Sandeep Das — AI & Robotics">
-  <meta property="og:description" content="Projects, experiments and a little about me. Computer vision, language systems and data engineering from Nürnberg.">
+  <meta property="og:description" content="A closer look at the things I'm building. Computer vision, language and data, from Nürnberg.">
   <meta property="og:image" content="https://sandeep848.github.io/Portfolio/assets/new-school.webp">
   <link rel="preload" as="image" href="%BASE_URL%assets/old-school.webp" fetchpriority="high">
 </head>
@@ -17,53 +17,58 @@
   <a class="skip-link" href="#main">Skip to content</a>
   <div id="world" aria-hidden="true">
     <div class="ambient-image ambient-old"></div><div class="ambient-image ambient-new"></div>
-    <div id="plate-frame"><img id="plate-old" src="%BASE_URL%assets/old-school.webp" alt="" width="2560" height="1441" fetchpriority="high"><img id="plate-new" src="%BASE_URL%assets/new-school.webp" alt="" width="2560" height="1441" decoding="async"></div>
-    <canvas id="transition-canvas"></canvas><div class="world-shade"></div><div class="film-grain"></div>
+    <div id="camera-rig"><div id="plate-frame"><img id="plate-old" src="%BASE_URL%assets/old-school.webp" alt="" width="2560" height="1441" fetchpriority="high"><img id="plate-new" src="%BASE_URL%assets/new-school.webp" alt="" width="2560" height="1441" decoding="async"></div><canvas id="transition-canvas"></canvas></div>
+    <div class="world-shade"></div><div class="film-grain"></div><div class="world-lines"></div>
   </div>
   <div class="scroll-progress" aria-hidden="true"><i></i></div>
   <header class="nav">
-    <a class="brand" href="#top" aria-label="Sandeep Das, back to top"><span class="brand-monogram" aria-hidden="true">sd<span>.</span></span><span class="brand-name">Sandeep Das</span></a>
+    <a class="brand" href="#top" aria-label="Sandeep Das, back to top"><span class="brand-monogram">sd<span>.</span></span><span class="brand-note">Sandeep Das<br><small>AI & Robotics</small></span></a>
     <button class="menu-button" aria-label="Open navigation" aria-controls="navigation" aria-expanded="false">Menu <span aria-hidden="true">+</span></button>
-    <nav id="navigation" aria-label="Main navigation"><a href="#about">About</a><a href="#projects">Projects <span class="nav-count">14</span></a><a href="#experience">Experience</a><a class="nav-contact" href="#contact">Say hello <span aria-hidden="true">↗</span></a></nav>
+    <nav id="navigation" aria-label="Main navigation"><a href="#about">About</a><a href="#projects">Projects <sup>14</sup></a><a href="#experience">Experience</a><a href="#contact" class="nav-contact">Get in touch <span aria-hidden="true">↗</span></a></nav>
   </header>
-  <aside class="chapter-nav" aria-label="Page sections"><a href="#top" aria-label="Introduction"><span>01</span><i></i></a><a href="#about" aria-label="About"><span>02</span><i></i></a><a href="#projects" aria-label="Projects"><span>03</span><i></i></a><a href="#experience" aria-label="Experience"><span>04</span><i></i></a><a href="#contact" aria-label="Contact"><span>05</span><i></i></a></aside>
+  <aside class="journey-meter" aria-label="Page sections"><span class="journey-label mono" aria-hidden="true">01 — INTRO</span><a href="#top" aria-label="Introduction"><i></i></a><a href="#about" aria-label="About"><i></i></a><a href="#projects" aria-label="Projects"><i></i></a><a href="#experience" aria-label="Experience"><i></i></a><a href="#contact" aria-label="Contact"><i></i></a></aside>
   <main id="main">
     <section id="top" class="hero chapter" aria-labelledby="hero-title">
-      <div class="hero-copy">
-        <p class="eyebrow"><i></i> AI & Robotics · Nürnberg, Germany</p>
-        <h1 id="hero-title">Sandeep <em>Das.</em></h1>
-        <p class="hero-intro">I work with images, language,<br class="desktop-break"> and the data behind them.</p>
-        <p class="hero-description">I'm an MSc Artificial Intelligence & Robotics student at UTN. Here are the models, tools and applications I've been building along the way.</p>
-        <div class="hero-actions"><a class="button button-primary" href="#projects">Explore my projects <span aria-hidden="true">↗</span></a><a class="quiet-link" href="https://github.com/sandeep848" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a></div>
+      <div class="hero-stage">
+        <div class="hero-kicker mono"><span><i class="status-dot"></i> MSc AI & Robotics</span><span>Nürnberg, DE · 49.45° N</span></div>
+        <h1 id="hero-title"><span class="name-line">Sandeep</span><span class="surname-line"><em>Das.</em><span class="title-rule" aria-hidden="true"></span></span></h1>
+        <div class="hero-copy"><p>I build models.<br>I want to know <em>where they break.</em></p><p class="hero-description">Computer vision, language tools and data systems. Currently studying AI & Robotics at UTN.</p><a class="text-link" href="#projects">Take a look at my work <span aria-hidden="true">↗</span></a></div>
+        <div class="tachometer" aria-hidden="true"><div class="dial-ticks"></div><div class="dial-needle"></div><div class="dial-center"><span class="mono">SCROLL</span><b id="dial-value">00</b><span class="mono">PROGRESS</span></div></div>
+        <div class="hero-bottom mono"><a href="#about"><span class="scroll-line" aria-hidden="true"></span> Scroll to explore</a><span>Computer vision / Language / Data</span><span class="hero-chapter">01 / 05</span></div>
       </div>
-      <div class="hero-side" aria-hidden="true"><span>COMPUTER VISION</span><span>LANGUAGE SYSTEMS</span><span>DATA ENGINEERING</span><i></i></div>
-      <div class="hero-bottom"><a href="#about" class="scroll-cue"><span aria-hidden="true">↓</span> A little about me</a><span class="mono">Scroll at your own pace</span></div>
     </section>
-    <section id="about" class="chapter section-pad" aria-labelledby="about-title">
-      <div class="section-heading" data-reveal><p class="eyebrow">01 / About me</p><h2 id="about-title">A little<br><em>about me.</em></h2></div>
+    <section id="about" class="chapter about section-pad" aria-labelledby="about-title">
+      <div class="section-overline" data-reveal><span class="eyebrow">01 / The person behind the projects</span><span class="mono">INDIA → NÜRNBERG</span></div>
       <div class="about-layout">
-        <div class="about-copy glass" data-reveal><p class="lead">I'm Sandeep. I moved from India to Nürnberg to study AI and robotics at the Technische Universität Nürnberg.</p><p>Most of my work starts with a fairly specific question. Does a deepfake detector still work after an image is compressed? Can a small model tell where a photo was taken? How has land cover changed around my city?</p><p>I like working through the whole process: preparing the data, training the model, checking where it fails, and building an interface someone can actually use.</p><p class="personal-note">Away from the screen, I like exploring new places and travelling. I'm usually the quieter person in the group.</p></div>
-        <div class="skills" data-reveal><p class="eyebrow">Tools I work with</p><dl><div><dt>Models & experiments</dt><dd>Python · PyTorch · scikit-learn · LightGBM</dd></div><div><dt>Language & generative AI</dt><dd>Hugging Face · LangChain · RAG · LoRA</dd></div><div><dt>Data & infrastructure</dt><dd>Pandas · SQL · DuckDB · Kafka · Docker</dd></div><div><dt>Applications</dt><dd>React · TypeScript · FastAPI · Streamlit</dd></div></dl><a class="text-link" href="#experience">My experience <span aria-hidden="true">↗</span></a></div>
+        <div class="about-statement"><h2 id="about-title" class="scroll-sentence" data-split>I like finding out <em>why a model fails.</em></h2><span class="editorial-rule" aria-hidden="true"></span><p class="statement-note">The interesting part usually starts<br>after the first result.</p></div>
+        <div class="about-copy"><p class="lead" data-reveal>I'm Sandeep, an MSc student at Technische Universität Nürnberg. I moved here from India to study AI and robotics.</p><p data-reveal>My projects ask specific questions. Can a detector handle a compressed image? Where was a photograph taken? Which source actually supports an answer?</p><p data-reveal>I work from the data through to the interface: training models, checking their mistakes, then making the results easier to use.</p><p class="personal-note" data-reveal>Outside university, I like travelling and exploring new places. I'm usually the quieter person in the group.</p><a class="text-link" href="#experience">A little of my background <span aria-hidden="true">↗</span></a></div>
+      </div>
+      <div class="tool-row" data-reveal><span class="eyebrow">On my workbench</span><div><span>Python</span><span>PyTorch</span><span>LangChain</span><span>SQL</span><span>Kafka</span><span>Docker</span><span>React</span></div></div>
+    </section>
+    <div class="interlude" aria-hidden="true"><div class="interlude-track"><span>Computer vision.</span><em>Language models.</em><span>Data systems.</span></div><div class="interlude-line"></div></div>
+    <section id="projects" class="chapter projects" aria-labelledby="projects-title">
+      <div class="projects-stage">
+        <div class="projects-heading"><div><p class="eyebrow">02 / Projects & experiments</p><h2 id="projects-title">Under the <em>hood.</em></h2></div><p>Fourteen projects. Different questions,<br>and the code behind each one.</p><a class="gallery-skip text-link" href="#experience">Skip to experience <span aria-hidden="true">↓</span></a></div>
+        <div class="project-toolbar"><div class="filters" role="group" aria-label="Filter projects"><button type="button" data-filter="all" aria-pressed="true">All <span>14</span></button><button type="button" data-filter="vision" aria-pressed="false">Vision <span>3</span></button><button type="button" data-filter="genai" aria-pressed="false">Generative AI <span>7</span></button><button type="button" data-filter="data" aria-pressed="false">Data & cloud <span>4</span></button></div><p class="rail-instruction mono">Swipe or use the arrows <span aria-hidden="true">→</span></p></div>
+        <div class="rail-viewport" id="project-gallery" tabindex="0" role="region" aria-label="Project cards, scroll horizontally" data-lenis-prevent><div class="project-track"><!-- PROJECT_CARDS --></div></div>
+        <div class="rail-controls"><div class="rail-position mono"><b id="rail-current">01</b><span>/</span><span id="rail-total">14</span></div><label class="rail-range"><span class="sr-only">Choose a project</span><input id="rail-range" type="range" min="1" max="14" value="1" aria-label="Choose a project"></label><div class="rail-buttons"><button type="button" id="project-prev" aria-label="Previous project" aria-controls="project-gallery" disabled>←</button><button type="button" id="project-next" aria-label="Next project" aria-controls="project-gallery">→</button></div><span id="project-count" class="sr-only" role="status" aria-live="polite">14 projects</span></div>
+        <div class="gallery-foot mono"><span>Automotive concept artwork · project details in the code</span><a href="https://github.com/sandeep848?tab=repositories" target="_blank" rel="noopener noreferrer">All repositories ↗</a></div>
       </div>
     </section>
-    <section id="projects" class="chapter section-pad projects" aria-labelledby="projects-title">
-      <div class="section-heading projects-heading" data-reveal><div><p class="eyebrow">02 / Projects</p><h2 id="projects-title">What I've been<br><em>working on.</em></h2></div><p>Research experiments, course projects and small tools. Each one gave me a different problem to work through.</p></div>
-      <div class="project-toolbar" data-reveal><div class="filters" role="group" aria-label="Filter projects"><button type="button" data-filter="all" aria-pressed="true">All <span>14</span></button><button type="button" data-filter="vision" aria-pressed="false">Computer vision <span>3</span></button><button type="button" data-filter="genai" aria-pressed="false">Generative AI <span>7</span></button><button type="button" data-filter="data" aria-pressed="false">Data & cloud <span>4</span></button></div><span id="project-count" class="mono" role="status" aria-live="polite">14 projects</span></div>
-      <div class="project-grid"><!-- PROJECT_CARDS --></div>
-      <a class="all-repos text-link" href="https://github.com/sandeep848?tab=repositories" target="_blank" rel="noopener noreferrer">Browse my GitHub <span aria-hidden="true">↗</span></a>
-    </section>
-    <section id="experience" class="chapter section-pad" aria-labelledby="experience-title">
-      <div class="experience-layout"><div class="section-heading" data-reveal><p class="eyebrow">03 / Along the way</p><h2 id="experience-title">Study &<br><em>work.</em></h2><p class="experience-note">From my internship at ICAR<br>to studying AI and robotics at UTN.</p></div>
-      <div class="timeline">
-        <article class="timeline-item glass" data-reveal><div class="timeline-meta"><span class="eyebrow">Education</span><time>Oct 2025 — present</time></div><h3>MSc Artificial Intelligence<br>& Robotics</h3><p class="institution">Technische Universität Nürnberg</p><p>Studying machine learning, computer vision, robotics and data engineering. My coursework includes localization and mapping, geospatial learning, and evaluating deep-learning models.</p><span class="timeline-foot">Expected completion · 2027</span></article>
-        <article class="timeline-item glass" data-reveal><div class="timeline-meta"><span class="eyebrow">Internship</span><time>Jan — Jun 2025</time></div><h3>AI & Automation R&D Intern</h3><p class="institution">ICAR · NBSS&LUP</p><p>I built Python REST APIs and automated data-access workflows to reduce repetitive manual work for the team.</p><span class="timeline-foot">Python · REST APIs · Automation</span></article>
+    <section id="experience" class="chapter section-pad experience" aria-labelledby="experience-title">
+      <div class="section-overline" data-reveal><span class="eyebrow">03 / Experience & education</span><span class="mono">2025 — 2027</span></div>
+      <div class="experience-layout"><div class="experience-title"><h2 id="experience-title">A few miles<br><em>along the way.</em></h2><div class="route-line" aria-hidden="true"><i></i><span></span><i></i></div><p>From automating everyday work at ICAR<br>to studying AI and robotics in Germany.</p></div><div class="timeline">
+      <article class="timeline-item" data-reveal><div class="timeline-meta"><span class="eyebrow">01 / Now</span><time>Oct 2025 — present</time></div><h3>MSc Artificial Intelligence & Robotics</h3><p class="institution">Technische Universität Nürnberg</p><p>Machine learning, computer vision, robotics and data engineering. My coursework has taken me from localization and mapping to geospatial learning and model evaluation.</p><span class="timeline-foot mono">Expected graduation · 2027</span></article>
+      <article class="timeline-item" data-reveal><div class="timeline-meta"><span class="eyebrow">02 / Previously</span><time>Jan — Jun 2025</time></div><h3>AI & Automation R&D Intern</h3><p class="institution">ICAR · NBSS&LUP</p><p>I built Python REST APIs and automated data-access workflows, helping the team spend less time on repetitive manual work.</p><span class="timeline-foot mono">Python · REST APIs · Automation</span></article>
       </div></div>
     </section>
     <section id="contact" class="chapter section-pad contact" aria-labelledby="contact-title">
-      <div class="contact-content glass" data-reveal><p class="eyebrow"><i></i> 04 / Get in touch</p><h2 id="contact-title">Have something<br><em>in mind?</em></h2><p>I'm interested in working-student roles and internships in AI, computer vision and robotics. If you're working on something in that space, I'd like to hear about it.</p><a class="email-link" href="mailto:das364278@gmail.com">das364278@gmail.com <span aria-hidden="true">↗</span></a><div class="contact-links"><a href="https://github.com/sandeep848" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a><a href="https://www.linkedin.com/in/sandeepdas0706" target="_blank" rel="noopener noreferrer">LinkedIn <span aria-hidden="true">↗</span></a></div></div><p class="contact-location mono">Based in Nürnberg, Germany<br>English · German (A1)</p>
+      <div class="section-overline"><span class="eyebrow">04 / What's next</span><span class="mono">NÜRNBERG, GERMANY</span></div>
+      <div class="contact-top"><h2 id="contact-title"><span>Let's talk</span><em>about the work.</em></h2><a class="contact-arrow" href="mailto:das364278@gmail.com" aria-label="Email Sandeep Das">↗</a></div>
+      <div class="contact-bottom"><p>I'm looking for working-student roles and internships in AI, computer vision and robotics. If there's a problem you think I could help with, I'd like to hear about it.</p><div><a class="email-link" href="mailto:das364278@gmail.com">das364278@gmail.com</a><div class="contact-links"><a href="https://github.com/sandeep848" target="_blank" rel="noopener noreferrer">GitHub ↗</a><a href="https://www.linkedin.com/in/sandeepdas0706" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a></div><span class="mono language-note">English · German (A1)</span></div></div>
     </section>
   </main>
-  <footer class="footer"><span>© 2026 Sandeep Das</span><button type="button" id="motion-toggle" aria-pressed="false">Reduce motion</button><a href="#top">Back to top <span aria-hidden="true">↑</span></a></footer>
+  <footer class="footer"><span class="mono">© 2026 Sandeep Das</span><button type="button" id="motion-toggle" aria-pressed="false">Reduce motion</button><a href="#top">Back to the start <span aria-hidden="true">↑</span></a></footer>
   <script type="module" src="/src/main.ts"></script>
 </body>
 </html>

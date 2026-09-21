@@ -3,8 +3,13 @@ import assert from 'node:assert/strict';
 const html=readFileSync('dist/index.html','utf8');
 const projects=JSON.parse(readFileSync('src/projects.json','utf8'));
 assert.equal(projects.length,14);
+assert.equal((html.match(/id="project-gallery"/g)||[]).length,1);
+for(const id of ['project-prev','project-next','rail-range'])assert(html.includes('id="'+id+'"'));
+assert(!html.includes('class="project-grid"'));
+assert(projects.every(p=>p.image.startsWith('car-')&&p.imageSource==='Concept artwork'));
+assert(new Set(projects.map(p=>p.image)).size===14);
 assert.equal(new Set(projects.map(p=>p.slug)).size,14);
-assert.equal((html.match(/class="project-card glass"/g)||[]).length,14);
+assert.equal((html.match(/class="project-card"/g)||[]).length,14);
 for(const p of projects){
   assert(html.includes(`href="https://github.com/sandeep848/${p.slug}"`));
   assert(p.description.length>30&&p.alt.length>20&&p.stack.length>=2);

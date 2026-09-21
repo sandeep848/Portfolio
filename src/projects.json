@@ -1,16 +1,240 @@
 [
-  {"slug":"deepfake-robustness-benchmark","title":"Deepfake robustness","group":"vision","category":"Computer vision","description":"I test what happens to face-manipulation detectors after JPEG compression, resizing and blur, using source-video splits and uncertainty estimates.","stack":["PyTorch","EfficientNet","Streamlit"],"detail":"Clean vs. degradation-aware training","image":"deepfake.svg","alt":"Illustration of a face crop passing through compression, resize and blur checks","branch":"Sandy"},
-  {"slug":"european-image-geolocation","title":"Where was this photo taken?","group":"vision","category":"Image geolocation","description":"A single RegNet model predicts locations across 12 European countries. It combines country and region predictions with a local coordinate offset.","stack":["PyTorch","RegNet","NumPy"],"detail":"4.63M parameters · trained from scratch","image":"geolocation.svg","alt":"Illustration connecting a street photograph to a location on a globe","branch":"main"},
-  {"slug":"nuremberg-land-cover-ml","title":"Nürnberg, from above","group":"vision","category":"Geospatial ML","description":"I use Sentinel-2 imagery to estimate buildings, vegetation and water on a 100 m grid, then inspect how the city changes from 2019 to 2023.","stack":["LightGBM","GeoPandas","Streamlit"],"detail":"Five spatial validation folds","image":"landcover.svg","alt":"Conceptual land-cover grid with vegetation, buildings and a river","branch":"main"},
-  {"slug":"stable-diffusion-lora-style-tuning","title":"Learning an illustration style","group":"genai","category":"Generative images","description":"A team project adapting Stable Diffusion 1.5 with LoRA on the UNet and text encoder. A custom token keeps style updates separate from the rest of the vocabulary.","stack":["Diffusers","PyTorch","LoRA"],"detail":"University team project","image":"lora.webp","alt":"Actual LoRA-generated market scene from this project's sample output","branch":"main","imageSource":"Repository model output"},
-  {"slug":"agentic-multi-tool-chatbot","title":"A research assistant with tools","group":"genai","category":"Tool-using assistants","description":"Questions go to the source that fits: an uploaded PDF, web search, arXiv or Wikipedia. The app makes that routing decision visible.","stack":["LangChain","Streamlit","Python"],"detail":"PDF, web and academic source routing","image":"research.svg","alt":"Question-routing illustration branching to documents, the web, arXiv and Wikipedia","branch":"main"},
-  {"slug":"nvidia-nim-rag-assistant","title":"Answers with page references","group":"genai","category":"Document retrieval","description":"A PDF knowledge assistant that combines semantic and keyword search. Rank fusion selects the evidence, and answers include page-level citations.","stack":["NVIDIA NIM","LangChain","Python"],"detail":"Dense + lexical retrieval","image":"rag.svg","alt":"Illustration of semantic and keyword retrieval merging into a cited answer","branch":"main"},
-  {"slug":"langchain-sqlite-assistant","title":"Ask a SQLite database","group":"genai","category":"Natural-language analytics","description":"Turns a question into SQL, validates it, and shows the query alongside its results. Read-only access and row limits sit between the model and the database.","stack":["SQLite","LangChain","Streamlit"],"detail":"Read-only execution and query audit","image":"sqlite.svg","alt":"Illustration of a SELECT query passing a read-only guard before reaching SQLite","branch":"main"},
-  {"slug":"langchain-text-summarizer","title":"Long documents, shorter notes","group":"genai","category":"Text summarization","description":"Breaks PDFs, web pages and video transcripts into paragraph-sized chunks, summarizes each, then combines them into notes or a brief.","stack":["LangChain","Python","Streamlit"],"detail":"Paragraph-aware map-reduce pipeline","image":"summarizer.svg","alt":"Illustration of several document chunks being condensed into one summary","branch":"main"},
-  {"slug":"langchain-math-problem-solver","title":"Math that checks its answer","group":"genai","category":"Symbolic computation","description":"SymPy solves the expression and checks the result by substitution. An optional language model explains the calculation after it has been verified.","stack":["SymPy","Python","Streamlit"],"detail":"Symbolic solving before explanation","image":"math.svg","alt":"A worked equation with its solutions checked by substitution","branch":"main"},
-  {"slug":"codellama-dynamic-prompt-handler","title":"A local coding workbench","group":"genai","category":"Developer tools","description":"Five separate workflows for explaining, debugging, testing, refactoring and reviewing code. Prompts run against CodeLlama through a local Ollama endpoint.","stack":["CodeLlama","Ollama","Streamlit"],"detail":"Local inference · inspectable prompts","image":"code.svg","alt":"Code-review illustration with local inference and distinct engineering task routes","branch":"main"},
-  {"slug":"redshift-streaming-analytics","title":"Following a query stream","group":"data","category":"Data engineering","description":"Replays Redshift query metrics through Kafka, validates and stores events in DuckDB, and exposes live and historical views in Streamlit.","stack":["Kafka","DuckDB","Docker"],"detail":"Optional S3 and Redshift loading","image":"streaming.svg","alt":"Illustration of query events flowing through Kafka into storage and analytics","branch":"main"},
-  {"slug":"redshift-query-metrics-prototype","title":"Planning warehouse capacity","group":"data","category":"Workload analysis","description":"An offline tool for exported query metrics. It combines queue delay, spill events and concurrency into an explicit, adjustable pressure score.","stack":["Pandas","Python","pytest"],"detail":"CSV input · no cloud connection needed","image":"capacity.svg","alt":"Illustration of queue delay, spill and concurrency contributing to a capacity score","branch":"main"},
-  {"slug":"google-cloud-speechtext","title":"SpeechText","group":"data","category":"Cloud application","description":"Records speech in the browser and transcribes it with Google Cloud. Transcript metadata goes to Firestore, with optional audio storage.","stack":["Node.js","Google Cloud","Firestore"],"detail":"Browser audio → stored transcript","image":"speech.svg","alt":"Illustration of an audio waveform becoming a stored text transcript","branch":"speechtext"},
-  {"slug":"llm-analytics-dashboard","title":"From a dataset to a dashboard","group":"data","category":"Full-stack application","description":"Upload a file, inspect its schema, describe your analysis goal, then review suggested processing steps and charts in a React workspace.","stack":["React","FastAPI","TypeScript"],"detail":"Upload, inspect, process and visualize","image":"dashboard.svg","alt":"Concept illustration of a file upload, data table and chart workspace","branch":"main"}
+  {
+    "slug": "deepfake-robustness-benchmark",
+    "title": "Deepfake robustness",
+    "group": "vision",
+    "category": "Computer vision",
+    "description": "I test face-manipulation detectors after JPEG compression, resizing and blur, using source-video splits and uncertainty estimates.",
+    "stack": [
+      "PyTorch",
+      "EfficientNet",
+      "Streamlit"
+    ],
+    "detail": "Clean vs. degradation-aware training",
+    "image": "car-deepfake.webp",
+    "alt": "Automotive concept art: a classic car behind optical calibration panes, with a pixelated reflection",
+    "branch": "Sandy",
+    "imageSource": "Concept artwork"
+  },
+  {
+    "slug": "european-image-geolocation",
+    "title": "European image geolocation",
+    "group": "vision",
+    "category": "Image geolocation",
+    "description": "A RegNet model learns to locate photos across 12 European countries, combining country, region and coordinate predictions.",
+    "stack": [
+      "PyTorch",
+      "RegNet",
+      "NumPy"
+    ],
+    "detail": "4.63M parameters · trained from scratch",
+    "image": "car-geolocation.webp",
+    "alt": "Automotive concept art: a classic car on a miniature street map with a marked route",
+    "branch": "main",
+    "imageSource": "Concept artwork"
+  },
+  {
+    "slug": "nuremberg-land-cover-ml",
+    "title": "Nürnberg land cover",
+    "group": "vision",
+    "category": "Geospatial ML",
+    "description": "I use Sentinel-2 imagery and tabular ML to map buildings, vegetation and water, then compare the city from 2019 to 2023.",
+    "stack": [
+      "LightGBM",
+      "GeoPandas",
+      "Streamlit"
+    ],
+    "detail": "Five spatial validation folds",
+    "image": "car-landcover.webp",
+    "alt": "Automotive concept art: a classic car beside a layered city and woodland terrain model",
+    "branch": "main",
+    "imageSource": "Concept artwork"
+  },
+  {
+    "slug": "stable-diffusion-lora-style-tuning",
+    "title": "LoRA style lab",
+    "group": "genai",
+    "category": "Generative images",
+    "description": "A team project teaching Stable Diffusion a new illustration style with LoRA and a dedicated style token.",
+    "stack": [
+      "Diffusers",
+      "PyTorch",
+      "LoRA"
+    ],
+    "detail": "University team project",
+    "image": "car-lora.webp",
+    "alt": "Automotive concept art: the same car shown as a sketch, photograph and painted illustration",
+    "branch": "main",
+    "imageSource": "Concept artwork"
+  },
+  {
+    "slug": "agentic-multi-tool-chatbot",
+    "title": "Research router",
+    "group": "genai",
+    "category": "Tool-using assistants",
+    "description": "Routes questions to PDFs, web search, arXiv or Wikipedia, and shows which source the assistant chose.",
+    "stack": [
+      "LangChain",
+      "Streamlit",
+      "Python"
+    ],
+    "detail": "PDF, web and academic source routing",
+    "image": "car-research.webp",
+    "alt": "Automotive concept art: a car at branching routes to books, documents and other research sources",
+    "branch": "main",
+    "imageSource": "Concept artwork"
+  },
+  {
+    "slug": "nvidia-nim-rag-assistant",
+    "title": "Answers with sources",
+    "group": "genai",
+    "category": "Document retrieval",
+    "description": "Combines semantic and keyword retrieval from PDFs. The answer points back to the pages that support it.",
+    "stack": [
+      "NVIDIA NIM",
+      "LangChain",
+      "Python"
+    ],
+    "detail": "Dense + lexical retrieval",
+    "image": "car-rag.webp",
+    "alt": "Automotive concept art: bookmarked workshop manuals beside a classic car",
+    "branch": "main",
+    "imageSource": "Concept artwork"
+  },
+  {
+    "slug": "langchain-sqlite-assistant",
+    "title": "Read-only SQL assistant",
+    "group": "genai",
+    "category": "Natural-language analytics",
+    "description": "Asks a database a question, checks the generated SQL, and runs it through read-only access and row limits.",
+    "stack": [
+      "SQLite",
+      "LangChain",
+      "Streamlit"
+    ],
+    "detail": "Read-only execution and query audit",
+    "image": "car-sqlite.webp",
+    "alt": "Automotive concept art: a protected diagnostic connection inside an engine bay",
+    "branch": "main",
+    "imageSource": "Concept artwork"
+  },
+  {
+    "slug": "langchain-text-summarizer",
+    "title": "Long-document summarizer",
+    "group": "genai",
+    "category": "Text summarization",
+    "description": "Breaks PDFs, web pages and video transcripts into paragraph chunks, then combines their summaries into useful notes.",
+    "stack": [
+      "LangChain",
+      "Python",
+      "Streamlit"
+    ],
+    "detail": "Paragraph-aware map-reduce pipeline",
+    "image": "car-summarizer.webp",
+    "alt": "Automotive concept art: road maps condensed into a small notebook on a leather seat",
+    "branch": "main",
+    "imageSource": "Concept artwork"
+  },
+  {
+    "slug": "langchain-math-problem-solver",
+    "title": "Math, checked",
+    "group": "genai",
+    "category": "Symbolic computation",
+    "description": "SymPy solves the expression and checks the answer by substitution. The language model only explains the verified result.",
+    "stack": [
+      "SymPy",
+      "Python",
+      "Streamlit"
+    ],
+    "detail": "Symbolic solving before explanation",
+    "image": "car-math.webp",
+    "alt": "Automotive concept art: two precision gears checked on a workshop balance",
+    "branch": "main",
+    "imageSource": "Concept artwork"
+  },
+  {
+    "slug": "codellama-dynamic-prompt-handler",
+    "title": "Local code workbench",
+    "group": "genai",
+    "category": "Developer tools",
+    "description": "Five workflows for explaining, debugging, testing, refactoring and reviewing code, running locally with CodeLlama.",
+    "stack": [
+      "CodeLlama",
+      "Ollama",
+      "Streamlit"
+    ],
+    "detail": "Local inference · inspectable prompts",
+    "image": "car-code.webp",
+    "alt": "Automotive concept art: an organized workbench with tools and a local diagnostic laptop",
+    "branch": "main",
+    "imageSource": "Concept artwork"
+  },
+  {
+    "slug": "redshift-streaming-analytics",
+    "title": "Redshift query stream",
+    "group": "data",
+    "category": "Data engineering",
+    "description": "Replays query metrics through Kafka, stores validated events in DuckDB, and makes the stream visible in Streamlit.",
+    "stack": [
+      "Kafka",
+      "DuckDB",
+      "Docker"
+    ],
+    "detail": "Optional S3 and Redshift loading",
+    "image": "car-streaming.webp",
+    "alt": "Automotive concept art: a classic car and flowing light trails on a winding road",
+    "branch": "main",
+    "imageSource": "Concept artwork"
+  },
+  {
+    "slug": "redshift-query-metrics-prototype",
+    "title": "Warehouse capacity planner",
+    "group": "data",
+    "category": "Workload analysis",
+    "description": "Turns exported query metrics into an adjustable capacity-pressure score using queue delay, spills and concurrency.",
+    "stack": [
+      "Pandas",
+      "Python",
+      "pytest"
+    ],
+    "detail": "CSV input · no cloud connection needed",
+    "image": "car-capacity.webp",
+    "alt": "Automotive concept art: occupied and available spaces in a miniature car garage",
+    "branch": "main",
+    "imageSource": "Concept artwork"
+  },
+  {
+    "slug": "google-cloud-speechtext",
+    "title": "SpeechText",
+    "group": "data",
+    "category": "Cloud application",
+    "description": "Records speech in the browser, transcribes it through Google Cloud, and saves transcript metadata in Firestore.",
+    "stack": [
+      "Node.js",
+      "Google Cloud",
+      "Firestore"
+    ],
+    "detail": "Browser audio → stored transcript",
+    "image": "car-speech.webp",
+    "alt": "Automotive concept art: a microphone, car radio and sculptural sound wave",
+    "branch": "speechtext",
+    "imageSource": "Concept artwork"
+  },
+  {
+    "slug": "llm-analytics-dashboard",
+    "title": "Dataset workspace",
+    "group": "data",
+    "category": "Full-stack application",
+    "description": "A React workspace to upload a dataset, inspect its schema, describe an analysis goal, and review processing steps and charts.",
+    "stack": [
+      "React",
+      "FastAPI",
+      "TypeScript"
+    ],
+    "detail": "Upload, inspect, process and visualize",
+    "image": "car-dashboard.webp",
+    "alt": "Automotive concept art: classic car instruments with multiple gauges",
+    "branch": "main",
+    "imageSource": "Concept artwork"
+  }
 ]
