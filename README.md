@@ -1,12 +1,18 @@
-# Sandeep Das — AI & Robotics
+# Sandeep Das — portfolio
 
-My portfolio: [sandeep848.github.io/Portfolio](https://sandeep848.github.io/Portfolio/).
+[Live site](https://sandeep848.github.io/Portfolio/)
 
-A personal introduction, one gallery of 14 public projects, experience and contact information. The original forest-to-desert car scene stays behind every section. All sections are transparent; translucent reading surfaces keep the text legible.
+A car-themed personal portfolio about my AI and robotics coursework, experiments and applications. The original forest-to-desert photographic transition stays behind every section.
 
-## Local development
+## Experience
 
-Requires Node.js 22.12 or later.
+- Continuous scroll-linked camera movement, oversized editorial typography, word illumination, moving section titles and a progress dial.
+- One horizontal gallery of 14 public projects. On sufficiently wide and tall screens with a precise pointer, vertical scrolling moves through the cards. On touch devices, short screens and reduced motion, the same gallery uses native horizontal scrolling.
+- Previous/next buttons, a labelled project-position slider, category filters and keyboard navigation. A skip link bypasses the longer gallery.
+- Fourteen automotive concept covers share one photographic style. They are explicitly labelled artwork and do not represent screenshots or project results.
+- Instrument Serif, Onest and DM Mono are served locally. Project data is rendered into HTML at build time, so cards and links exist without JavaScript.
+
+## Develop
 
 ```sh
 npm ci
@@ -15,42 +21,27 @@ npm run build
 npm run preview
 ```
 
-Vite uses `/Portfolio/` as its base. GitHub Actions builds `dist/` and publishes it to Pages. Pull requests run the same checks without deploying.
+Node 22 is used by GitHub Actions. The build runs TypeScript and checks project uniqueness, gallery controls, image budgets and local references.
 
 ## Content
 
-- `index.html`: introduction, skills, education, internship and contact.
-- `src/projects.json`: reviewed project descriptions, categories, stacks, repository branches and image attribution.
-- `vite.config.ts`: renders all project cards into HTML at build time. Cards and links work without JavaScript.
-- `public/assets/projects`: 13 original SVG workflow illustrations plus an actual LoRA sample.
-- `scripts/project-art.py`: source for the SVG illustrations.
+`src/projects.json` is the reviewed project catalog. Descriptions are based on the repository code and READMEs. Private repositories and the profile/portfolio infrastructure repositories are excluded. This is an editorial snapshot, not a claim of real-time GitHub synchronization. Update this file when project facts change.
 
-The project catalog was checked against all 14 public project repositories on 20 September 2026. Private repositories, the profile repository and this site's repository are excluded. The catalog is versioned editorial content, not a live API feed. Update it when adding or changing a project. No live-demo URLs were advertised by these repositories at review time; cards link to GitHub and the project's README.
+`index.html` contains personal content. `src/gallery.ts` manages the horizontal gallery; `src/main.ts` owns navigation, motion preferences and scroll choreography. `src/scene.ts` and `src/transition.frag.glsl` retain the original WebGL transition.
 
-The data dashboard description was corrected against its React source: it processes uploaded datasets and recommends visualizations; it does not monitor model usage.
+The build uses GitHub Pages' `/Portfolio/` base path. Old section anchors redirect to the current sections.
 
-## Visual design and motion
+## Motion and accessibility
 
-The fixed scene is visible from the introduction through contact. Scrolling from About to Projects drives the existing directional shader transition. The scene continues with subtle camera drift and pointer parallax after the transition, and all sections use the same cream, charcoal, muted green and warm accent palette.
+- OS reduced-motion settings are respected, with an optional local preference switch in the footer.
+- The gallery falls back to native horizontal scrolling when JavaScript, GPU support or available screen space is limited. Touch does not use wheel smoothing.
+- Project links stay accessible by keyboard; focusing an off-screen card brings it into view.
+- A fixed CSS photographic fallback keeps the car imagery visible when WebGL is unavailable. Camera motion works in both rendering paths.
+- WebGL rendering pauses in hidden tabs, caps resolution and releases resources on page teardown.
+- Background imagery is decorative. Project covers have descriptive alt text and a concept-art label.
 
-Section headings reveal with a translating fade and extending rule. Project cards enter in a short stagger. The content stays visible after entering; backscroll does not hide it again. Native touch scrolling is preserved. Wheel smoothing applies only to fine pointers with full motion enabled.
+`public/review.html` is an unlinked, noindex responsive review harness. Use it to inspect desktop, tablet and small phone dimensions. Hardware WebGL should also be reviewed on an actual supported device.
 
-The site respects system reduced-motion preferences and has a footer motion control. If WebGL is unavailable, the same local images crossfade in CSS. The renderer stops while the tab is hidden, caps pixel ratio, lowers resolution when consistently slow, and disposes its resources on navigation. No blocking loader, audio, cursor replacement or scroll trapping is used.
+## Artwork
 
-Fonts (Instrument Serif, Onest and DM Mono) are bundled locally with their licenses. The two background WebP images are unchanged. Project artwork is loaded lazily and each asset is below 150 KB.
-
-## Image provenance
-
-The automotive backgrounds are AI-generated illustrative scenes created for the previous portfolio revision. They are not project output.
-
-Each SVG card is explicitly labeled **Concept illustration** and depicts the documented project workflow. Charts and maps in them are schematic, not measured results or screenshots.
-
-`lora.webp` is a resized WebP copy of [`samples/sample_1.png`](https://github.com/sandeep848/stable-diffusion-lora-style-tuning/blob/main/samples/sample_1.png), shown as **Repository model output**. The project credits Sandeep Das, Mahalakshmi and Dinely. No ownership or license of the underlying project is changed.
-
-## Checks
-
-`npm run build` checks TypeScript, builds production assets, copies font licenses, and validates the single project gallery, 14 unique project URLs, filter counts, required content sections and image budgets.
-
-Browser verification covers 1440, 820, 390 and 320 pixel layouts, persistent background visibility, category filters, GitHub links, keyboard navigation, old section anchors and the motion control. GPU behavior needs a hardware-enabled browser; the review browser may use the CSS fallback.
-
-Old `#work`, `#archive`, `#pathways`, `#lessons` and `#shift` links resolve to `#projects`. `#gate` resolves to `#about`, and `#eternity` to `#contact`.
+Generated automotive artwork lives in `public/assets/projects/car-*.webp`; all 14 covers total about 787 KB. See [art direction and prompts](docs/art-direction.md). The original background images remain unchanged.
