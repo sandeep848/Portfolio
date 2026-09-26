@@ -11,10 +11,10 @@
       "Streamlit"
     ],
     "detail": "Clean vs. degradation-aware training",
-    "image": "car-deepfake.webp",
-    "alt": "Automotive concept art: a classic car behind optical calibration panes, with a pixelated reflection",
+    "image": "deepfake.svg",
+    "alt": "Illustration of face crops before and after compression and blur",
     "branch": "Sandy",
-    "imageSource": "Concept artwork"
+    "imageSource": "Workflow illustration"
   },
   {
     "slug": "european-image-geolocation",
@@ -28,10 +28,10 @@
       "NumPy"
     ],
     "detail": "4.63M parameters · trained from scratch",
-    "image": "car-geolocation.webp",
-    "alt": "Automotive concept art: a classic car on a miniature street map with a marked route",
+    "image": "geolocation-map.png",
+    "alt": "Map from the European image geolocation repository",
     "branch": "main",
-    "imageSource": "Concept artwork"
+    "imageSource": "Repository figure"
   },
   {
     "slug": "nuremberg-land-cover-ml",
@@ -45,10 +45,10 @@
       "Streamlit"
     ],
     "detail": "Five spatial validation folds",
-    "image": "car-landcover.webp",
-    "alt": "Automotive concept art: a classic car beside a layered city and woodland terrain model",
+    "image": "landcover.svg",
+    "alt": "Conceptual land-cover grid separating vegetation, buildings and water",
     "branch": "main",
-    "imageSource": "Concept artwork"
+    "imageSource": "Workflow illustration"
   },
   {
     "slug": "stable-diffusion-lora-style-tuning",
@@ -62,10 +62,10 @@
       "LoRA"
     ],
     "detail": "University team project",
-    "image": "car-lora.webp",
-    "alt": "Automotive concept art: the same car shown as a sketch, photograph and painted illustration",
+    "image": "lora.webp",
+    "alt": "Generated illustration sample from the LoRA style-tuning repository",
     "branch": "main",
-    "imageSource": "Concept artwork"
+    "imageSource": "Repository model output"
   },
   {
     "slug": "agentic-multi-tool-chatbot",
@@ -79,10 +79,10 @@
       "Python"
     ],
     "detail": "PDF, web and academic source routing",
-    "image": "car-research.webp",
-    "alt": "Automotive concept art: a car at branching routes to books, documents and other research sources",
+    "image": "research.svg",
+    "alt": "A research question routed to PDFs, web search, arXiv or Wikipedia",
     "branch": "main",
-    "imageSource": "Concept artwork"
+    "imageSource": "Workflow illustration"
   },
   {
     "slug": "nvidia-nim-rag-assistant",
@@ -96,10 +96,10 @@
       "Python"
     ],
     "detail": "Dense + lexical retrieval",
-    "image": "car-rag.webp",
-    "alt": "Automotive concept art: bookmarked workshop manuals beside a classic car",
+    "image": "rag.svg",
+    "alt": "PDF retrieval using semantic and keyword search to produce a cited answer",
     "branch": "main",
-    "imageSource": "Concept artwork"
+    "imageSource": "Workflow illustration"
   },
   {
     "slug": "langchain-sqlite-assistant",
@@ -113,10 +113,10 @@
       "Streamlit"
     ],
     "detail": "Read-only execution and query audit",
-    "image": "car-sqlite.webp",
-    "alt": "Automotive concept art: a protected diagnostic connection inside an engine bay",
+    "image": "sqlite.svg",
+    "alt": "A SELECT query passes read-only checks before accessing SQLite",
     "branch": "main",
-    "imageSource": "Concept artwork"
+    "imageSource": "Workflow illustration"
   },
   {
     "slug": "langchain-text-summarizer",
@@ -130,10 +130,10 @@
       "Streamlit"
     ],
     "detail": "Paragraph-aware map-reduce pipeline",
-    "image": "car-summarizer.webp",
-    "alt": "Automotive concept art: road maps condensed into a small notebook on a leather seat",
+    "image": "summarizer.svg",
+    "alt": "Paragraph chunks become short summaries and are merged into notes",
     "branch": "main",
-    "imageSource": "Concept artwork"
+    "imageSource": "Workflow illustration"
   },
   {
     "slug": "langchain-math-problem-solver",
@@ -147,10 +147,10 @@
       "Streamlit"
     ],
     "detail": "Symbolic solving before explanation",
-    "image": "car-math.webp",
-    "alt": "Automotive concept art: two precision gears checked on a workshop balance",
+    "image": "math.svg",
+    "alt": "A quadratic equation solved and verified by substituting both roots",
     "branch": "main",
-    "imageSource": "Concept artwork"
+    "imageSource": "Workflow illustration"
   },
   {
     "slug": "codellama-dynamic-prompt-handler",
@@ -164,10 +164,10 @@
       "Streamlit"
     ],
     "detail": "Local inference · inspectable prompts",
-    "image": "car-code.webp",
-    "alt": "Automotive concept art: an organized workbench with tools and a local diagnostic laptop",
+    "image": "code.svg",
+    "alt": "Code editor showing five local CodeLlama development workflows",
     "branch": "main",
-    "imageSource": "Concept artwork"
+    "imageSource": "Workflow illustration"
   },
   {
     "slug": "redshift-streaming-analytics",
@@ -181,10 +181,10 @@
       "Docker"
     ],
     "detail": "Optional S3 and Redshift loading",
-    "image": "car-streaming.webp",
-    "alt": "Automotive concept art: a classic car and flowing light trails on a winding road",
+    "image": "streaming.svg",
+    "alt": "Query events flow through Kafka into DuckDB and an analytics view",
     "branch": "main",
-    "imageSource": "Concept artwork"
+    "imageSource": "Workflow illustration"
   },
   {
     "slug": "redshift-query-metrics-prototype",
@@ -198,10 +198,10 @@
       "pytest"
     ],
     "detail": "CSV input · no cloud connection needed",
-    "image": "car-capacity.webp",
-    "alt": "Automotive concept art: occupied and available spaces in a miniature car garage",
+    "image": "capacity.svg",
+    "alt": "Illustrative queue-delay, spill and concurrency inputs to a capacity score",
     "branch": "main",
-    "imageSource": "Concept artwork"
+    "imageSource": "Workflow illustration"
   },
   {
     "slug": "google-cloud-speechtext",
@@ -215,10 +215,10 @@
       "Firestore"
     ],
     "detail": "Browser audio → stored transcript",
-    "image": "car-speech.webp",
-    "alt": "Automotive concept art: a microphone, car radio and sculptural sound wave",
+    "image": "speech.svg",
+    "alt": "A speech waveform becomes a transcript stored with Google Cloud and Firestore",
     "branch": "speechtext",
-    "imageSource": "Concept artwork"
+    "imageSource": "Workflow illustration"
   },
   {
     "slug": "llm-analytics-dashboard",
@@ -232,9 +232,9 @@
       "TypeScript"
     ],
     "detail": "Upload, inspect, process and visualize",
-    "image": "car-dashboard.webp",
-    "alt": "Automotive concept art: classic car instruments with multiple gauges",
+    "image": "dashboard.svg",
+    "alt": "Illustration of dataset upload, schema inspection and chart analysis",
     "branch": "main",
-    "imageSource": "Concept artwork"
+    "imageSource": "Workflow illustration"
   }
 ]

@@ -38,7 +38,7 @@ function scrollTo(y:number,immediate=false){
   if(lenis&&!reduced)lenis.scrollTo(target,{immediate,duration:.85});
   else window.scrollTo({top:target,behavior:immediate||reduced?'instant':'smooth'});
 }
-const gallery=createGallery({reduced:()=>reduced,scrollTo,onMove:queueUpdate});
+const gallery=createGallery({reduced:()=>reduced,onMove:queueUpdate});
 function measure(){
   aboutTop=$('#about').offsetTop;projectsTop=$('#projects').offsetTop;
   heroHeight=$('#top').offsetHeight;pageTravel=Math.max(1,root.scrollHeight-innerHeight);
@@ -63,8 +63,6 @@ function updatePage(){
   root.style.setProperty('--camera-y',cameraY.toFixed(2)+'px');
   root.style.setProperty('--camera-scale',cameraScale.toFixed(5));
   scene?.update(backgroundProgress,reduced?0:velocity);
-  $('.dial-needle').style.transform='rotate('+(145+clamp(hero)*235)+'deg)';
-  $('#dial-value').textContent=String(Math.round(hero*100)).padStart(2,'0');
   let active=0;
   for(let i=0;i<sections.length;i++)if(sections[i].getBoundingClientRect().top<innerHeight*.4)active=i;
   if(currentSection!==sections[active].id){
@@ -134,8 +132,7 @@ narrowMenu.addEventListener('change',menuResize);
 const aliases:Record<string,string>={'#gate':'#about','#pathways':'#projects','#lessons':'#projects','#eternity':'#contact','#hero':'#top','#work':'#projects','#archive':'#projects','#shift':'#projects'};
 function goTo(hash:string,immediate=false){
   const destination=aliases[hash]||hash||'#top';const target=document.getElementById(destination.slice(1));if(!target)return;
-  const pinned=target.id==='projects'&&target.classList.contains('rail-pinned');
-  const offset=target.id==='top'||target.id==='main'||pinned?0:(narrowMenu.matches?85:100);
+  const offset=target.id==='top'||target.id==='main'?0:(narrowMenu.matches?85:100);
   scrollTo(target.getBoundingClientRect().top+scrollY-offset,immediate);
   target.setAttribute('tabindex','-1');target.focus({preventScroll:true});
 }

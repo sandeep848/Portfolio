@@ -1,6 +1,6 @@
 import { existsSync, copyFileSync, mkdirSync } from 'node:fs';
 import { join } from 'node:path';
-const packages = ['@fontsource/dm-mono','@fontsource/instrument-serif','@fontsource-variable/onest'];
+const packages = ['@fontsource-variable/space-grotesk','@fontsource-variable/manrope'];
 mkdirSync('dist/assets/font-licenses',{recursive:true});
 for (const name of packages) {
   const base=join('node_modules',name);
