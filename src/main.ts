@@ -4,6 +4,7 @@ import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
 import { createGallery } from './gallery';
+import { paintCinematicFrame } from './cinematic';
 import type { TransitionScene } from './scene';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -32,13 +33,12 @@ const sections=[...document.querySelectorAll<HTMLElement>('.chapter')];
 const navigationLinks=[...document.querySelectorAll<HTMLAnchorElement>('#navigation a,.journey-meter a')];
 const sectionNames=['INTRO','ABOUT','PROJECTS','EXPERIENCE','CONTACT'];
 const clamp=(v:number,min=0,max=1)=>Math.max(min,Math.min(max,v));
-const smooth=(v:number)=>{const x=clamp(v);return x*x*(3-2*x);};
 function scrollTo(y:number,immediate=false){
   const target=clamp(y,0,Math.max(0,root.scrollHeight-innerHeight));
   if(lenis&&!reduced)lenis.scrollTo(target,{immediate,duration:.85});
   else window.scrollTo({top:target,behavior:immediate||reduced?'instant':'smooth'});
 }
-const gallery=createGallery({reduced:()=>reduced,onMove:queueUpdate});
+const gallery=createGallery({reduced:()=>reduced});
 function measure(){
   aboutTop=$('#about').offsetTop;projectsTop=$('#projects').offsetTop;
   heroHeight=$('#top').offsetHeight;pageTravel=Math.max(1,root.scrollHeight-innerHeight);
@@ -51,11 +51,10 @@ function updatePage(){
   $('.scroll-progress i').style.transform='scaleX('+clamp(y/pageTravel)+')';
   const hero=clamp(y/Math.max(1,heroHeight));
   backgroundProgress=clamp((y-aboutTop+innerHeight*.75)/Math.max(1,projectsTop-aboutTop+innerHeight*.3));
-  const era=smooth((backgroundProgress-.25)/.35);
-  root.style.setProperty('--era',era.toFixed(4));
+  paintCinematicFrame(root,backgroundProgress,reduced);
   // Camera motion is shared by the GPU and CSS paths, so scrolling stays alive on modest hardware.
   const journey=clamp(y/pageTravel);
-  const targetX=reduced?0:Math.sin(journey*Math.PI*2)*innerWidth*.035+gallery.progress*innerWidth*-.022;
+  const targetX=reduced?0:Math.sin(journey*Math.PI*2)*innerWidth*.035;
   const targetY=reduced?0:(Math.sin(y/1550)*13-hero*13);
   const targetScale=reduced?1:1.08+hero*.045+Math.sin(journey*Math.PI)*.04;
   cameraX+=(targetX-cameraX)*.18;cameraY+=(targetY-cameraY)*.18;cameraScale+=(targetScale-cameraScale)*.18;
@@ -91,10 +90,7 @@ function buildMotion(){
   motionContext?.revert();motionContext=undefined;
   if(reduced)return;
   motionContext=gsap.context(()=>{
-    const desktop=innerWidth>=1000&&innerHeight>=820;
-    gsap.to('.name-line',{xPercent:desktop?-12:-7,yPercent:-12,scale:.92,transformOrigin:'left center',ease:'none',scrollTrigger:{trigger:'#top',start:'top top',end:'bottom top',scrub:.8}});
-    gsap.to('.surname-line',{xPercent:desktop?10:5,yPercent:-5,ease:'none',scrollTrigger:{trigger:'#top',start:'top top',end:'bottom top',scrub:.9}});
-    gsap.to('.hero-copy',{y:desktop?-65:-28,ease:'none',scrollTrigger:{trigger:'#top',start:'top top',end:'bottom top',scrub:.7}});
+    gsap.to('.hero-main',{y:-32,ease:'none',scrollTrigger:{trigger:'#top',start:'top top',end:'bottom top',scrub:.7}});
     gsap.fromTo('.scroll-sentence .word',{opacity:.48},{opacity:1,stagger:.12,ease:'none',scrollTrigger:{trigger:'#about',start:'top 75%',end:'center 47%',scrub:.6}});
     gsap.fromTo('.editorial-rule',{scaleX:.2},{scaleX:1.7,ease:'none',scrollTrigger:{trigger:'#about',start:'top 75%',end:'bottom 40%',scrub:.6}});
     gsap.fromTo('.interlude-track',{xPercent:8},{xPercent:-42,ease:'none',scrollTrigger:{trigger:'.interlude',start:'top bottom',end:'bottom top',scrub:1}});
@@ -112,7 +108,7 @@ function configureMotion(){
   motionButton.setAttribute('aria-pressed',String(reduced));motionButton.disabled=motionPreference.matches;
   motionButton.textContent=motionPreference.matches?'Reduced motion · system':reduced?'Reduced motion on':'Reduce motion';
   lenis?.destroy();lenis=undefined;gsap.ticker.remove(lenisTick);
-  if(!reduced&&!touchPreference.matches){lenis=new Lenis({duration:.8,smoothWheel:true,syncTouch:false,autoRaf:false});lenis.on('scroll',ScrollTrigger.update);gsap.ticker.add(lenisTick);}
+  if(!reduced&&!touchPreference.matches){lenis=new Lenis({duration:.8,smoothWheel:true,syncTouch:false,autoRaf:false,virtualScroll:({deltaX,deltaY,event})=>Math.abs(deltaY)>=Math.abs(deltaX)&&!event.shiftKey});lenis.on('scroll',ScrollTrigger.update);gsap.ticker.add(lenisTick);}
   scene?.setReduced(reduced);
   if(started){buildMotion();gallery.refresh();measure();ScrollTrigger.refresh();queueUpdate();}
   if(!reduced)void ensureScene();
@@ -136,7 +132,7 @@ function goTo(hash:string,immediate=false){
   scrollTo(target.getBoundingClientRect().top+scrollY-offset,immediate);
   target.setAttribute('tabindex','-1');target.focus({preventScroll:true});
 }
-document.querySelectorAll<HTMLAnchorElement>('a[href^="#"]').forEach(link=>link.addEventListener('click',event=>{const hash=link.getAttribute('href')!;if(!document.getElementById((aliases[hash]||hash).slice(1)))return;event.preventDefault();closeMenu();history.pushState(null,'',aliases[hash]||hash);goTo(hash);}));
+document.querySelectorAll<HTMLAnchorElement>('a[href^="#"]').forEach(link=>link.addEventListener('click',event=>{const hash=link.getAttribute('href')!;if(!document.getElementById((aliases[hash]||hash).slice(1)))return;event.preventDefault();closeMenu();goTo(hash);}));
 function hashChange(){const hash=aliases[location.hash]||location.hash;if(hash!==location.hash)history.replaceState(null,'',hash);goTo(hash,true);}
 window.addEventListener('hashchange',hashChange);window.addEventListener('popstate',hashChange);
 motionButton.addEventListener('click',()=>{if(motionPreference.matches)return;manualReduced=!manualReduced;try{localStorage.setItem('portfolio-reduced-motion',String(manualReduced));}catch{/* Optional. */}configureMotion();});
@@ -161,8 +157,11 @@ async function ensureScene(){
 async function loadImages(){await Promise.all(plates.map(async image=>{try{await image.decode();}catch{/* The page remains usable. */}}));if(disposed)return;imagesReady=plates.every(image=>image.naturalWidth>0);root.dataset.renderer='css';void ensureScene();}
 function visibility(){root.classList.toggle('page-hidden',document.hidden);scene?.setVisible(!document.hidden);}
 document.addEventListener('visibilitychange',visibility);
+// Fresh visits start at the introduction, including previously shared #projects URLs.
+const restoringHistory=(performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming|undefined)?.type==='back_forward';
+if(!restoringHistory){history.scrollRestoration='manual';history.replaceState(null,'',location.pathname+location.search);window.scrollTo(0,0);}
 started=true;configureMotion();void loadImages();
-void document.fonts.ready.then(()=>{if(disposed)return;gallery.refresh();measure();ScrollTrigger.refresh();if(location.hash)hashChange();queueUpdate();});
+void document.fonts.ready.then(()=>{if(disposed)return;gallery.refresh();measure();ScrollTrigger.refresh();if(restoringHistory&&location.hash)hashChange();queueUpdate();});
 window.addEventListener('pagehide',event=>{
   if(event.persisted){scene?.setVisible(false);lenis?.stop();return;}
   disposed=true;clearTimeout(resizeTimer);lenis?.destroy();gsap.ticker.remove(lenisTick);motionContext?.revert();gallery.dispose();scene?.dispose();revealObserver.disconnect();

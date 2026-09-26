@@ -9,81 +9,72 @@ uniform float uTime;
 uniform float uMobile;
 varying vec2 vUv;
 
-// Small three-octave value-noise field. No extra passes, render targets or textures.
-float hash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453123); }
-float noise(vec2 p) {
-  vec2 i = floor(p), f = fract(p); vec2 u = f*f*(3.0-2.0*f);
-  return mix(mix(hash(i),hash(i+vec2(1,0)),u.x),mix(hash(i+vec2(0,1)),hash(i+vec2(1,1)),u.x),u.y);
+float edge(vec2 a, vec2 b, vec2 p) {
+  vec2 d=b-a;
+  return (d.x*(p.y-a.y)-d.y*(p.x-a.x))/length(d);
 }
-float fbm(vec2 p) {
-  float value = 0.0, weight = .5;
-  for(int i=0;i<3;i++) { value += weight*noise(p); p=p*2.07+vec2(17.3,8.1); weight*=.5; }
-  return value;
+float oldDoor(vec2 p) {
+  float d=edge(vec2(.354,.298),vec2(.460,.270),p);
+  d=min(d,edge(vec2(.460,.270),vec2(.469,.454),p));
+  d=min(d,edge(vec2(.469,.454),vec2(.454,.568),p));
+  d=min(d,edge(vec2(.454,.568),vec2(.395,.554),p));
+  d=min(d,edge(vec2(.395,.554),vec2(.357,.455),p));
+  d=min(d,edge(vec2(.357,.455),vec2(.354,.298),p));
+  return smoothstep(-.0008,.0008,d);
 }
-// Cover-fit around the common photographic focal point (55%, 62% from top).
-// On phones a centered panoramic region retains the whole vehicle; the canvas
-// itself remains fullscreen, fading into the page's asphalt outside that region.
-vec2 plateUV(vec2 uv, out float frameMask) {
-  float imageAspect = 2560.0 / 1441.0;
-  float frameHeight = mix(uRes.y, uRes.x * .64, uMobile);
-  float bottom = mix(0.0, uRes.y*.28 - frameHeight*.453125, uMobile);
-  vec2 local = vec2(uv.x, (uv.y*uRes.y-bottom)/frameHeight);
-  frameMask = mix(1.0, smoothstep(0.0,.14,local.y)*(1.0-smoothstep(.86,1.0,local.y)),uMobile);
-  float frameAspect=uRes.x/frameHeight;
-  vec2 scale=vec2(min(frameAspect/imageAspect,1.0),min(imageAspect/frameAspect,1.0));
-  return (local-vec2(.55,.38))*scale+vec2(.55,.38);
+float newDoor(vec2 p) {
+  float d=edge(vec2(.677,.270),vec2(.770,.294),p);
+  d=min(d,edge(vec2(.770,.294),vec2(.770,.430),p));
+  d=min(d,edge(vec2(.770,.430),vec2(.734,.534),p));
+  d=min(d,edge(vec2(.734,.534),vec2(.681,.535),p));
+  d=min(d,edge(vec2(.681,.535),vec2(.677,.270),p));
+  return smoothstep(-.0008,.0008,d);
 }
-vec3 sampleRGB(sampler2D image, vec2 uv, float aberration) {
-  vec2 border=vec2(.001);
-  return vec3(texture2D(image,clamp(uv+vec2(aberration,0),border,1.0-border)).r,
-              texture2D(image,clamp(uv,border,1.0-border)).g,
-              texture2D(image,clamp(uv-vec2(aberration,0),border,1.0-border)).b);
+// Inverse perspective projection of a photo-textured door around its vertical hinge.
+vec2 hingeUV(vec2 uv, vec2 pivot, float angle) {
+  vec2 d=uv-pivot;
+  float x=d.x/max(.12,cos(angle)-d.x*sin(angle)/.65);
+  return pivot+vec2(x,d.y*(1.0+x*sin(angle)/.65));
+}
+vec3 photo(sampler2D image, vec2 uv) { return texture2D(image,clamp(uv,vec2(.001),vec2(.999))).rgb; }
+vec2 plateUV(vec2 uv) {
+  float imageAspect=2560.0/1441.0;
+  float screenAspect=uRes.x/uRes.y;
+  vec2 cover=vec2(min(screenAspect/imageAspect,1.0),min(imageAspect/screenAspect,1.0));
+  return (uv-vec2(.55,.38))*cover+vec2(.55,.38);
 }
 void main() {
-  float shift=clamp((uProgress-.25)/.35,0.0,1.0);
-  float blend=shift*shift*(3.0-2.0*shift);
-  float peak=sin(blend*3.14159265);
-  float speed=clamp(abs(uVelocity)/2200.0,0.0,1.0);
-  float mask;
-  vec2 uv=plateUV(vUv,mask);
-  float holdZoom=mix(1.0,1.06,smoothstep(0.0,.25,uProgress));
-  vec2 oldUV=(uv-vec2(.55,.38))/holdZoom+vec2(.55,.38);
-  vec2 newUV=uv;
-  // A restrained camera drift keeps the retained scene alive in every chapter.
-  vec2 drift=vec2(sin(uTime*.12),cos(uTime*.09))*.0018*(1.0-uMobile*.6);
+  float p=clamp(uProgress,0.0,1.0);
+  float entry=smoothstep(.08,.50,p), exit=smoothstep(.50,.96,p);
+  float blend=smoothstep(.44,.64,p);
+  float cabin=smoothstep(.22,.43,p)*(1.0-smoothstep(.63,.90,p));
+  vec2 uv=plateUV(vUv);
+  // The camera approaches the old driver's door, then pulls out from the new side.
+  vec2 oldUV=(uv-.5)/(1.0+entry*2.8)+mix(vec2(.5),vec2(.413,.48),entry);
+  vec2 newUV=(uv-.5)/(1.0+(1.0-exit)*2.8)+mix(vec2(.726,.46),vec2(.5),exit);
+  vec2 drift=vec2(sin(uTime*.12),cos(uTime*.09))*.0012*(1.0-cabin);
   oldUV+=drift;newUV+=drift;
-  // Whole photographic plates move under the directional wipe. Nothing is
-  // reconstructed, and both focal points return to exactly the same framing.
-  oldUV.x-=pow(blend,1.6)*.38;
-  newUV.x-=pow(1.0-blend,1.6)*.24;
-  vec2 parallax=uPointer*vec2(24.0)/uRes*(1.0-uMobile);
-  newUV+=parallax*smoothstep(.60,.95,uProgress);
-  float haze=sin(uv.y*47.0+uTime*1.1)*sin(uv.y*111.0-uTime*.8)*.0025*peak*(.3+speed)*(1.0-uMobile);
-  oldUV.x+=haze; newUV.x+=haze;
-  float aberration=.0025*peak*(.3+speed)*(1.0-uMobile*.8);
-  vec3 oldColor=sampleRGB(uTexA,oldUV,aberration);
-  vec3 newColor=sampleRGB(uTexB,newUV,aberration);
-  float luminance=dot(oldColor,vec3(.2126,.7152,.0722));
-  oldColor=mix(vec3(luminance),oldColor,.58)*vec3(.93,1.0,.96);
-  // An organic left-to-right leading edge, stretched noise and red caliper light.
-  float displacement=(fbm(vec2(vUv.x*4.0,vUv.y*16.0))-.45)*.1*peak;
-  float streakNoise=noise(vec2(vUv.x*1.8+uTime*.04,vUv.y*180.0));
-  float edge=(blend*1.3-.15) - vUv.x + displacement + (streakNoise-.5)*.07*peak;
-  float wipe=smoothstep(-.018,.018,edge);
-  if(shift<=0.0)wipe=0.0;
-  if(shift>=1.0)wipe=1.0;
-  vec3 color=mix(oldColor,newColor,wipe);
-  float glow=exp(-abs(edge)*65.0)*peak;
-  float streaks=pow(streakNoise,12.0)*exp(-abs(edge)*8.0)*peak*(.05+speed*.12);
-  color+=vec3(.882,.114,.114)*(glow*.16+streaks);
-  float sun=exp(-length((vUv-vec2(.12,.65))*vec2(1.2,2.0))*5.0);
-  color+=vec3(1.0,.42,.17)*sun*.035*blend;
-  float grain=(hash(gl_FragCoord.xy+floor(uTime*12.0))-.5)*.025*(1.0-blend);
-  color+=grain;
-  float vignette=1.0-smoothstep(.3,.85,length((vUv-.5)*vec2(.9,1.0)))*.23*(1.0-blend);
+  newUV+=uPointer*vec2(12.0)/uRes*smoothstep(.92,1.0,p);
+  float oldAngle=1.12*smoothstep(.16,.46,p);
+  float newAngle=-1.12*(1.0-smoothstep(.57,.96,p));
+  vec2 oldPanel=hingeUV(oldUV,vec2(.464,.43),oldAngle);
+  vec2 newPanel=hingeUV(newUV,vec2(.679,.43),newAngle);
+  vec3 a=photo(uTexA,oldUV), b=photo(uTexB,newUV);
+  // A dark cabin is revealed behind each moving door; the original cars stay intact.
+  a=mix(a,vec3(.018,.024,.022),oldDoor(oldUV)*smoothstep(.02,.28,oldAngle));
+  b=mix(b,vec3(.023,.019,.014),newDoor(newUV)*smoothstep(.02,.28,abs(newAngle)));
+  a=mix(a,photo(uTexA,oldPanel)*(1.0-.2*sin(oldAngle)),oldDoor(oldPanel));
+  b=mix(b,photo(uTexB,newPanel)*(1.0-.2*sin(abs(newAngle))),newDoor(newPanel));
+  float luminance=dot(a,vec3(.2126,.7152,.0722));
+  a=mix(vec3(luminance),a,.58)*vec3(.93,1.0,.96);
+  vec3 color=mix(a,b,blend);
+  // A quiet exposure dip and warm edge light hide the handoff inside the cabin.
+  color*=1.0-cabin*.38;
+  float light=pow(max(0.0,1.0-abs(vUv.x-(1.0-blend))),14.0)*cabin;
+  color+=vec3(.68,.34,.15)*light*.075;
+  float vignette=1.0-smoothstep(.28,.82,length((vUv-.5)*vec2(.9,1.0)))*(.18+cabin*.16);
   color*=vignette;
-  color=mix(vec3(.047,.051,.047),color,mask);
-  gl_FragColor=vec4(color,mix(1.0,mask,uMobile));
+  gl_FragColor=vec4(color,1.0);
   #include <tonemapping_fragment>
   #include <colorspace_fragment>
 }

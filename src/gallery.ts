@@ -1,11 +1,11 @@
-type GalleryOptions = { reduced: () => boolean; onMove?: () => void };
+type GalleryOptions = { reduced: () => boolean };
 
-// A native horizontal rail with a gentle automatic sweep. It never scrolls the page.
+// Native horizontal gestures, normal vertical page scrolling, and a seamless ring.
 export function createGallery(options: GalleryOptions) {
   const section = document.querySelector<HTMLElement>('#projects')!;
   const viewport = section.querySelector<HTMLElement>('.rail-viewport')!;
   const track = section.querySelector<HTMLElement>('.project-track')!;
-  const all = [...track.querySelectorAll<HTMLElement>('.project-card')];
+  const originals = [...track.querySelectorAll<HTMLElement>('.project-card')];
   const filters = [...section.querySelectorAll<HTMLButtonElement>('[data-filter]')];
   const previous = section.querySelector<HTMLButtonElement>('#project-prev')!;
   const next = section.querySelector<HTMLButtonElement>('#project-next')!;
@@ -16,60 +16,45 @@ export function createGallery(options: GalleryOptions) {
   const totalLabel = section.querySelector('#rail-total')!;
   const instruction = section.querySelector('.rail-instruction')!;
   const cleanups: (() => void)[] = [];
-  let visible = all.slice(), positions: number[] = [], widths: number[] = [];
-  let current = 0, distance = 0, direction = 1, position = 0;
-  let renderFrame = 0, autoFrame = 0, lastTime = 0, resumeAt = 0;
-  let disposed = false, inView = false, hovered = false, touching = false;
-  let focusWithin = false, userPaused = false;
-  const clamp = (value: number, min: number, max: number) => Math.max(min, Math.min(max, value));
-
+  let visible = originals.slice(), offsets: number[] = [];
+  let current = 0, cycle = 0, origin = 0, position = 0;
+  let frame = 0, lastTime = 0, resumeAt = 0;
+  let disposed = false, inView = false, touching = false, focusWithin = false;
+  let userPaused = false, looping = false, manualUntil = 0;
+  const mod = (value: number, length: number) => ((value % length) + length) % length;
+  const clamp = (value: number, max: number) => Math.max(0, Math.min(max, value));
   function listen(target: EventTarget, name: string, fn: EventListener, opts?: AddEventListenerOptions) {
     target.addEventListener(name, fn, opts);
     cleanups.push(() => target.removeEventListener(name, fn, opts));
   }
   function render() {
-    renderFrame = 0;
     if (disposed || !visible.length) return;
-    const x = viewport.scrollLeft;
-    current = positions.reduce((nearest, at, i) => Math.abs(at - x) < Math.abs(positions[nearest] - x) ? i : nearest, 0);
-    options.onMove?.();
+    const x = looping ? mod(viewport.scrollLeft - origin, cycle) : viewport.scrollLeft;
+    const nearest = offsets.reduce((best, at, i) => Math.abs(at - x) < Math.abs(offsets[best] - x) ? i : best, 0);
+    current = looping && x > (offsets[offsets.length - 1] + cycle) / 2 ? 0 : nearest;
     currentLabel.textContent = String(current + 1).padStart(2, '0');
     range.value = String(current + 1);
     range.setAttribute('aria-valuetext', `${current + 1} of ${visible.length}: ${visible[current].querySelector('h3')!.textContent}`);
     range.style.setProperty('--rail-fill', `${current / Math.max(1, visible.length - 1) * 100}%`);
-    previous.disabled = current === 0;
-    next.disabled = current === visible.length - 1;
-    visible.forEach((card, i) => {
-      const center = positions[i] - x + widths[i] * .5;
-      const offset = clamp((center - viewport.clientWidth * .35) / (viewport.clientWidth * .7), -1, 1);
-      card.style.setProperty('--card-turn', options.reduced() ? '0deg' : `${(-offset * 2).toFixed(2)}deg`);
-      card.style.setProperty('--card-y', options.reduced() ? '0px' : `${(Math.abs(offset) * 3).toFixed(2)}px`);
-    });
+    previous.disabled = visible.length < 2 || (!looping && current === 0);
+    next.disabled = visible.length < 2 || (!looping && current === visible.length - 1);
   }
-  function queueRender() { if (!renderFrame && !disposed) renderFrame = requestAnimationFrame(render); }
   function canPlay() {
-    return !disposed && inView && !document.hidden && !options.reduced() && !userPaused && !hovered && !touching && !focusWithin && distance > 1;
+    return !disposed && inView && !document.hidden && looping && !userPaused && !touching && !focusWithin;
   }
-  function stop() {
-    cancelAnimationFrame(autoFrame);
-    autoFrame = 0;
-    lastTime = 0;
-  }
+  function stop() { cancelAnimationFrame(frame); frame = 0; lastTime = 0; }
+  function normalize(x: number) { return origin + mod(x - origin, cycle); }
   function tick(time: number) {
-    autoFrame = 0;
+    frame = 0;
     if (!canPlay()) { lastTime = 0; return; }
     const elapsed = lastTime ? Math.min(time - lastTime, 48) : 0;
     lastTime = time;
     if (time >= resumeAt) {
-      // Keep fractional pixels between frames, including on browsers that round scrollLeft.
-      position = clamp(position + direction * 34 * elapsed / 1000, 0, distance);
+      // Fractional accumulator avoids rounding drift; equivalent copies hide the wrap.
+      position = normalize(position + 28 * elapsed / 1000);
       viewport.scrollLeft = position;
-      if (position >= distance || position <= 0) {
-        direction = position >= distance ? -1 : 1;
-        resumeAt = time + 1600;
-      }
     } else position = viewport.scrollLeft;
-    autoFrame = requestAnimationFrame(tick);
+    frame = requestAnimationFrame(tick);
   }
   function syncPlayback() {
     autoplay.hidden = false;
@@ -77,103 +62,128 @@ export function createGallery(options: GalleryOptions) {
     autoplay.setAttribute('aria-pressed', String(!userPaused && !options.reduced()));
     autoplay.textContent = options.reduced() ? 'Auto scroll off' : userPaused ? 'Play auto scroll' : 'Pause auto scroll';
     autoplay.setAttribute('aria-label', options.reduced() ? 'Automatic scrolling is off for reduced motion' : userPaused ? 'Play automatic project scrolling' : 'Pause automatic project scrolling');
-    instruction.textContent = options.reduced() ? 'Swipe or use the arrows' : 'Auto scroll · hover to pause';
-    viewport.classList.toggle('auto-gallery', !options.reduced());
+    instruction.textContent = options.reduced() ? 'Swipe to browse · scroll to explore' : 'Always moving · scroll freely';
+    viewport.classList.toggle('auto-gallery', looping);
     if (canPlay()) {
-      if (!autoFrame) { position = viewport.scrollLeft; lastTime = 0; autoFrame = requestAnimationFrame(tick); }
+      if (!frame) { position = viewport.scrollLeft; lastTime = 0; frame = requestAnimationFrame(tick); }
     } else stop();
   }
-  function interactionPause() {
-    resumeAt = performance.now() + 8000;
+  function pauseForInteraction(delay = 1000) {
+    resumeAt = performance.now() + delay;
+    manualUntil = resumeAt;
     position = viewport.scrollLeft;
+  }
+  function copyCard(card: HTMLElement) {
+    const copy = card.cloneNode(true) as HTMLElement;
+    copy.dataset.galleryCopy = 'true';
+    copy.setAttribute('aria-hidden', 'true');
+    copy.removeAttribute('aria-labelledby');
+    copy.removeAttribute('id');
+    copy.querySelectorAll('[id]').forEach(node => node.removeAttribute('id'));
+    copy.querySelectorAll<HTMLElement>('a,button,input,[tabindex]').forEach(node => node.tabIndex = -1);
+    return copy;
   }
   function refresh(reset = false) {
     if (disposed) return;
     stop();
-    const oldIndex = reset ? 0 : Math.min(current, visible.length - 1);
+    const selected = reset ? 0 : Math.min(current, visible.length - 1);
+    track.querySelectorAll('[data-gallery-copy]').forEach(node => node.remove());
+    looping = !options.reduced() && visible.length > 1;
+    viewport.classList.toggle('auto-gallery', looping);
     viewport.scrollLeft = 0;
-    const pad = parseFloat(getComputedStyle(track).paddingLeft) || 0;
-    // Enough tail space to bring even the final card fully into view.
-    track.style.setProperty('--rail-tail', `${Math.max(pad, viewport.clientWidth - visible[0].offsetWidth - pad)}px`);
-    positions = visible.map(card => card.offsetLeft - visible[0].offsetLeft);
-    widths = visible.map(card => card.offsetWidth);
-    distance = Math.max(0, viewport.scrollWidth - viewport.clientWidth);
-    viewport.scrollLeft = clamp(positions[oldIndex] || 0, 0, distance);
+    track.style.removeProperty('--rail-tail');
+    const gap = parseFloat(getComputedStyle(track).columnGap) || 20;
+    offsets = visible.map(card => card.offsetLeft - visible[0].offsetLeft);
+    cycle = offsets[offsets.length - 1] + visible[visible.length - 1].offsetWidth + gap;
+    origin = 0;
+    if (looping && cycle > 0) {
+      const before = document.createDocumentFragment();
+      visible.forEach(card => before.append(copyCard(card)));
+      track.prepend(before);
+      // Extra trailing cycles also cover wide screens when a filter has only 3 cards.
+      const after = document.createDocumentFragment();
+      const repetitions = Math.ceil(viewport.clientWidth / cycle) + 1;
+      for (let n = 0; n < repetitions; n++) visible.forEach(card => after.append(copyCard(card)));
+      track.append(after);
+      origin = visible[0].offsetLeft - (track.firstElementChild as HTMLElement).offsetLeft;
+    } else {
+      const pad = parseFloat(getComputedStyle(track).paddingLeft) || 0;
+      track.style.setProperty('--rail-tail', `${Math.max(pad, viewport.clientWidth - visible[visible.length - 1].offsetWidth - pad)}px`);
+    }
+    viewport.scrollLeft = origin + (offsets[selected] || 0);
     position = viewport.scrollLeft;
-    if (reset) direction = 1;
     range.max = String(visible.length);
     totalLabel.textContent = String(visible.length).padStart(2, '0');
     count.textContent = `${visible.length} projects`;
-    resumeAt = performance.now() + 1800;
+    resumeAt = performance.now();
+    render(); syncPlayback();
+  }
+  function choose(index: number, immediate = false, direction = 0) {
+    pauseForInteraction(1400);
+    const target = looping ? mod(index, visible.length) : clamp(index, visible.length - 1);
+    let left = origin + offsets[target];
+    if (looping) {
+      // Pick the closest equivalent card in the requested direction.
+      const local = normalize(viewport.scrollLeft);
+      viewport.scrollLeft = local;
+      if (direction > 0 && left <= local + 2) left += cycle;
+      if (direction < 0 && left >= local - 2) left -= cycle;
+    }
+    viewport.scrollTo({ left, behavior: immediate || options.reduced() ? 'instant' : 'smooth' });
+  }
+  listen(viewport, 'scroll', () => {
+    // Rebase only after a native drag or smooth button movement has settled.
+    if (looping && !touching && !focusWithin && performance.now() >= manualUntil) {
+      const x = viewport.scrollLeft;
+      if (x < origin - .5 || x >= origin + cycle) {
+        viewport.scrollLeft = normalize(x);
+        position = viewport.scrollLeft;
+      }
+    }
     render();
-    syncPlayback();
-  }
-  function choose(index: number, immediate = false) {
-    interactionPause();
-    index = clamp(index, 0, visible.length - 1);
-    viewport.scrollTo({ left: clamp(positions[index], 0, distance), behavior: immediate || options.reduced() ? 'instant' : 'smooth' });
-  }
-  listen(viewport, 'scroll', queueRender, { passive: true });
-  listen(previous, 'click', () => choose(current - 1));
-  listen(next, 'click', () => choose(current + 1));
+  }, { passive: true });
+  listen(previous, 'click', () => choose(current - 1, false, -1));
+  listen(next, 'click', () => choose(current + 1, false, 1));
   listen(range, 'input', () => choose(Number(range.value) - 1, true));
-  listen(autoplay, 'click', () => {
-    userPaused = !userPaused;
-    if (!userPaused) resumeAt = performance.now();
-    syncPlayback();
-  });
-  listen(viewport, 'pointerenter', event => {
-    if ((event as PointerEvent).pointerType !== 'mouse') return;
-    hovered = true; syncPlayback();
-  });
-  listen(viewport, 'pointerleave', event => {
-    if ((event as PointerEvent).pointerType !== 'mouse') return;
-    hovered = false; resumeAt = Math.max(resumeAt, performance.now() + 1200); syncPlayback();
-  });
-  listen(viewport, 'pointerdown', () => { touching = true; interactionPause(); syncPlayback(); }, { passive: true });
-  const release = () => {
-    if (!touching) return;
-    touching = false; interactionPause(); syncPlayback();
-  };
+  listen(autoplay, 'click', () => { userPaused = !userPaused; resumeAt = performance.now(); syncPlayback(); });
+  // Hover never interrupts the continuous loop. Deliberate pointer/focus actions do.
+  listen(viewport, 'pointerdown', () => { touching = true; pauseForInteraction(); syncPlayback(); }, { passive: true });
+  const release = () => { if (touching) { touching = false; pauseForInteraction(800); syncPlayback(); } };
   listen(window, 'pointerup', release, { passive: true });
   listen(window, 'pointercancel', release, { passive: true });
-  listen(viewport, 'wheel', interactionPause, { passive: true });
+  listen(viewport, 'wheel', event => {
+    const wheel = event as WheelEvent;
+    if (Math.abs(wheel.deltaX) > Math.abs(wheel.deltaY) || wheel.shiftKey) pauseForInteraction();
+    // Never preventDefault: vertical wheel events belong to the page.
+  }, { passive: true });
   listen(viewport, 'keydown', event => {
-    interactionPause();
     const key = event as KeyboardEvent;
     if (key.target !== viewport) return;
-    if (key.key === 'ArrowRight' || key.key === 'ArrowLeft') { key.preventDefault(); choose(current + (key.key === 'ArrowRight' ? 1 : -1)); }
+    if (key.key === 'ArrowRight' || key.key === 'ArrowLeft') { key.preventDefault(); const direction = key.key === 'ArrowRight' ? 1 : -1; choose(current + direction, false, direction); }
     if (key.key === 'Home' || key.key === 'End') { key.preventDefault(); choose(key.key === 'Home' ? 0 : visible.length - 1); }
   });
   listen(viewport, 'focusin', event => {
     focusWithin = true; syncPlayback();
     const card = (event.target as HTMLElement).closest<HTMLElement>('.project-card');
-    if (!card) return;
+    if (!card || card.dataset.galleryCopy) return;
     const index = visible.indexOf(card);
-    if (index >= 0 && (positions[index] < viewport.scrollLeft || positions[index] + widths[index] > viewport.scrollLeft + viewport.clientWidth)) choose(index, true);
+    if (index < 0) return;
+    const left = origin + offsets[index];
+    if (left < viewport.scrollLeft || left + card.offsetWidth > viewport.scrollLeft + viewport.clientWidth) choose(index, true);
   });
   listen(viewport, 'focusout', event => {
     focusWithin = viewport.contains((event as FocusEvent).relatedTarget as Node | null);
-    if (!focusWithin) interactionPause();
+    if (!focusWithin) pauseForInteraction(500);
     syncPlayback();
   });
   filters.forEach(button => listen(button, 'click', () => {
-    all.forEach(card => { card.hidden = button.dataset.filter !== 'all' && card.dataset.group !== button.dataset.filter; });
-    visible = all.filter(card => !card.hidden);
+    originals.forEach(card => { card.hidden = button.dataset.filter !== 'all' && card.dataset.group !== button.dataset.filter; });
+    visible = originals.filter(card => !card.hidden);
     filters.forEach(item => item.setAttribute('aria-pressed', String(item === button)));
     refresh(true);
-    interactionPause();
   }));
   listen(document, 'visibilitychange', syncPlayback);
-  const visibility = new IntersectionObserver(entries => {
-    inView = entries[0].intersectionRatio >= .2;
-    if (inView) resumeAt = Math.max(resumeAt, performance.now() + 1200);
-    syncPlayback();
-  }, { threshold: [0, .2] });
+  const visibility = new IntersectionObserver(entries => { inView = entries[0].isIntersecting; syncPlayback(); }, { threshold: 0 });
   visibility.observe(viewport);
-  return {
-    refresh,
-    get progress() { return distance ? viewport.scrollLeft / distance : 0; },
-    dispose() { disposed = true; stop(); cancelAnimationFrame(renderFrame); visibility.disconnect(); cleanups.forEach(fn => fn()); }
-  };
+  return { refresh, dispose() { disposed = true; stop(); visibility.disconnect(); cleanups.forEach(fn => fn()); track.querySelectorAll('[data-gallery-copy]').forEach(node => node.remove()); } };
 }
