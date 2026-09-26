@@ -9,18 +9,14 @@ export function createGallery(options: GalleryOptions) {
   const filters = [...section.querySelectorAll<HTMLButtonElement>('[data-filter]')];
   const previous = section.querySelector<HTMLButtonElement>('#project-prev')!;
   const next = section.querySelector<HTMLButtonElement>('#project-next')!;
-  const autoplay = section.querySelector<HTMLButtonElement>('#project-autoplay')!;
-  const range = section.querySelector<HTMLInputElement>('#rail-range')!;
   const count = section.querySelector('#project-count')!;
-  const currentLabel = section.querySelector('#rail-current')!;
-  const totalLabel = section.querySelector('#rail-total')!;
   const instruction = section.querySelector('.rail-instruction')!;
   const cleanups: (() => void)[] = [];
   let visible = originals.slice(), offsets: number[] = [];
   let current = 0, cycle = 0, origin = 0, position = 0;
   let frame = 0, lastTime = 0, resumeAt = 0;
   let disposed = false, inView = false, touching = false, focusWithin = false;
-  let userPaused = false, looping = false, manualUntil = 0;
+  let looping = false, manualUntil = 0;
   const mod = (value: number, length: number) => ((value % length) + length) % length;
   const clamp = (value: number, max: number) => Math.max(0, Math.min(max, value));
   function listen(target: EventTarget, name: string, fn: EventListener, opts?: AddEventListenerOptions) {
@@ -32,15 +28,11 @@ export function createGallery(options: GalleryOptions) {
     const x = looping ? mod(viewport.scrollLeft - origin, cycle) : viewport.scrollLeft;
     const nearest = offsets.reduce((best, at, i) => Math.abs(at - x) < Math.abs(offsets[best] - x) ? i : best, 0);
     current = looping && x > (offsets[offsets.length - 1] + cycle) / 2 ? 0 : nearest;
-    currentLabel.textContent = String(current + 1).padStart(2, '0');
-    range.value = String(current + 1);
-    range.setAttribute('aria-valuetext', `${current + 1} of ${visible.length}: ${visible[current].querySelector('h3')!.textContent}`);
-    range.style.setProperty('--rail-fill', `${current / Math.max(1, visible.length - 1) * 100}%`);
     previous.disabled = visible.length < 2 || (!looping && current === 0);
     next.disabled = visible.length < 2 || (!looping && current === visible.length - 1);
   }
   function canPlay() {
-    return !disposed && inView && !document.hidden && looping && !userPaused && !touching && !focusWithin;
+    return !disposed && inView && !document.hidden && looping && !touching && !focusWithin;
   }
   function stop() { cancelAnimationFrame(frame); frame = 0; lastTime = 0; }
   function normalize(x: number) { return origin + mod(x - origin, cycle); }
@@ -51,17 +43,12 @@ export function createGallery(options: GalleryOptions) {
     lastTime = time;
     if (time >= resumeAt) {
       // Fractional accumulator avoids rounding drift; equivalent copies hide the wrap.
-      position = normalize(position + 28 * elapsed / 1000);
+      position = normalize(position + 36 * elapsed / 1000);
       viewport.scrollLeft = position;
     } else position = viewport.scrollLeft;
     frame = requestAnimationFrame(tick);
   }
   function syncPlayback() {
-    autoplay.hidden = false;
-    autoplay.disabled = options.reduced();
-    autoplay.setAttribute('aria-pressed', String(!userPaused && !options.reduced()));
-    autoplay.textContent = options.reduced() ? 'Auto scroll off' : userPaused ? 'Play auto scroll' : 'Pause auto scroll';
-    autoplay.setAttribute('aria-label', options.reduced() ? 'Automatic scrolling is off for reduced motion' : userPaused ? 'Play automatic project scrolling' : 'Pause automatic project scrolling');
     instruction.textContent = options.reduced() ? 'Swipe to browse · scroll to explore' : 'Always moving · scroll freely';
     viewport.classList.toggle('auto-gallery', looping);
     if (canPlay()) {
@@ -112,8 +99,6 @@ export function createGallery(options: GalleryOptions) {
     }
     viewport.scrollLeft = origin + (offsets[selected] || 0);
     position = viewport.scrollLeft;
-    range.max = String(visible.length);
-    totalLabel.textContent = String(visible.length).padStart(2, '0');
     count.textContent = `${visible.length} projects`;
     resumeAt = performance.now();
     render(); syncPlayback();
@@ -144,8 +129,6 @@ export function createGallery(options: GalleryOptions) {
   }, { passive: true });
   listen(previous, 'click', () => choose(current - 1, false, -1));
   listen(next, 'click', () => choose(current + 1, false, 1));
-  listen(range, 'input', () => choose(Number(range.value) - 1, true));
-  listen(autoplay, 'click', () => { userPaused = !userPaused; resumeAt = performance.now(); syncPlayback(); });
   // Hover never interrupts the continuous loop. Deliberate pointer/focus actions do.
   listen(viewport, 'pointerdown', () => { touching = true; pauseForInteraction(); syncPlayback(); }, { passive: true });
   const release = () => { if (touching) { touching = false; pauseForInteraction(800); syncPlayback(); } };
