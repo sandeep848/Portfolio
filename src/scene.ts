@@ -1,5 +1,6 @@
-import { Scene, OrthographicCamera, WebGLRenderer, PlaneGeometry, ShaderMaterial, Mesh, Texture, Vector2, LinearFilter, SRGBColorSpace, NoToneMapping } from 'three';
+import { Scene, OrthographicCamera, WebGLRenderer, PlaneGeometry, ShaderMaterial, Mesh, Texture, Vector2, Vector4, LinearFilter, SRGBColorSpace, NoToneMapping } from 'three';
 import fragmentShader from './transition.frag.glsl?raw';
+import { cinematicFrame } from './cinematic';
 
 export interface TransitionScene {
   update(progress: number, velocity: number): void;
@@ -9,17 +10,19 @@ export interface TransitionScene {
   dispose(): void;
 }
 
-export async function createTransition(canvas: HTMLCanvasElement, oldImage: HTMLImageElement, newImage: HTMLImageElement): Promise<TransitionScene> {
+export async function createTransition(canvas: HTMLCanvasElement, images: HTMLImageElement[]): Promise<TransitionScene> {
   const root = document.documentElement;
   const scene = new Scene();
   const camera = new OrthographicCamera(-1,1,1,-1,0,1);
   const renderer = new WebGLRenderer({ canvas, antialias: false, alpha: true, powerPreference: 'low-power' });
   renderer.outputColorSpace = SRGBColorSpace;
   renderer.toneMapping = NoToneMapping;
-  const texA = new Texture(oldImage), texB = new Texture(newImage);
-  for (const tex of [texA, texB]) { tex.colorSpace = SRGBColorSpace; tex.minFilter = LinearFilter; tex.magFilter = LinearFilter; tex.generateMipmaps = false; tex.needsUpdate = true; }
+  const textures = images.map(image => new Texture(image));
+  for (const tex of textures) { tex.colorSpace = SRGBColorSpace; tex.minFilter = LinearFilter; tex.magFilter = LinearFilter; tex.generateMipmaps = false; tex.needsUpdate = true; }
   const uniforms = {
-    uTexA: { value: texA }, uTexB: { value: texB }, uRes: { value: new Vector2(innerWidth, innerHeight) },
+    uTexA: { value: textures[0] }, uTexB: { value: textures[1] },
+    uTexC: { value: textures[2] }, uTexD: { value: textures[3] }, uTexE: { value: textures[4] },
+    uFrames: { value: cinematicFrame(0, false).map(f => new Vector4(f.scale, f.x, f.y, f.opacity)) }, uRes: { value: new Vector2(innerWidth, innerHeight) },
     uProgress: { value: 0 }, uVelocity: { value: 0 }, uTime: { value: 0 },
     uMobile: { value: innerWidth <= 600 ? 1 : 0 }, uPointer: { value: new Vector2() }
   };
@@ -64,7 +67,7 @@ export async function createTransition(canvas: HTMLCanvasElement, oldImage: HTML
     if(!disposed&&!lost&&!reduced&&visible&&!document.hidden){lastTime=0;raf=requestAnimationFrame(frame);}
   }
   function onLost(event: Event) { event.preventDefault();lost=true;sync(); }
-  function onRestored() { lost=false;texA.needsUpdate=true;texB.needsUpdate=true;size();sync(); }
+  function onRestored() { lost=false;textures.forEach(tex=>tex.needsUpdate=true);size();sync(); }
   window.addEventListener('resize',size,{passive:true});
   const visibility = () => sync();
   document.addEventListener('visibilitychange',visibility);
@@ -75,14 +78,14 @@ export async function createTransition(canvas: HTMLCanvasElement, oldImage: HTML
     window.removeEventListener('resize',size);
     document.removeEventListener('visibilitychange',visibility);
     canvas.removeEventListener('webglcontextlost',onLost);canvas.removeEventListener('webglcontextrestored',onRestored);
-    geometry.dispose();material.dispose();texA.dispose();texB.dispose();renderer.dispose();renderer.forceContextLoss();
+    geometry.dispose();material.dispose();textures.forEach(tex=>tex.dispose());renderer.dispose();renderer.forceContextLoss();
     root.classList.remove('webgl-ready');root.dataset.renderer='css';
   }
   // Compilation must finish before replacing the already-visible photo fallback.
   try { await renderer.compileAsync(scene,camera); size();sync(); }
   catch(error) { dispose();throw error; }
   return {
-    update(progress,velocity){uniforms.uProgress.value=progress;uniforms.uVelocity.value=velocity;},
+    update(progress,velocity){uniforms.uProgress.value=progress;uniforms.uVelocity.value=velocity;cinematicFrame(progress,reduced).forEach((f,i)=>uniforms.uFrames.value[i].set(f.scale,f.x,f.y,f.opacity));},
     pointer(x,y){pointerTarget.set(x,y);},
     setVisible(value){if(visible!==value){visible=value;sync();}},
     setReduced(value){if(reduced!==value){reduced=value;sync();}},

@@ -25,10 +25,10 @@ let disposed=false, imagesReady=false, sceneLoading=false, started=false;
 let sceneUnavailable=new URLSearchParams(location.search).has('fallback');
 let frame=0, resizeTimer=0, pointerFrame=0, pointerX=0, pointerY=0;
 let backgroundProgress=0, currentSection='', lastY=scrollY, lastAt=performance.now();
-let cameraX=0,cameraY=0,cameraScale=1.08;
-let aboutTop=0,projectsTop=0,heroHeight=1,pageTravel=1;
+let cinematicAt=0;
+let aboutTop=0,projectsTop=0,pageTravel=1;
 const canvas=$<HTMLCanvasElement>('#transition-canvas');
-const plates=[$<HTMLImageElement>('#plate-old'),$<HTMLImageElement>('#plate-new')];
+const plates=[...document.querySelectorAll<HTMLImageElement>('[data-cinema-plate]')];
 const sections=[...document.querySelectorAll<HTMLElement>('.chapter')];
 const navigationLinks=[...document.querySelectorAll<HTMLAnchorElement>('#navigation a,.journey-meter a')];
 const sectionNames=['INTRO','ABOUT','PROJECTS','EXPERIENCE','CONTACT'];
@@ -41,7 +41,7 @@ function scrollTo(y:number,immediate=false){
 const gallery=createGallery({reduced:()=>reduced});
 function measure(){
   aboutTop=$('#about').offsetTop;projectsTop=$('#projects').offsetTop;
-  heroHeight=$('#top').offsetHeight;pageTravel=Math.max(1,root.scrollHeight-innerHeight);
+  pageTravel=Math.max(1,root.scrollHeight-innerHeight);
 }
 function updatePage(){
   frame=0;if(disposed)return;
@@ -49,18 +49,11 @@ function updatePage(){
   const velocity=(y-lastY)/Math.max(16,now-lastAt)*1000;lastY=y;lastAt=now;
   $('.nav').classList.toggle('scrolled',y>35);
   $('.scroll-progress i').style.transform='scaleX('+clamp(y/pageTravel)+')';
-  const hero=clamp(y/Math.max(1,heroHeight));
-  backgroundProgress=clamp((y-aboutTop+innerHeight*.75)/Math.max(1,projectsTop-aboutTop+innerHeight*.3));
+  const targetProgress=clamp((y-aboutTop+innerHeight*.75)/Math.max(1,projectsTop-aboutTop+innerHeight*.3));
+  const dt=Math.min(.05,Math.max(.001,(now-cinematicAt)/1000));cinematicAt=now;
+  backgroundProgress=reduced?targetProgress:backgroundProgress+(targetProgress-backgroundProgress)*(1-Math.exp(-dt*12));
+  if(Math.abs(targetProgress-backgroundProgress)<.00005)backgroundProgress=targetProgress;
   paintCinematicFrame(root,backgroundProgress,reduced);
-  // Camera motion is shared by the GPU and CSS paths, so scrolling stays alive on modest hardware.
-  const journey=clamp(y/pageTravel);
-  const targetX=reduced?0:Math.sin(journey*Math.PI*2)*innerWidth*.035;
-  const targetY=reduced?0:(Math.sin(y/1550)*13-hero*13);
-  const targetScale=reduced?1:1.08+hero*.045+Math.sin(journey*Math.PI)*.04;
-  cameraX+=(targetX-cameraX)*.18;cameraY+=(targetY-cameraY)*.18;cameraScale+=(targetScale-cameraScale)*.18;
-  root.style.setProperty('--camera-x',cameraX.toFixed(2)+'px');
-  root.style.setProperty('--camera-y',cameraY.toFixed(2)+'px');
-  root.style.setProperty('--camera-scale',cameraScale.toFixed(5));
   scene?.update(backgroundProgress,reduced?0:velocity);
   let active=0;
   for(let i=0;i<sections.length;i++)if(sections[i].getBoundingClientRect().top<innerHeight*.4)active=i;
@@ -69,7 +62,7 @@ function updatePage(){
     navigationLinks.forEach(link=>{if(link.hash==='#'+currentSection)link.setAttribute('aria-current','location');else link.removeAttribute('aria-current');});
     $('.journey-label').textContent=String(active+1).padStart(2,'0')+' — '+sectionNames[active];
   }
-  if(!reduced&&(Math.abs(targetX-cameraX)>.08||Math.abs(targetY-cameraY)>.08||Math.abs(targetScale-cameraScale)>.0001))queueUpdate();
+  if(!reduced&&backgroundProgress!==targetProgress)queueUpdate();
 }
 function queueUpdate(){if(!frame)frame=requestAnimationFrame(updatePage);}
 function lenisTick(time:number){lenis?.raf(time*1000);}
@@ -150,7 +143,7 @@ async function ensureScene(){
   const probe=document.createElement('canvas');const gl=probe.getContext('webgl2',{failIfMajorPerformanceCaveat:true});
   if(!gl){sceneUnavailable=true;sceneLoading=false;root.dataset.renderer='css';return;}
   gl.getExtension('WEBGL_lose_context')?.loseContext();
-  try{const {createTransition}=await import('./scene');if(disposed)return;scene=await createTransition(canvas,plates[0],plates[1]);if(disposed){scene.dispose();return;}scene.setReduced(reduced);scene.setVisible(!document.hidden);scene.update(backgroundProgress,0);}
+  try{const {createTransition}=await import('./scene');if(disposed)return;scene=await createTransition(canvas,plates);if(disposed){scene.dispose();return;}scene.setReduced(reduced);scene.setVisible(!document.hidden);scene.update(backgroundProgress,0);}
   catch{sceneUnavailable=true;root.dataset.renderer='css';root.classList.remove('webgl-ready');}
   finally{sceneLoading=false;}
 }

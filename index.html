@@ -17,8 +17,13 @@
   <a class="skip-link" href="#main">Skip to content</a>
   <div id="world" aria-hidden="true">
     <div class="ambient-image ambient-old"></div><div class="ambient-image ambient-new"></div>
-    <div id="camera-rig"><div id="plate-frame"><img id="plate-old" src="%BASE_URL%assets/old-school.webp" alt="" width="2560" height="1441" fetchpriority="high"><img id="plate-new" src="%BASE_URL%assets/new-school.webp" alt="" width="2560" height="1441" decoding="async"></div><canvas id="transition-canvas"></canvas></div>
-    <div class="cabin-transition"><div class="door-frame door-entry"><svg viewBox="0 0 520 800" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" focusable="false"><path class="door-shell" fill-rule="evenodd" d="M0 94 414 0 520 112V790L0 800ZM45 132V454L466 432V141L399 55Z"/><path class="door-chrome" d="M43 455V131L400 53 468 140V433Z"/><path class="door-trim" d="M35 507 480 482M35 723 480 705"/><path class="door-handle" d="M347 555h82v12h-82z"/></svg></div><div class="door-frame door-exit"><svg viewBox="0 0 520 800" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" focusable="false"><path class="door-shell" fill-rule="evenodd" d="M0 94 414 0 520 112V790L0 800ZM45 132V454L466 432V141L399 55Z"/><path class="door-chrome" d="M43 455V131L400 53 468 140V433Z"/><path class="door-trim" d="M35 507 480 482M35 723 480 705"/><path class="door-handle" d="M347 555h82v12h-82z"/></svg></div><div class="cabin-shade"></div><div class="cinema-bar cinema-top"></div><div class="cinema-bar cinema-bottom"></div></div>
+    <div id="camera-rig"><div id="plate-frame">
+      <img id="plate-old" data-cinema-plate src="%BASE_URL%assets/old-school.webp" alt="" width="2560" height="1441" fetchpriority="high">
+      <img id="plate-entry" data-cinema-plate src="%BASE_URL%assets/cinema/old-door.webp" alt="" width="1672" height="941" decoding="async">
+      <img id="plate-dashboard" data-cinema-plate src="%BASE_URL%assets/cinema/dashboard.webp" alt="" width="1672" height="941" decoding="async">
+      <img id="plate-exit" data-cinema-plate src="%BASE_URL%assets/cinema/new-door.webp" alt="" width="1672" height="941" decoding="async">
+      <img id="plate-new" data-cinema-plate src="%BASE_URL%assets/new-school.webp" alt="" width="2560" height="1441" decoding="async">
+    </div><canvas id="transition-canvas"></canvas></div>
     <div class="world-shade"></div><div class="film-grain"></div><div class="world-lines"></div>
   </div>
   <div class="scroll-progress" aria-hidden="true"><i></i></div>

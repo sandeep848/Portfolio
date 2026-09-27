@@ -156,26 +156,31 @@ h2 em{font-weight:500}
 }
 @media(max-width:350px){.hero-stage{padding-top:105px}.hero-copy>p:first-child{font-size:19px}.hero-description{font-size:12px}.project-content{padding:15px}.project-content h3{font-size:20px}.project-links{gap:10px;font-size:10px}}
 
-/* Scroll-driven entry through the old door and exit through the opposite side. */
-:root{--old-zoom:1;--new-zoom:3.8;--cabin:0;--entry-opacity:0;--exit-opacity:0;--entry-x:-95%;--exit-x:110%;--entry-angle:0deg;--exit-angle:70deg}
-#plate-frame{overflow:hidden}
-#plate-old{transform:scale(var(--old-zoom));transform-origin:42% 54%;will-change:transform}
-#plate-new{clip-path:none;transform:scale(var(--new-zoom));transform-origin:73% 59%;will-change:transform}
-.cabin-transition{position:absolute;inset:0;overflow:hidden;pointer-events:none;perspective:1200px}
-.door-frame{position:absolute;top:-8%;width:clamp(360px,52vw,950px);height:118%;filter:drop-shadow(0 0 28px #0009);will-change:transform,opacity}
-.door-frame svg{width:100%;height:100%;overflow:visible}
-.door-entry{left:-8%;opacity:var(--entry-opacity);transform-origin:right center;transform:translateX(var(--entry-x)) rotateY(var(--entry-angle))}
-.door-exit{right:-8%;opacity:var(--exit-opacity);transform-origin:left center;transform:translateX(var(--exit-x)) rotateY(var(--exit-angle)) scaleX(-1)}
-.door-shell{fill:#0b1110;fill-opacity:.94}.door-chrome{fill:none;stroke:#727b72;stroke-width:5;stroke-opacity:.65}.door-trim{fill:none;stroke:#3c4540;stroke-width:2}.door-handle{fill:#98a39c;fill-opacity:.8}
-.cabin-shade{position:absolute;inset:0;opacity:calc(var(--cabin)*.55);background:radial-gradient(ellipse at 50% 50%,#08100d05 15%,#030706b3 80%)}
-.cinema-bar{position:absolute;left:0;right:0;height:5.5svh;background:#060908;transform:scaleY(var(--cabin));will-change:transform}.cinema-top{top:0;transform-origin:top}.cinema-bottom{bottom:0;transform-origin:bottom}
-.reduced-motion .cabin-transition{display:none}.reduced-motion #plate-frame img{transform:none}
-@media(max-width:600px){.door-frame{width:78vw}.cinema-bar{height:3svh}#plate-old{transform-origin:42% 54%}#plate-new{transform-origin:73% 59%}}
+/* One photographic sequence on desktop and mobile; no floating door drawings. */
+#camera-rig{inset:0;transform:none}
+#plate-frame{inset:0;height:100%;overflow:hidden;mask-image:none;-webkit-mask-image:none}
+#plate-frame img{inset:0;object-fit:cover;object-position:center;transform-origin:center;clip-path:none;will-change:transform,opacity}
+#plate-old{opacity:var(--shot-0-opacity,1);transform:var(--shot-0-transform,none)}
+#plate-entry{opacity:var(--shot-1-opacity,0);transform:var(--shot-1-transform,none)}
+#plate-dashboard{opacity:var(--shot-2-opacity,0);transform:var(--shot-2-transform,none)}
+#plate-exit{opacity:var(--shot-3-opacity,0);transform:var(--shot-3-transform,none)}
+#plate-new{opacity:var(--shot-4-opacity,0);transform:var(--shot-4-transform,none)}
+.ambient-image{display:none}
+.reduced-motion #plate-frame img{transform:none}
+@media(max-width:600px){#plate-frame{inset:0;height:100%;mask-image:none;-webkit-mask-image:none}.world-shade{background:linear-gradient(180deg,#080e0aaa,#080e0a50 50%,#080e0a70)}}
 
-/* Keep navigation at the card edges without covering the page's scroll surface. */
-.gallery-shell{position:relative}
-.rail-buttons{position:absolute;inset:8px 16px 14px;z-index:4;display:flex;align-items:center;justify-content:space-between;pointer-events:none}
-.rail-buttons button{width:46px;height:46px;flex:none;pointer-events:auto;border:1px solid #e6dfcc70;background:#111713ed;color:var(--paper);font-size:24px;box-shadow:0 4px 18px #0005;transition:background .25s,color .25s}
+/* Dedicated gutters keep navigation entirely outside the clipped card viewport. */
+.gallery-shell{position:relative;display:grid;grid-template-columns:72px minmax(0,1fr) 72px;align-items:center;margin:0 22px}
+.gallery-shell .rail-viewport{grid-column:2;grid-row:1;min-width:0}
+.gallery-shell .project-track{padding-left:10px;padding-right:var(--rail-tail,10px)}
+.rail-buttons{display:contents}
+.rail-buttons button{grid-row:1;justify-self:center;width:44px;height:44px;border:1px solid #e6dfcc70;background:#111713ed;color:var(--paper);font-size:24px;transition:background .25s,color .25s}
+#project-prev{grid-column:1}#project-next{grid-column:3}
 .rail-buttons button:hover:not(:disabled){background:var(--paper);color:var(--ink)}
 .rail-buttons button:disabled{opacity:.3}
-@media(max-width:600px){.rail-buttons{left:6px;right:6px}.rail-buttons button{width:44px;height:44px;font-size:22px}}
+@media(max-width:600px){
+  .gallery-shell{grid-template-columns:42px minmax(0,1fr) 42px;margin:0 4px}
+  .rail-buttons button{width:36px;height:44px;font-size:22px}
+  .gallery-shell .project-track{padding-left:6px;padding-right:var(--rail-tail,6px)}
+  .project-card{width:calc(100vw - 120px);max-width:320px}
+}
