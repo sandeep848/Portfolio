@@ -184,3 +184,22 @@ h2 em{font-weight:500}
   .gallery-shell .project-track{padding-left:6px;padding-right:var(--rail-tail,6px)}
   .project-card{width:calc(100vw - 120px);max-width:320px}
 }
+
+/* A compact seamless strip leaves the car visible and never captures scrolling. */
+.topics{overflow:hidden;padding:30px 0;border-block:1px solid var(--line);margin:10px 0 35px;pointer-events:none}
+.topics-track{display:flex;width:max-content;animation:topics-drift 48s linear infinite;will-change:transform}
+.topic-group{display:flex;flex:none;align-items:center;gap:38px;padding-right:38px}
+.topic-group span{font:500 clamp(22px,2.5vw,38px)/1.25 var(--heading);letter-spacing:-.03em;white-space:nowrap;color:var(--paper)}
+.topic-group span:after{content:'·';color:var(--accent);margin-left:38px}
+@keyframes topics-drift{to{transform:translateX(-50%)}}
+.reduced-motion .topics-track{width:auto;transform:none;will-change:auto}
+.reduced-motion .topic-group{flex-wrap:wrap;justify-content:center;padding:0 var(--pad);gap:16px}
+.reduced-motion .topic-group:nth-child(2){display:none}
+.reduced-motion .topic-group span:after{margin-left:16px}
+.hero-stage,.motion-enabled .hero-stage{grid-template-rows:auto 1fr}
+.education{padding-top:100px;padding-bottom:100px}
+.timeline-meta{flex-wrap:wrap;gap:8px 16px}
+.timeline-item h3{overflow-wrap:anywhere}
+#navigation{gap:clamp(16px,2.4vw,38px)}
+.contact-arrow{pointer-events:none}
+@media(max-width:600px){.topics{padding:24px 0;margin-bottom:15px}.topic-group{gap:26px;padding-right:26px}.topic-group span:after{margin-left:26px}.education{padding-top:75px;padding-bottom:75px}.timeline-meta .eyebrow,.timeline-meta time{font-size:9px}#navigation{gap:5px}}

@@ -26,12 +26,12 @@ let sceneUnavailable=new URLSearchParams(location.search).has('fallback');
 let frame=0, resizeTimer=0, pointerFrame=0, pointerX=0, pointerY=0;
 let backgroundProgress=0, currentSection='', lastY=scrollY, lastAt=performance.now();
 let cinematicAt=0;
-let aboutTop=0,projectsTop=0,pageTravel=1;
+let pageTravel=1;
 const canvas=$<HTMLCanvasElement>('#transition-canvas');
 const plates=[...document.querySelectorAll<HTMLImageElement>('[data-cinema-plate]')];
 const sections=[...document.querySelectorAll<HTMLElement>('.chapter')];
 const navigationLinks=[...document.querySelectorAll<HTMLAnchorElement>('#navigation a,.journey-meter a')];
-const sectionNames=['INTRO','ABOUT','PROJECTS','EXPERIENCE','CONTACT'];
+const sectionNames=['INTRO','ABOUT','PROJECTS','EXPERIENCE','EDUCATION','CONTACT'];
 const clamp=(v:number,min=0,max=1)=>Math.max(min,Math.min(max,v));
 function scrollTo(y:number,immediate=false){
   const target=clamp(y,0,Math.max(0,root.scrollHeight-innerHeight));
@@ -40,7 +40,6 @@ function scrollTo(y:number,immediate=false){
 }
 const gallery=createGallery({reduced:()=>reduced});
 function measure(){
-  aboutTop=$('#about').offsetTop;projectsTop=$('#projects').offsetTop;
   pageTravel=Math.max(1,root.scrollHeight-innerHeight);
 }
 function updatePage(){
@@ -49,7 +48,7 @@ function updatePage(){
   const velocity=(y-lastY)/Math.max(16,now-lastAt)*1000;lastY=y;lastAt=now;
   $('.nav').classList.toggle('scrolled',y>35);
   $('.scroll-progress i').style.transform='scaleX('+clamp(y/pageTravel)+')';
-  const targetProgress=clamp((y-aboutTop+innerHeight*.75)/Math.max(1,projectsTop-aboutTop+innerHeight*.3));
+  const targetProgress=clamp(y/pageTravel);
   const dt=Math.min(.05,Math.max(.001,(now-cinematicAt)/1000));cinematicAt=now;
   backgroundProgress=reduced?targetProgress:backgroundProgress+(targetProgress-backgroundProgress)*(1-Math.exp(-dt*12));
   if(Math.abs(targetProgress-backgroundProgress)<.00005)backgroundProgress=targetProgress;
@@ -86,8 +85,6 @@ function buildMotion(){
     gsap.to('.hero-main',{y:-32,ease:'none',scrollTrigger:{trigger:'#top',start:'top top',end:'bottom top',scrub:.7}});
     gsap.fromTo('.scroll-sentence .word',{opacity:.48},{opacity:1,stagger:.12,ease:'none',scrollTrigger:{trigger:'#about',start:'top 75%',end:'center 47%',scrub:.6}});
     gsap.fromTo('.editorial-rule',{scaleX:.2},{scaleX:1.7,ease:'none',scrollTrigger:{trigger:'#about',start:'top 75%',end:'bottom 40%',scrub:.6}});
-    gsap.fromTo('.interlude-track',{xPercent:8},{xPercent:-42,ease:'none',scrollTrigger:{trigger:'.interlude',start:'top bottom',end:'bottom top',scrub:1}});
-    gsap.fromTo('.interlude-line',{scaleX:.2},{scaleX:1.15,ease:'none',scrollTrigger:{trigger:'.interlude',start:'top bottom',end:'bottom top',scrub:.7}});
     gsap.fromTo('.experience-title h2',{y:45},{y:-25,ease:'none',scrollTrigger:{trigger:'#experience',start:'top bottom',end:'bottom top',scrub:.8}});
     gsap.fromTo('.route-line>span',{scaleX:.1},{scaleX:1,ease:'none',scrollTrigger:{trigger:'#experience',start:'top 70%',end:'center 40%',scrub:.6}});
     gsap.fromTo('.contact h2>span',{xPercent:-8},{xPercent:0,ease:'none',scrollTrigger:{trigger:'#contact',start:'top bottom',end:'center center',scrub:.8}});
